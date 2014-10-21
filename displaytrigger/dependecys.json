@@ -26,7 +26,7 @@
             "lib/make_ini.py",
             "lib/multisocket/__init__.py",
             "lib/multisocket/multisocket_server.py",
-            "lib/multisocket/auth_echo_server.py",
+            "lib/multisocket/auth_echo_server.py"
         ]
     }
 }
