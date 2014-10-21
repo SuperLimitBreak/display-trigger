@@ -1,6 +1,6 @@
 OS = $(shell uname -s)
 
-PROJECT=display_trigger
+PROJECT=displaytrigger
 
 INI_DEV  = development.ini
 INI_TEST = test.ini
@@ -82,3 +82,18 @@ run_production: ini_production
 
 shell:
 	env/bin/pshell $(INI_DEV)
+
+# Cleanup ----------------------------------------------------------------------
+
+clean:
+	rm -rf *.pyc
+	rm -rf .installed_*
+	rm -rf env
+	rm -rf *.egg-info
+	rm -f *.log
+	rm -f $(INI_DEV)
+	rm -f $(INI_TEST)
+	rm -f $(INI_PROD)
+	rm -rf externals
+	rm -rf dependency_downloader.py
+	rm -rf dependencys_installed.json
