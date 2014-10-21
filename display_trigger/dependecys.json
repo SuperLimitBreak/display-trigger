@@ -10,6 +10,12 @@
         "version": "3.17.2",
         "target": "static/cssreset-min.css"
     },
+
+    "js_lib": {
+        "source": "https://raw.github.com/calaldees/libs/master/js/websockets.js",
+        "version": "0.0.0",
+        "target": "static/websockets.js"
+    },
     
     "python_lib": {
         "source": "https://raw.github.com/calaldees/libs/master/python3/",
