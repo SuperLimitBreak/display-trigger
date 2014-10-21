@@ -4,7 +4,7 @@
 ###
 
 [app:main]
-use = egg:display-trigger
+use = egg:displaytrigger
 
 pyramid.reload_templates = true
 pyramid.debug_authorization = false
@@ -16,6 +16,10 @@ pyramid.includes =
 static.path.ext = %(here)s/externals/static
 
 mako.directories = displaytrigger:templates
+
+multisocket.websocket.port = 9873 -> int
+multisocket.tcp.port       = 9872 -> int
+
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.

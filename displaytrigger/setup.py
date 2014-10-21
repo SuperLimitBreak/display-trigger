@@ -14,9 +14,9 @@ with open(os.path.join(here, '../CHANGES.md')) as f:
     CHANGES = f.read()
 
 setup(
-    name='display-trigger',
+    name='displaytrigger',
     version='0.0',
-    description='display-trigger',
+    description='displaytrigger',
     long_description="\n\n".join((README, CHANGES)),
     classifiers=[
         "Programming Language :: Python",
