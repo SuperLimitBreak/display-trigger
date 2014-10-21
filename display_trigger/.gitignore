@@ -1,0 +1,11 @@
+.installed_*
+*.egg-info
+/env/
+/externals/
+/data/
+/development.ini
+/test.ini
+/production.ini
+/production.inidiff
+dependency_downloader.py
+dependencys_installed.json
