@@ -10,10 +10,14 @@
 
 		<title>${project}</title>
 
-		<link href="${request.static_url('displaytrigger:ext/cssreset-min.css')}" rel="stylesheet">
+		<link href="/ext/cssreset-min.css" rel="stylesheet">
 	</head>
 	
 	<body>
 		<h1>${project}</h1>
+		<ul>
+			<li><a href="/static/projector/projector.html">Projector</a>
+			<li><a href="/static/control/control.html">Control</a>
+		</ul>
 	</body>
 </html>
