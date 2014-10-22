@@ -5,6 +5,12 @@
         "target": "static/jquery.min.js"
     },
     
+    "underscore": {
+        "source": "https://raw.github.com/jashkenas/underscore/VERSION/underscore-min.js",
+        "version": "1.7.0",
+        "target": "static/underscore-min.js"
+    },
+    
     "yui-reset": {
         "source": "http://yui.yahooapis.com/VERSION/build/cssreset/cssreset-min.css",
         "version": "3.17.2",
@@ -14,7 +20,7 @@
     "js_lib": {
         "source": "https://raw.github.com/calaldees/libs/master/js/websockets.js",
         "version": "0.0.0",
-        "target": "static/websockets.js"
+        "target": "static/websocket.js"
     },
     
     "python_lib": {
