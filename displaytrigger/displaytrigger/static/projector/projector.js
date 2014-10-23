@@ -1,11 +1,8 @@
-var socket = WebSocketReconnect(
-    // onConnect()
-    function() {
+var socket = WebSocketReconnect({
+    onopen: function() {
         console.log('connected');
     },
-    
-    // onMessage
-    function(data) {
+    onmessage: function(data) {
         console.log('message', data);
     }
-);
+});
