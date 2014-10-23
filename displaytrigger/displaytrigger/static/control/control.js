@@ -1,4 +1,4 @@
-setup_websocket(
+var socket = WebSocketReconnect(
     // onConnect()
     function() {
         console.log('connected');
