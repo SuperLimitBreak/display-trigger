@@ -6,3 +6,11 @@ var socket = WebSocketReconnect({
         console.log('message', data);
     }
 });
+
+function image(src) {
+    socket.send(JSON.stringify({
+        cmd: 'add',
+        type: 'image',
+        src: src,
+    }));
+}
