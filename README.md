@@ -73,18 +73,16 @@ Messages sent directly over the TCP socket should send messages as utf-8 json st
 This is the message format the projector decodes.
 
     {
-        function: 'trigger.precache|trigger.start|trigger.stop|...'
-        params: {} or []
-        ...
+        func: 'trigger.precache|trigger.start|trigger.stop|...'
 
         // trigger.precache
-        params: ['http://www.site.com/remote.mp4|/localfolder/localfile.xxx','...'],
+        src: ['http://www.site.com/remote.mp4|/localfolder/localfile.xxx','...'],
         
         // trigger.start
-        params: 'remote.mp4',
+        name: 'remote.mp4',
         
         // Stop
-        params: '',        
+        name: '',        
     }
 
 ### HTTP Api
