@@ -1,37 +1,56 @@
-var $screen = $('#screen');
 
-var COMMAND_HANDLERS = {};
-
-function get_func(obj, cmd) {
-    if (typeof(cmd)=="string") {cmd = cmd.split(".");}
-    if (cmd.length == 1) {
-        return obj[cmd.shift()];
+var utils = function() {
+    var utils = {};
+    
+    function get_func(obj, cmd) {
+        if (typeof(cmd)=="string") {cmd = cmd.split(".");}
+        if (cmd.length == 1) {
+            return obj[cmd.shift()];
+        }
+        if (cmd.length > 1) {
+            return get_func(obj[cmd.shift()], cmd);
+        }
+        console.error('What?');
+        return function(){};
     }
-    if (cmd.length > 1) {
-        return get_func(obj[cmd.shift()], cmd);
+    utils.get_func = get_func;
+    
+    utils.is_image = function(src) {
+        return src && src.match(/\.(jpg|png|bmp|gif|jpeg|svg|tiff)$/);
     }
-    console.error('What?');
-    return function(){};
-}
+    utils.is_video = function(src) {
+        return src && src.match(/\.(mp4|avi|mov|mkv|ogm|3gp)$/);
+    }
 
+    return utils;
+}();
+    
 var socket = WebSocketReconnect({
     onopen: function() {},
     onmessage: function(data) {
-        console.log('message', data);
+        //console.log('message', data);
         if (_.has(data, 'func')) {
-            get_func(window, data.func)(data);
+            utils.get_func(window, data.func)(data);
         }
     }
 });
 
+
 var trigger = {
-    precache: function() {
-        console.log('precache');
+    precache: function(data) {
+        //console.log('precache', data);
+        if (utils.is_image(data.src)) {
+            var img = new Image();
+            img.src = data.src;
+        }
     },
-    start: function() {
-        console.log('start');
+    start: function(data) {
+        //console.log('start', data);
+        if (utils.is_image(data.src)) {
+            $('#screen').html("<img src='SRC'>".replace('SRC', data.src));
+        }
     },
-    stop: function() {
+    stop: function(data) {
         console.log('stop');
     }
 };

@@ -8,8 +8,9 @@ var socket = WebSocketReconnect({
 });
 
 function image(src) {
+    src = "/static/assets/"+src;
     socket.send({
-        func: 'trigger.precache',
+        func: 'trigger.start',
         src: src,
     });
 }
