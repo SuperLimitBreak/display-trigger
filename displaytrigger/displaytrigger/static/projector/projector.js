@@ -3,13 +3,17 @@ var utils = function() {
     var utils = {};
     
     function get_func(obj, cmd) {
-        if (typeof(cmd)=="string") {cmd = cmd.split(".");}
-        if (cmd.length == 1) {
-            return obj[cmd.shift()];
-        }
+        //console.log('get_func', obj, cmd);
+        if (typeof(cmd) == "string") {cmd = cmd.split(".");}
+        if (cmd.length == 1) {return obj[cmd.shift()];}
         if (cmd.length > 1) {
-            return get_func(obj[cmd.shift()], cmd);
-        }
+            var next_cmd = cmd.shift();
+            var next_obj = obj[next_cmd];
+            if (typeof(next_obj) == "undefined") {
+                console.error(""+obj+" has no attribute "+next_cmd);
+                return function(){};
+            }
+            return get_func(next_obj, cmd);}
         console.error('What?');
         return function(){};
     }
