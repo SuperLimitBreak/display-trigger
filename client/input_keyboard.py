@@ -4,7 +4,7 @@ from input_ import InputPlugin
 
 
 class KeyboardInputPlugin(InputPlugin):
-    def __init__(self, event_handler):
+    def __init__(self, event_handler, options):
         super().__init__('keyboard', event_handler)
 
     def open(self):
