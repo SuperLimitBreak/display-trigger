@@ -10,6 +10,7 @@ class MidiInputPlugin(InputPlugin):
 
     def open(self):
         pygame.init()
+        pygame.event.set_blocked(pygame.MOUSEMOTION)
         pygame.fastevent.init()
         self.event_get = pygame.fastevent.get
         self.event_post = pygame.fastevent.post
@@ -30,7 +31,6 @@ class MidiInputPlugin(InputPlugin):
                 if e.type in [pygame.QUIT, pygame.KEYDOWN]:
                     going = False
                 if e.type in [pygame.midi.MIDIIN]:
-                    print(e)
                     self.event_handler(e)
 
             if self.midi_input.poll():

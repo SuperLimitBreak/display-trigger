@@ -1,29 +1,52 @@
+import json
+from functools import partial
 
+from input_ import InputPlugin
+from network_display_event import DisplayEventHandler
 
 import logging
 log = logging.getLogger(__name__)
 
 VERSION = '0.1'
 
-DEFAULT_DISPLAY_HOST = 'localhost'
+DEFAULT_DISPLAY_HOST = 'localhost:9872'
 DEFAULT_MIDI_PORT_NAME = 'displaytrigger'
+DEFAULT_MAP_FILENAME = 'event_map.json'  # '{0}.json'.format(os.path.splitext(__file__)[0])
 
 
-# Event handler ----------------------------------------------------------------
+# Event Handler ----------------------------------------------------------------
 
-def event_handler(name):
-    print(name)
+def generate_event_lookup(data):
+    """
+    Create a lookup table
+    """
+    event_lookup = {}
+    for item in data:
+        for event in item['events']:
+            event_lookup[event] = item
+    return event_lookup
+
+
+def event_handler(display_event_func, event_lookup, event_key):
+    if event_key not in event_lookup:
+        log.warn('unknown event {0}'.format(event_key))
+        return
+    event_item = event_lookup[event_key]
+    display_event_func(
+        event_item['func'],
+        **event_item['params']
+    )
 
 
 # Input Plugins ----------------------------------------------------------------
 
-from input_ import InputPlugin
+def init_input_plugins(event_handler_func):
 
-import input_keyboard
-input_keyboard.KeyboardInputPlugin(event_handler)
+    import input_keyboard
+    input_keyboard.KeyboardInputPlugin(event_handler_func)
 
-import input_midi
-input_midi.MidiInputPlugin(event_handler)
+    import input_midi
+    input_midi.MidiInputPlugin(event_handler_func)
 
 
 # Main -------------------------------------------------------------------------
@@ -46,6 +69,7 @@ def get_args():
 
     parser_input.add_argument('--input_device', choices=InputPlugin.inputs.keys(), help='input device', default='keyboard')
     parser_input.add_argument('--display_host', action='store', help='ip adress and port for remote TCP display events', default=DEFAULT_DISPLAY_HOST)
+    parser_input.add_argument('--event_map', type=argparse.FileType('r'), help='json file mapping event names to payloads', default=DEFAULT_MAP_FILENAME)
 
     parser.add_argument('--midi_port_name', action='store', help='Input port name to attach too', default=DEFAULT_MIDI_PORT_NAME)
 
@@ -58,7 +82,15 @@ def get_args():
 
 
 if __name__ == "__main__":
-    args = get_args()
-    logging.basicConfig(level=args['log_level'])
+    options = get_args()
+    logging.basicConfig(level=options['log_level'])
 
-    InputPlugin.inputs[args['input_device']].open()
+    event_lookup = generate_event_lookup(json.load(options['event_map']))
+    display_event_handler = DisplayEventHandler.factory(*options['display_host'].split(':'))
+
+    _event_handler = partial(event_handler, display_event_handler.event, event_lookup)
+
+    init_input_plugins(_event_handler)
+    InputPlugin.inputs[options['input_device']].open()
+
+    event_handler.close()

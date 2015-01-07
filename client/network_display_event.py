@@ -17,6 +17,7 @@ DEFAULT_RECONNECT_TIMEOUT = datetime.timedelta(seconds=5)
 class DisplayEventHandlerNull(object):
 
     def event(self, *args, **kwargs):
+        log.debug('{0} {1}'.format(args, kwargs))
         pass
 
     def close(self):
