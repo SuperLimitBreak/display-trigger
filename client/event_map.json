@@ -1,7 +1,7 @@
 [
     {
         "name": "test1",
-        "events": ["a", "note69on"],
+        "events": ["a", "note_on-A3"],
         "func": "test",
         "params": {
             "a": {
@@ -12,7 +12,7 @@
     },
     {
         "name": "test2",
-        "events": ["b", "note70on"],
+        "events": ["b", "note_on-C3"],
         "func": "test",
         "params": {
             "a": {

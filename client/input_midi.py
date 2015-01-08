@@ -4,7 +4,7 @@ import pygame.midi
 from input_ import InputPlugin
 
 from pygame_midi_wrapper import PygameMidiDeviceHelper
-from music import midi_status, note_to_text
+from music import midi_status, note_to_text, MidiStatus
 
 class MidiInputPlugin(InputPlugin):
 
@@ -38,14 +38,13 @@ class MidiInputPlugin(InputPlugin):
                     status = midi_status(e.status)
                     # Normalize note_off events - data2 is the velocity. Velocity 0 -> note_off
                     if status.name == 'note_on' and e.data2 == 0:
-                        status.name = 'note_off'
-                        status.code = 0x8
+                        status = MidiStatus(code=0x8, name='note_off', channel=status.channel)
                     # Special case to stringify 'note_on' events
                     if status.name == 'note_on':
                         self.event_handler('{0}-{1}'.format(status.name, note_to_text(e.data1)))
                     # Pass though all other events
                     else:
-                        self.event_handler('{0}-{1}-{2}'.format(status.name, e.data1, e.data2))
+                        self.event_handler('{0}-{1}-{2}-{3}'.format(status.name, e.data1, e.data2, e.data3))
 
             if self.midi_input.poll():
                 for midi_event in pygame.midi.midis2events(self.midi_input.read(10), self.midi_input.device_id):
