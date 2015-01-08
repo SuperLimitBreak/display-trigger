@@ -9,6 +9,7 @@ class KeyboardInputPlugin(InputPlugin):
 
     def open(self):
         pygame.init()
+        pygame.display.set_caption(__name__)
         pygame.event.set_blocked(pygame.MOUSEMOTION)
 
         self.run()
