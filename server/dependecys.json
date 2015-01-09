@@ -18,7 +18,7 @@
     },
 
     "js_lib": {
-        "source": "https://raw.github.com/calaldees/libs/master/js/websockets.js",
+        "source": "https://raw.githubusercontent.com/calaldees/libs/master/js/websocket.js",
         "version": "0.0.0",
         "target": "static/websocket.js"
     },

@@ -6,6 +6,7 @@ from input_ import InputPlugin
 from pygame_midi_wrapper import PygameMidiDeviceHelper
 from music import midi_status, note_to_text, MidiStatus
 
+
 class MidiInputPlugin(InputPlugin):
 
     def __init__(self, event_handler, options):

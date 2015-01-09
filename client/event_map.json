@@ -12,13 +12,10 @@
     },
     {
         "name": "test2",
-        "events": ["b", "note_on-C3"],
-        "func": "test",
+        "events": ["b", "note_on-C4"],
+        "func": "trigger.start",
         "params": {
-            "a": {
-                "b": 4,
-                "c": 5
-            }
+            "src": "/static/assets/miku.mp4"
         }
     }
 ]
