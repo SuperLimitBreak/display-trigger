@@ -10,12 +10,63 @@
             }
         }
     },
+
     {
-        "name": "test2",
+        "name": "test_video_miku",
         "events": ["b", "note_on-C4"],
         "func": "trigger.start",
         "params": {
             "src": "/static/assets/miku.mp4"
+        }
+    },
+    {
+        "name": "test_video_remilla",
+        "events": ["v"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/eosd6_6.mp4"
+        }
+    },
+
+    
+    {
+        "name": "test1",
+        "events": ["q"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/test.jpg"
+        }
+    },
+    {
+        "name": "test2",
+        "events": ["w"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/test2.jpg"
+        }
+    },
+    {
+        "name": "test3",
+        "events": ["e"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/test3.jpg"
+        }
+    },
+    {
+        "name": "test4",
+        "events": ["r"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/test4.jpg"
+        }
+    },
+    {
+        "name": "test5",
+        "events": ["t"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/test5.jpg"
         }
     }
 ]

@@ -48,7 +48,7 @@ var trigger = {
 			img.src = data.src;
 		}
 		if (utils.is_video(data.src)) {
-			
+			load_video(data.src);
 		}
 	},
 	start: function(data) {
@@ -57,7 +57,7 @@ var trigger = {
 			$('#screen').html("<img src='SRC'>".replace('SRC', data.src));
 		}
 		if (utils.is_video(data.src)) {
-			set_video_fullscreen(data.src);
+			load_video(data.src, true);
 		}
 	},
 	stop: function(data) {
@@ -71,39 +71,55 @@ var trigger = {
 		selector_holder: '#fullscreen_video',
 	}, options);
 
-	function _get_video_element(create, selector_holder) {
+	function _get_video_element(create, selector_holder, onCreateVideo) {
 		if (!selector_holder) {selector_holder = options.selector_holder;}
 		var selector_video = selector_holder+' video';
 		var video = $(selector_video).get(0);
 		if (!video && create) {
 			$(selector_holder).append('<video></video>');
 			video = $(selector_video).get(0);
+			onCreateVideo(video);
 		}
 		return video || {};
 	}
 
-	function set_video_fullscreen(src, event_listeners, selector_holder) {
+	function load_video(src, play, event_listeners, selector_holder) {
 		if (!event_listeners) {event_listeners = {};}
 		if (!selector_holder) {selector_holder = options.selector_holder;}
-		console.log("set_video_fullscreen", src);
-		var selector_video = selector_holder+' video';
-		$(selector_video).remove();
-		if (src) {
-			var video = _get_video_element(true);
-			
+		if (typeof(play) != "boolean") {play = false;}
+
+		$(selector_holder+' :not(video)').remove();
+		if (!src) {
+			$(selector_holder).empty();
+			return;
+		}
+
+		var video = _get_video_element(true, selector_holder, function(video){
 			_.each(event_listeners, function(key, value, dict){
 				video.addEventListener(key, value);
 			});
-			
-			video.loop = false;
-			video.volume = 1.0;
+		});
+
+		video.loop = false;
+		video.volume = 1.0;
+		video.controls = false;
+		video.preload = "auto";
+		video.autoplay = play;
+		console.log(video.currentSrc, src);
+		if (video.currentSrc.indexOf(src) > -1) {
+			video.pause();
+			video.currentTime = 0;
+		}
+		else {
 			video.src = src;
 			video.load();
+		}
+		if (play) {
 			video.play();
 		}
 	}
 
-	external.set_video_fullscreen = set_video_fullscreen;
+	external.load_video = load_video;
 
 }(window, {
 	'selector_holder': '#screen'
