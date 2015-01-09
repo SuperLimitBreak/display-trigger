@@ -27,7 +27,16 @@
             "src": "/static/assets/eosd6_6.mp4"
         }
     },
+    {
+        "name": "test_video_remilla_precache",
+        "events": ["c"],
+        "func": "trigger.precache",
+        "params": {
+            "src": "/static/assets/eosd6_6.mp4"
+        }
+    },
 
+    
     
     {
         "name": "test1",
