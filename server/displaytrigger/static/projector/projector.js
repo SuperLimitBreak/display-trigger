@@ -22,6 +22,9 @@ var utils = function() {
 	utils.is_image = function(src) {
 		return src && src.match(/\.(jpg|png|bmp|gif|jpeg|svg|tiff)$/);
 	}
+	utils.is_audio = function(src) {
+		return src && src.match(/\.(mp3|wav|ogg|flac|ac3|mp2)$/);
+	}
 	utils.is_video = function(src) {
 		return src && src.match(/\.(mp4|avi|mov|mkv|ogm|3gp)$/);
 	}
@@ -40,30 +43,56 @@ var socket = WebSocketReconnect({
 });
 
 
-var trigger = {
-	precache: function(data) {
-		//console.log('precache', data);
-		if (utils.is_image(data.src)) {
-			var img = new Image();
-			img.src = data.src;
-		}
-		if (utils.is_video(data.src)) {
-			load_video(data.src);
-		}
-	},
-	start: function(data) {
-		//console.log('start', data);
-		if (utils.is_image(data.src)) {
-			$('#screen').html("<img src='SRC'>".replace('SRC', data.src));
-		}
-		if (utils.is_video(data.src)) {
-			load_video(data.src, true);
-		}
-	},
-	stop: function(data) {
-		console.log('stop');
+var trigger = {};
+(function(external, options){
+	options = _.extend({
+		target_selector: '#screen',
+		iframe_id: 'iframe_id',
+	}, options);
+
+	function set_target(html) {
+		$(options.target_selector).html(html);
 	}
-};
+	
+	external = _.extend(external, {
+		precache: function(data) {
+			if (utils.is_image(data.src)) {
+				var img = new Image();
+				img.src = data.src;
+			}
+			if (utils.is_video(data.src)) {
+				load_video(data.src);
+			}
+		},
+		start: function(data) {
+			if (utils.is_image(data.src)) {
+				set_target("<img src='SRC'>".replace('SRC', data.src));
+			}
+			if (utils.is_video(data.src)) {
+				load_video(data.src, true);
+			}
+		},
+		stop: function(data) {
+			console.log('stop');
+		},
+		iframe: function(data) {
+			if (data.src) {
+				set_target("<iframe id='IFRAME_ID' src='SRC'>".replace('SRC', data.src).replace('IFRAME_ID', options.iframe_id));
+			}
+			if (data.func_iframe) {
+				utils.get_func(document.getElementById(options.iframe_id).contentWindow, data.func_iframe)(data);
+			}
+		},
+		empty: function(data) {
+			set_target("");
+		},
+		text: function(data) {
+			
+		},
+	});
+}(trigger, {
+	target_selector: '#screen',
+}));
 
 
 (function(external, options){
@@ -122,5 +151,5 @@ var trigger = {
 	external.load_video = load_video;
 
 }(window, {
-	'selector_holder': '#screen'
+	'selector_holder': '#screen',
 }));
