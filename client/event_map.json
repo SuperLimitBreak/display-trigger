@@ -35,7 +35,24 @@
             "src": "/static/assets/eosd6_6.mp4"
         }
     },
+    {
+        "name": "test_video_silent_hill",
+        "events": ["n"],
+        "func": "trigger.precache",
+        "params": {
+            "src": "/static/assets/silent_hill.mp4"
+        }
+    },
+    {
+        "name": "test_video_silent_hill",
+        "events": ["m"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/silent_hill.mp4"
+        }
+    },
 
+    
     
     
     {
