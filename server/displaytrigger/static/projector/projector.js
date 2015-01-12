@@ -48,6 +48,7 @@ var overlay = {};
 		element_selector: '#overlay',
 		element_selector_top_level: 'body',
 		overlay_classname_active: 'show_overlay',
+		default_duration: 5000,
 	}, options);
 
 	function show_overlay(html) {
@@ -72,7 +73,7 @@ var overlay = {};
 
 	external.overlay_html = function(data) {
 		data = _.extend({
-			duration: 3000,
+			duration: options.default_duration,
 			html: '',
 		}, data);
 		show_overlay(data.html);

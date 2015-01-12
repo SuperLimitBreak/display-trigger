@@ -11,14 +11,65 @@
         }
     },
 
+    
     {
-        "name": "text_test1",
+        "name": "overlay_silent_hill2",
         "events": ["i"],
         "func": "trigger.overlay",
         "params": {
-            "html": "<h1>Silent Hill 2</h1><p>Promise + Lauras Theme</p><p>Person name</p>"
+            "html": "<h1>Silent Hill 2</h1><p>Promise + Lauras Theme</p><p>Akira Yamaoka</p>"
         }
     },
+    {
+        "name": "overlay_remilla_scarlet",
+        "events": ["o"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"
+        }
+    },
+    {
+        "name": "overlay_gurren_lagan",
+        "events": ["p"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
+        }
+    },
+    {
+        "name": "overlay_final_fasntasy_7",
+        "events": ["k"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"
+        }
+    },
+    {
+        "name": "overlay_reignite",
+        "events": ["u"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"
+        }
+    },
+    {
+        "name": "overlay_god_knows",
+        "events": ["y"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Haruhi</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
+        }
+    },
+    {
+        "name": "overlay_siakano",
+        "events": ["l"],
+        "func": "trigger.overlay",
+        "params": {
+            "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"
+        }
+    },
+
+    
     
     {
         "name": "test_video_miku",
