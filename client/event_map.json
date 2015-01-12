@@ -14,9 +14,9 @@
     {
         "name": "text_test1",
         "events": ["i"],
-        "func": "trigger.text",
+        "func": "trigger.overlay",
         "params": {
-            "html": "<h1>Title</h1><p>Subtitle</p><p>Smaller subtitle</p>"
+            "html": "<h1>Silent Hill 2</h1><p>Promise + Lauras Theme</p><p>Person name</p>"
         }
     },
     

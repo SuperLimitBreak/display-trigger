@@ -129,7 +129,7 @@ var trigger = {};
 		empty: function(data) {
 			set_target("");
 		},
-		text: function(data) {
+		overlay: function(data) {
 			overlay.overlay_html(data);
 		},
 	});
