@@ -12,6 +12,15 @@
     },
 
     {
+        "name": "text_test1",
+        "events": ["i"],
+        "func": "trigger.text",
+        "params": {
+            "html": "<h1>Title</h1><p>Subtitle</p><p>Smaller subtitle</p>"
+        }
+    },
+    
+    {
         "name": "test_video_miku",
         "events": ["b", "note_on-C4"],
         "func": "trigger.start",

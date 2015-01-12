@@ -42,6 +42,46 @@ var socket = WebSocketReconnect({
 	}
 });
 
+var overlay = {};
+(function(external, options){
+	options = _.extend({
+		element_selector: '#overlay',
+		element_selector_top_level: 'body',
+		overlay_classname_active: 'show_overlay',
+	}, options);
+
+	function show_overlay(html) {
+		$(options.element_selector          ).html(html);
+		$(options.element_selector_top_level).addClass(options.overlay_classname_active);
+	}
+	function hide_overlay() {
+		$(options.element_selector_top_level).removeClass(options.overlay_classname_active);
+	}
+
+	var overlay_timeout = null;
+	function clear_overlay_timeout() {
+		if (overlay_timeout) {
+			clearTimeout(overlay_timeout);
+			overlay_timeout = null;
+		}
+	}
+	function set_overlay_timeout(delay) {
+		clear_overlay_timeout();
+		overlay_timeout = setTimeout(hide_overlay, delay);
+	}
+
+	external.overlay_html = function(data) {
+		data = _.extend({
+			duration: 3000,
+			html: '',
+		}, data);
+		show_overlay(data.html);
+		set_overlay_timeout(data.duration);
+	}
+}(
+	overlay, {
+	}
+));
 
 var trigger = {};
 (function(external, options){
@@ -49,7 +89,7 @@ var trigger = {};
 		target_selector: '#screen',
 		iframe_id: 'iframe_id',
 	}, options);
-
+	
 	function set_target(html) {
 		$(options.target_selector).html(html);
 	}
@@ -80,6 +120,9 @@ var trigger = {};
 				set_target("<iframe id='IFRAME_ID' src='SRC'>".replace('SRC', data.src).replace('IFRAME_ID', options.iframe_id));
 			}
 			if (data.func_iframe) {
+				// TODO: This is only limited to site on same domain
+				//       is a differnt port the 'same domain?'
+				//       may have to use HTML5 messaging
 				utils.get_func(document.getElementById(options.iframe_id).contentWindow, data.func_iframe)(data);
 			}
 		},
@@ -87,7 +130,7 @@ var trigger = {};
 			set_target("");
 		},
 		text: function(data) {
-			
+			overlay.overlay_html(data);
 		},
 	});
 }(trigger, {
@@ -132,6 +175,7 @@ var trigger = {};
 		video.loop = false;
 		video.volume = 1.0;
 		video.controls = false;
+		//video.poster = '';
 		video.preload = "auto";
 		video.autoplay = play;
 		console.log(video.currentSrc, src);

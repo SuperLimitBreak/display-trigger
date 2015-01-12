@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    font-family: sans-serif;
 }
 
 #screen {
@@ -16,6 +17,38 @@ body {
     width: 100%;
     height: 100%;
 }
+
+
+
+@-webkit-keyframes overlay_fade_in {
+	  0% {opacity: 0; left:  0%; -webkit-filter: blur(1em);}
+	100% {opacity: 1; left: 10%; -webkit-filter: blur(0em);}
+}
+@-webkit-keyframes overlay_fade_out {
+	  0% {opacity: 1; left: 10%; -webkit-filter: blur(0em);}
+	100% {opacity: 0; left: 30%; -webkit-filter: blur(1em);}
+}
+.show_overlay #overlay {
+	opacity: 1;
+	-webkit-animation-name: overlay_fade_in;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: 1s;
+}
+#overlay {
+    opacity:0;
+    left: 10%;
+	-webkit-animation-name: overlay_fade_out;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: 2s;
+
+    position: absolute;
+    top: 10%;
+
+    color: white;
+    font-size: 8vh;
+}
+
+
 
 #offscreen {
     display: none;
