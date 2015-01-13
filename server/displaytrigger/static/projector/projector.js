@@ -131,7 +131,7 @@ var trigger = {};
 				// Fallback to html5 postMessage()
 				catch (error) {
 					if (error.name != "SecurityError") {log.error(error); return}
-					iframe_window.postMessage(JSON.stringify(data), window.location.origin); //iframe_element.src
+					iframe_window.postMessage(JSON.stringify(data), data.target_domain || "*"); //iframe_element.src  //window.location.origin
 				}
 			}
 		},

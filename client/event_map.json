@@ -83,7 +83,7 @@
         "events": ["s"],
         "func": "trigger.iframe",
         "params": {
-            "func_iframe": "trigger_ready"
+            "func_iframe": "preroll"
         }
     },
     
