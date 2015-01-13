@@ -118,13 +118,21 @@ var trigger = {};
 		},
 		iframe: function(data) {
 			if (data.src) {
-				set_target("<iframe id='IFRAME_ID' src='SRC'>".replace('SRC', data.src).replace('IFRAME_ID', options.iframe_id));
+				set_target("<iframe id='IFRAME_ID' src='SRC' scrolling='no'>".replace('SRC', data.src).replace('IFRAME_ID', options.iframe_id));
 			}
 			if (data.func_iframe) {
-				// TODO: This is only limited to site on same domain
-				//       is a differnt port the 'same domain?'
-				//       may have to use HTML5 messaging
-				utils.get_func(document.getElementById(options.iframe_id).contentWindow, data.func_iframe)(data);
+				var iframe_element = document.getElementById(options.iframe_id);
+				var iframe_window = iframe_element.contentWindow;
+				if (!iframe_window) {log.error("Invalid trigger target", options.iframe_id); return;}
+				// Attempt direct javascript call to iframe
+				try {
+					utils.get_func(iframe_window, data.func_iframe)(data);
+				}
+				// Fallback to html5 postMessage()
+				catch (error) {
+					if (error.name != "SecurityError") {log.error(error); return}
+					iframe_window.postMessage(JSON.stringify(data), window.location.origin); //iframe_element.src
+				}
 			}
 		},
 		empty: function(data) {

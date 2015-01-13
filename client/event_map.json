@@ -70,6 +70,24 @@
     },
 
     
+    {
+        "name": "ff7_iframe",
+        "events": ["a"],
+        "func": "trigger.iframe",
+        "params": {
+            "src": "http://localhost:8808/static/projector/battlescape.html"
+        }
+    },
+    {
+        "name": "ff7_iframe",
+        "events": ["s"],
+        "func": "trigger.iframe",
+        "params": {
+            "func_iframe": "trigger_ready"
+        }
+    },
+    
+    
     
     {
         "name": "test_video_miku",

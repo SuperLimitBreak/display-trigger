@@ -17,16 +17,19 @@ body {
     width: 100%;
     height: 100%;
 }
+#screen iframe {
+    overflow: hidden;
+}
 
 
 
 @-webkit-keyframes overlay_fade_in {
-	  0% {opacity: 0; left:  0%; -webkit-filter: blur(1em); -webkit-box-shadow:0 0 0   0   rgba(0,0,0,.50);}
-	100% {opacity: 1; left:  5%; -webkit-filter: blur(0em); -webkit-box-shadow:0 0 6vh 6vh rgba(0,0,0,.50);}
+	  0% {opacity: 0; left:  0%; -webkit-filter: blur(1em);}
+	100% {opacity: 1; left:  5%; -webkit-filter: blur(0em);}
 }
 @-webkit-keyframes overlay_fade_out {
-	  0% {opacity: 1; left:  5%; -webkit-filter: blur(0em); -webkit-box-shadow:0 0 6vh 6vh rgba(0,0,0,.50);}
-	100% {opacity: 0; left: 30%; -webkit-filter: blur(1em); -webkit-box-shadow:0 0 0   0   rgba(0,0,0,.50);}
+	  0% {opacity: 1; left:  5%; -webkit-filter: blur(0em);}
+	100% {opacity: 0; left: 30%; -webkit-filter: blur(1em);}
 }
 .show_overlay #overlay {
 	opacity: 1;
@@ -43,12 +46,11 @@ body {
 
     position: absolute;
     top: 5%;
-    width: 86vw;
+    width: 90vw;
 
     color: white;
     background-color: rgba(0,0,0,.50);
     -webkit-box-shadow:0 0 6vh 6vh rgba(0,0,0,.50);
-    padding: 2vh;
     border-radius: 2vh;
 }
 #overlay h1 {
