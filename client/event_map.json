@@ -52,7 +52,7 @@
         "events": ["y"],
         "func": "trigger.overlay",
         "params": {
-            "html": "<h1>Haruhi</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
+            "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
         }
     },
     {
@@ -64,6 +64,10 @@
         }
     },
 
+    
+    
+    
+    
     
     {
         "name": "ff7_iframe",
@@ -81,6 +85,9 @@
             "func_iframe": "preroll"
         }
     },
+    
+    
+    
     
     
     
@@ -145,7 +152,25 @@
             "currentTime": 60
         }
     },
-
+    {
+        "name": "test_video_guren_lagann",
+        "events": ["g"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/assets/gurren_lagann.mp4",
+            "volume": 1.0
+        }
+    },
+    {
+        "name": "test_video_haruhi",
+        "events": ["h"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/assets/god_knows.mp4",
+            "volume": 1.0
+        }
+    },
+    
     
     
     
