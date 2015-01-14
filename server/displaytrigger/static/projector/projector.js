@@ -102,7 +102,7 @@ var trigger = {};
 				img.src = data.src;
 			}
 			if (utils.is_video(data.src)) {
-				load_video(data.src);
+				load_video(data.src, _.extend(data, {play: false}));
 			}
 		},
 		start: function(data) {
@@ -110,7 +110,7 @@ var trigger = {};
 				set_target("<img src='SRC'>".replace('SRC', data.src));
 			}
 			if (utils.is_video(data.src)) {
-				load_video(data.src, true);
+				load_video(data.src, _.extend(data, {play: true}));
 			}
 		},
 		stop: function(data) {
@@ -164,29 +164,32 @@ var trigger = {};
 		return video || {};
 	}
 
-	function load_video(src, play, event_listeners, selector_holder) {
+	function load_video(src, _options, event_listeners) {
 		if (!event_listeners) {event_listeners = {};}
-		if (!selector_holder) {selector_holder = options.selector_holder;}
-		if (typeof(play) != "boolean") {play = false;}
+		_options = _.extend({
+			'selector_holder': options.selector_holder,
+			'play': true,
+			'volume': 1.0,
+		}, _options);
 
-		$(selector_holder+' :not(video)').remove();
+		$(_options.selector_holder+' :not(video)').remove();
 		if (!src) {
-			$(selector_holder).empty();
+			$(_options.selector_holder).empty();
 			return;
 		}
 
-		var video = _get_video_element(true, selector_holder, function(video){
+		var video = _get_video_element(true, _options.selector_holder, function(video){
 			_.each(event_listeners, function(key, value, dict){
 				video.addEventListener(key, value);
 			});
 		});
 
 		video.loop = false;
-		video.volume = 1.0;
+		video.volume = _options.volume;
 		video.controls = false;
 		//video.poster = '';
 		video.preload = "auto";
-		video.autoplay = play;
+		video.autoplay = _options.play;
 		console.log(video.currentSrc, src);
 		if (video.currentSrc.indexOf(src) > -1) {
 			video.pause();
@@ -196,7 +199,7 @@ var trigger = {};
 			video.src = src;
 			video.load();
 		}
-		if (play) {
+		if (_options.play) {
 			video.play();
 		}
 	}
