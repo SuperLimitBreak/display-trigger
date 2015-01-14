@@ -94,7 +94,7 @@
         "events": ["b", "note_on-C4"],
         "func": "trigger.start",
         "params": {
-            "src": "/static/assets/miku.mp4"
+            "src": "/static/assets/assets/miku.mp4"
         }
     },
     {
@@ -102,7 +102,8 @@
         "events": ["v"],
         "func": "trigger.start",
         "params": {
-            "src": "/static/assets/eosd6_6.mp4"
+            "src": "/static/assets/assets/remilla_scarlet.mp4",
+            "volume": 0.0
         }
     },
     {
@@ -110,7 +111,7 @@
         "events": ["c"],
         "func": "trigger.precache",
         "params": {
-            "src": "/static/assets/eosd6_6.mp4"
+            "src": "/static/assets/assets/remilla_scarlet.mp4"
         }
     },
     {
@@ -118,7 +119,7 @@
         "events": ["n"],
         "func": "trigger.precache",
         "params": {
-            "src": "/static/assets/silent_hill.mp4"
+            "src": "/static/assets/assets/silent_hill.mp4"
         }
     },
     {
@@ -126,10 +127,21 @@
         "events": ["m"],
         "func": "trigger.start",
         "params": {
-            "src": "/static/assets/silent_hill.mp4"
+            "src": "/static/assets/assets/silent_hill.mp4",
+            "volume": 0.0
+        }
+    },
+    {
+        "name": "test_video_saikano",
+        "events": ["x"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/assets/saikano_rough.mp4",
+            "volume": 0.0
         }
     },
 
+    
     
     
     
