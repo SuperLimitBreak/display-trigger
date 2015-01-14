@@ -62,7 +62,7 @@ var overlay = {};
 
 	var overlay_timeouts = {};
 	function clear_overlay_timeout(timeout_name) {
-		_.each(overlay_timeouts, function(key, value, dict){
+		_.each(overlay_timeouts, function(value, key, dict){
 			if (!timeout_name || timeout_name==key) {
 				clearTimeout(value);
 				// Todo? remove from dict?
@@ -110,7 +110,7 @@ var trigger = {};
 		$(options.target_selector).html(html);
 	}
 	
-	external = _.extend(external, {
+	var trigger_cmds = {
 		precache: function(data) {
 			if (utils.is_image(data.src)) {
 				var img = new Image();
@@ -125,7 +125,7 @@ var trigger = {};
 				set_target("<img src='SRC'>".replace('SRC', data.src));
 			}
 			if (utils.is_video(data.src)) {
-				load_video(data.src, _.extend(data, {play: true}), {onFinish: this.empty()});
+				load_video(data.src, _.extend(data, {play: true}), {ended: trigger_cmds.empty});
 			}
 		},
 		stop: function(data) {
@@ -158,7 +158,8 @@ var trigger = {};
 		overlay: function(data) {
 			overlay.overlay_html(data);
 		},
-	});
+	}
+	external = _.extend(external, trigger_cmds);
 }(trigger, {
 	target_selector: '#screen',
 }));
@@ -182,7 +183,6 @@ var trigger = {};
 	}
 
 	function load_video(src, _options, event_listeners) {
-		if (!event_listeners) {event_listeners = {};}
 		_options = _.extend({
 			'selector_holder': options.selector_holder,
 			'play': true,
@@ -196,7 +196,7 @@ var trigger = {};
 		}
 
 		var video = _get_video_element(true, _options.selector_holder, function(video){
-			_.each(event_listeners, function(key, value, dict){
+			_.each(event_listeners || {}, function(value, key, dict){
 				video.addEventListener(key, value);
 			});
 		});
