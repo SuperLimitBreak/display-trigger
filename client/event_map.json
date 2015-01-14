@@ -3,8 +3,7 @@
         "name": "empty",
         "events": [" ", "note_on-A3"],
         "func": "trigger.empty",
-        "params": {
-        }
+        "params": {}
     },
 
     
@@ -136,7 +135,18 @@
             "volume": 0.0
         }
     },
+    {
+        "name": "test_video_saikano_seek",
+        "events": ["z"],
+        "func": "trigger.start",
+        "params": {
+            "src": "/static/assets/assets/saikano_rough.mp4",
+            "volume": 0.0,
+            "currentTime": 60
+        }
+    },
 
+    
     
     
     

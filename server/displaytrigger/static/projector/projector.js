@@ -207,15 +207,16 @@ var trigger = {};
 		//video.poster = '';
 		video.preload = "auto";
 		video.autoplay = _options.play;
-		console.log(video.currentSrc, src);
 		if (video.currentSrc.indexOf(src) > -1) {
+			console.log('video already loaded');
 			video.pause();
-			video.currentTime = 0;
 		}
 		else {
+			console.log('video loading')
 			video.src = src;
 			video.load();
 		}
+		video.currentTime = _options.currentTime || 0;
 		if (_options.play) {
 			video.play();
 		}
