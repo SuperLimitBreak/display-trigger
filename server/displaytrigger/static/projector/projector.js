@@ -49,35 +49,49 @@ var overlay = {};
 		element_selector_top_level: 'body',
 		overlay_classname_active: 'show_overlay',
 		default_duration: 5000,
+		fade_classname_active: 'fade',
 	}, options);
 
-	function show_overlay(html) {
-		$(options.element_selector          ).html(html);
-		$(options.element_selector_top_level).addClass(options.overlay_classname_active);
+	function show_overlay(element_selector, html, classname_active) {
+		$(element_selector || options.element_selector).html(html || '');
+		$(options.element_selector_top_level).addClass(classname_active || options.overlay_classname_active);
 	}
-	function hide_overlay() {
-		$(options.element_selector_top_level).removeClass(options.overlay_classname_active);
+	function hide_overlay(classname_active) {
+		$(options.element_selector_top_level).removeClass(classname_active || options.overlay_classname_active);
 	}
 
-	var overlay_timeout = null;
-	function clear_overlay_timeout() {
-		if (overlay_timeout) {
-			clearTimeout(overlay_timeout);
-			overlay_timeout = null;
-		}
+	var overlay_timeouts = {};
+	function clear_overlay_timeout(timeout_name) {
+		_.each(overlay_timeouts, function(value, key, list){
+			if (!timeout_name || timeout_name==key) {
+				clearTimeout(value);
+			}
+		});
 	}
-	function set_overlay_timeout(delay) {
-		clear_overlay_timeout();
-		overlay_timeout = setTimeout(hide_overlay, delay);
+	function set_overlay_timeout(timeout_name, timeout_function, duration) {
+		overlay_timeouts[timeout_name || 'default'] = setTimeout(timeout_function, duration);
 	}
 
 	external.overlay_html = function(data) {
 		data = _.extend({
-			duration: options.default_duration,
-			html: '',
+			html            : '',
+			duration        : options.default_duration,
+			element_selector: options.element_selector,
+			classname_active: options.overlay_classname_active,
 		}, data);
-		show_overlay(data.html);
-		set_overlay_timeout(data.duration);
+		show_overlay(data.element_selector, data.html, data.classname_active);
+		clear_overlay_timeout();
+		set_overlay_timeout(null, function(){hide_overlay(data.classname_active)}, data.duration);
+	}
+	
+	external.fade_out = function(callback_fade_complete) {
+		var fade_key = 'fade';
+		show_overlay('#fader', '', fade_key);
+		clear_overlay_timeout(fade_key);
+		set_overlay_timeout(null, function(){
+			callback_fade_complete();
+			hide_overlay(fade_key);
+		}, 1500);
 	}
 }(
 	overlay, {
@@ -136,7 +150,9 @@ var trigger = {};
 			}
 		},
 		empty: function(data) {
-			set_target("");
+			overlay.fade_out(function() {
+				set_target("");
+			});
 		},
 		overlay: function(data) {
 			overlay.overlay_html(data);

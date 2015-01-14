@@ -3,7 +3,8 @@ body {
     font-family: sans-serif;
 }
 
-#screen {
+#screen,
+#fader {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -21,7 +22,7 @@ body {
     overflow: hidden;
 }
 
-
+/* Overlay ------------------------------------------------------------------ */
 
 @-webkit-keyframes overlay_fade_in {
 	  0% {opacity: 0; left:  0%; -webkit-filter: blur(1em);}
@@ -62,6 +63,25 @@ body {
 }
 
 
+/* Fader -------------------------------------------------------------------- */
+
+@-webkit-keyframes fader_fade_in {
+	  0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+#fader {
+    opacity: 0;
+    display: none;
+    background-color: black;
+}
+.fade #fader {
+	opacity: 1;
+	-webkit-animation-name: fader_fade_in;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: 1.5s;
+    
+    display: block;
+}
 
 #offscreen {
     display: none;

@@ -1,13 +1,9 @@
 [
     {
-        "name": "test1",
-        "events": ["a", "note_on-A3"],
-        "func": "test",
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "func": "trigger.empty",
         "params": {
-            "a": {
-                "b": 2,
-                "c": 3
-            }
         }
     },
 
