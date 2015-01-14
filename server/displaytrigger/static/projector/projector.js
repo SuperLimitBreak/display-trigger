@@ -62,9 +62,10 @@ var overlay = {};
 
 	var overlay_timeouts = {};
 	function clear_overlay_timeout(timeout_name) {
-		_.each(overlay_timeouts, function(value, key, list){
+		_.each(overlay_timeouts, function(key, value, dict){
 			if (!timeout_name || timeout_name==key) {
 				clearTimeout(value);
+				// Todo? remove from dict?
 			}
 		});
 	}
@@ -124,7 +125,7 @@ var trigger = {};
 				set_target("<img src='SRC'>".replace('SRC', data.src));
 			}
 			if (utils.is_video(data.src)) {
-				load_video(data.src, _.extend(data, {play: true}));
+				load_video(data.src, _.extend(data, {play: true}), {onFinish: this.empty()});
 			}
 		},
 		stop: function(data) {
