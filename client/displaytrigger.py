@@ -13,7 +13,7 @@ DEFAULT_DISPLAY_HOST = 'localhost:9872'
 DEFAULT_MIDI_PORT_NAME = 'displaytrigger'
 DEFAULT_MAP_FILENAME = 'event_map.json'  # '{0}.json'.format(os.path.splitext(__file__)[0])
 
-INPUT_PLUGINS = ('keyboard', 'midi')  # TODO - make this more dynamic, don't likey this constant here
+INPUT_PLUGINS = ('console', 'keyboard', 'midi')  # TODO - make this more dynamic, don't likey this constant here
 
 
 # Event Handler ----------------------------------------------------------------
@@ -48,6 +48,11 @@ def event_handler(display_event_func, event_lookup, event_key):
 
 def init_input_plugins(event_handler_func, options):
 
+    import input_console
+    input_console.ConsoleInputPlugin(event_handler_func, options)
+
+    # TODO: try: import pygame - Startup should not be dependent on pygame being installed
+
     import input_keyboard
     input_keyboard.KeyboardInputPlugin(event_handler_func, options)
 
@@ -73,7 +78,7 @@ def get_args():
     )
     parser_input = parser
 
-    parser_input.add_argument('--input_device', choices=INPUT_PLUGINS, help='input device', default='keyboard')
+    parser_input.add_argument('--input_device', choices=INPUT_PLUGINS, help='input device', default='console')
     parser_input.add_argument('--display_host', action='store', help='ip adress and port for remote TCP display events', default=DEFAULT_DISPLAY_HOST)
     parser_input.add_argument('--event_map', type=argparse.FileType('r'), help='json file mapping event names to payloads', default=DEFAULT_MAP_FILENAME)
 
