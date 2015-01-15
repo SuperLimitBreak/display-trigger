@@ -79,17 +79,18 @@ var overlay = {};
 			duration        : options.default_duration,
 			element_selector: options.element_selector,
 			classname_active: options.overlay_classname_active,
+			timeout_name: 'overlay',
 		}, data);
 		show_overlay(data.element_selector, data.html, data.classname_active);
-		clear_overlay_timeout();
-		set_overlay_timeout(null, function(){hide_overlay(data.classname_active)}, data.duration);
+		clear_overlay_timeout(data.timeout_name);
+		set_overlay_timeout(data.timeout_name, function(){hide_overlay(data.classname_active)}, data.duration);
 	}
 	
 	external.fade_out = function(callback_fade_complete) {
 		var fade_key = 'fade';
 		show_overlay('#fader', '', fade_key);
 		clear_overlay_timeout(fade_key);
-		set_overlay_timeout(null, function(){
+		set_overlay_timeout(fade_key, function(){
 			callback_fade_complete();
 			hide_overlay(fade_key);
 		}, 1500);
