@@ -4,9 +4,16 @@ param ( [Switch] $install = $false, [Switch] $run = $false )
 # http://superuser.com/questions/25538/how-to-download-files-from-command-line-in-windows-like-wget-is-doing
 
 if ($install -eq $true ) {
-    Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/network_display_event.py" -OutFile "network_display_event.py"
-    Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/pygame_midi_wrapper.py"   -OutFile "pygame_midi_wrapper.py"
-    Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/music.py"                 -OutFile "music.py"
+	#This method only works in powershell v3+
+    #Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/network_display_event.py" -OutFile "network_display_event.py"
+    #Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/pygame_midi_wrapper.py"   -OutFile "pygame_midi_wrapper.py"
+    #Invoke-WebRequest "https://raw.githubusercontent.com/calaldees/PentatonicHero/master/music.py"	-OutFile "music.py"
+	
+	#Powershell v1+ support
+	$client = new-object System.Net.WebClient 
+    $client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/network_display_event.py", "network_display_event.py")
+	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/pygame_midi_wrapper.py", "pygame_midi_wrapper.py")
+	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/music.py", "music.py")
 }
 
 if ($run -eq $true) {
