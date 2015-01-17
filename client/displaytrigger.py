@@ -91,11 +91,20 @@ def get_args():
 
     return vars(args)
 
+def get_args():
+	import codecs
+	return dict(
+		input_device='midi', #'midi',
+		display_host='192.168.0.54:9872',
+		midi_port_name=DEFAULT_MIDI_PORT_NAME,
+		event_map=codecs.open(DEFAULT_MAP_FILENAME, 'r', 'utf-8'),
+		log_level=logging.DEBUG,
+	)
 
 if __name__ == "__main__":
     options = get_args()
     logging.basicConfig(level=options['log_level'])
-
+    
     event_lookup = generate_event_lookup(json.load(options['event_map']))
     display_event_handler = DisplayEventHandler.factory(*options['display_host'].split(':'))
 

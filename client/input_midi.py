@@ -28,7 +28,7 @@ class MidiInputPlugin(InputPlugin):
         #pygame.display.set_mode((1, 1))
         self.run()
 
-    def run(self):
+    def _run(self):
         going = True
         while going:
             events = self.event_get()
@@ -51,6 +51,11 @@ class MidiInputPlugin(InputPlugin):
                 for midi_event in pygame.midi.midis2events(self.midi_input.read(10), self.midi_input.device_id):
                     self.event_post(midi_event)
 
+    def run(self):
+        try:
+            self._run()
+        except KeyboardInterrupt:
+            pass
         self.close()
 
     def close(self):
