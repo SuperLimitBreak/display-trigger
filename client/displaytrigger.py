@@ -7,7 +7,7 @@ from network_display_event import DisplayEventHandler
 import logging
 log = logging.getLogger(__name__)
 
-VERSION = '0.1'
+VERSION = '0.11'
 
 DEFAULT_DISPLAY_HOST = 'localhost:9872'
 DEFAULT_MIDI_PORT_NAME = 'displaytrigger'
@@ -66,6 +66,13 @@ def get_args():
     """
     Command line argument handling
     """
+    try:
+        return get_args_argparse()
+    except ImportError:
+        return get_args_optparse()
+
+
+def get_args_argparse():
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -91,20 +98,34 @@ def get_args():
 
     return vars(args)
 
-def get_args():
-	import codecs
-	return dict(
-		input_device='midi', #'midi',
-		display_host='192.168.0.54:9872',
-		midi_port_name=DEFAULT_MIDI_PORT_NAME,
-		event_map=codecs.open(DEFAULT_MAP_FILENAME, 'r', 'utf-8'),
-		log_level=logging.DEBUG,
-	)
+
+def get_args_optparse():
+    import optparse
+    import codecs
+
+    parser = optparse.OptionParser("usage: %prog [options] arg")
+
+    parser.add_option("--input_device", default='console', choices=INPUT_PLUGINS)
+    parser.add_option("--display_host", default=DEFAULT_DISPLAY_HOST)
+    parser.add_option("--event_map", default=DEFAULT_MAP_FILENAME)
+    parser.add_option('--midi_port_name', default=DEFAULT_MIDI_PORT_NAME)
+    parser.add_option('--log_level', type=int, default=logging.INFO)
+
+    (options, args) = parser.parse_args()
+    options = vars(options)
+
+    assert options['input_device'] in INPUT_PLUGINS
+    options['event_map'] = codecs.open(options['event_map'], 'r', 'utf-8')
+
+    return options
+
+
+# Main -------------------------------------------------------------------------
 
 if __name__ == "__main__":
     options = get_args()
     logging.basicConfig(level=options['log_level'])
-    
+
     event_lookup = generate_event_lookup(json.load(options['event_map']))
     display_event_handler = DisplayEventHandler.factory(*options['display_host'].split(':'))
 
