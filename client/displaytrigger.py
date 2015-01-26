@@ -1,5 +1,6 @@
 import json
 from functools import partial
+from collections import defaultdict
 
 from input_ import InputPlugin
 from network_display_event import DisplayEventHandler
@@ -22,10 +23,10 @@ def generate_event_lookup(data):
     """
     Create a lookup table
     """
-    event_lookup = {}
+    event_lookup = defaultdict(list)
     for item in data:
         for event in item['events']:
-            event_lookup[event] = item
+            event_lookup[event].append(item)
     return event_lookup
 
 
@@ -37,11 +38,8 @@ def event_handler(display_event_func, event_lookup, event_key):
     if event_key not in event_lookup:
         log.warn('unknown event {0}'.format(event_key))
         return
-    event_item = event_lookup[event_key]
-    display_event_func(
-        event_item['func'],
-        **event_item['params']
-    )
+    for event_item in event_lookup[event_key]:
+        display_event_func(event_item['func'], **event_item['params'])
 
 
 # Input Plugins ----------------------------------------------------------------
