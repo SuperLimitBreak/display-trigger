@@ -18,3 +18,7 @@ def api(request):
         request.registry['socket_manager'].recv(cmd.encode('utf-8'))
     return Response()
 
+
+@view_config(route_name='event_map')
+def event_map(request):
+    return Response()

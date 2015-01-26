@@ -28,6 +28,7 @@ def main(global_config, **settings):
 
     config.add_route('index', '/')
     config.add_route('api', '/api')
+    config.add_route('event_map', '/event_map/{event_map}')
 
     config.scan()
     return config.make_wsgi_app()

@@ -14,3 +14,11 @@ function image(src) {
         src: src,
     });
 }
+
+function get_event_maps(args) {
+    //code
+}
+
+function load_event_map() {
+    //code
+}
