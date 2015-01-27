@@ -27,8 +27,8 @@ def main(global_config, **settings):
     config.add_static_view(name='ext', path=settings['static.path.ext'], cache_max_age=3600)
 
     config.add_route('index', '/')
-    config.add_route('api', '/api')
-    config.add_route('event_map', '/event_map/{event_map}')
+    config.add_route('event', '/event/{func:.*}')
+    config.add_route('event_map', '/event_map/{event_map:.*}')
 
     config.scan()
     return config.make_wsgi_app()

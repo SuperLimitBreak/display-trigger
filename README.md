@@ -96,9 +96,9 @@ This is the message format the projector decodes.
 
 ### HTTP Api
 
-    curl 'http://localhost:6543/api/?func=trigger.start&src=test.jpg'
+    curl 'http://localhost:6543/event/trigger.empty'
     
-    curl -XPOST 'http://localhost:6543/api/' -d '{func:"trigger.start", src:"/assets/test.jpg"}'
+    curl -XPOST 'http://localhost:6543/event/' -d '{func:"trigger.start", src:"/static/assets/test.jpg"}'
 
 
 ### Midi Triggers
