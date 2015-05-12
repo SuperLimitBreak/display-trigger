@@ -11,9 +11,10 @@ if ($install -eq $true ) {
 	
 	#Powershell v1+ support
 	$client = new-object System.Net.WebClient 
-    $client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/network_display_event.py", "network_display_event.py")
-	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/pygame_midi_wrapper.py", "pygame_midi_wrapper.py")
-	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/PentatonicHero/master/music.py", "music.py")
+    $client.DownloadFile("https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/network_display_event.py", "network_display_event.py")
+	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py", "pygame_midi_wrapper.py")
+	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_input.py", "pygame_midi_input.py")
+	$client.DownloadFile("https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/music.py", "music.py")
 }
 
 if ($run -eq $true) {
