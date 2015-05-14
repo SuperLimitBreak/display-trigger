@@ -10,6 +10,10 @@ class MidiInputPlugin(MidiInput, InputPlugin):
         InputPlugin.__init__(self, 'midi', event_handler)
         MidiInput.__init__(self, options.get('midi_port_name'))
 
+    def open(self):
+        MidiInput.init_pygame(self)
+        self.run()
+
     def midi_event(self, status, data1, data2, data3):
         # Normalize note_off events - data2 is the velocity. Velocity 0 -> note_off
         if status.name == 'note_on' and data2 == 0:

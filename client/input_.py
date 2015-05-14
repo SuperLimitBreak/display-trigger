@@ -14,8 +14,8 @@ class InputPlugin(object):
         self.event_handler = event_handler
         self.register_plugin(self, name)
 
-    def open():
+    def open(self):
         assert False, 'must be implemented'
 
-    def close():
+    def close(self):
         assert False, 'must be implemented'
