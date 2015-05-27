@@ -9,7 +9,7 @@ help:
 
 # Installation -----------------------------------------------------------------
 
-install: $(OS) network_display_event.py pygame_midi_wrapper.py music.py
+install: $(OS) libs/network_display_event.py libs/pygame_midi_wrapper.py libs/music.py
 
 # OSX installation
 Darwin:
@@ -25,11 +25,14 @@ Linux:
 	#hg clone https://bitbucket.org/pygame/pygame
 	#cd pygame ; python3 setup.py build ; sudo python3 setup.py install
 
-network_display_event.py:
+libs:
+	mkdir libs
+	touch libs/__init__.py
+libs/network_display_event.py:
 	curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/network_display_event.py --compressed -O
-pygame_midi_wrapper.py:
+libs/pygame_midi_wrapper.py:
 	curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py --compressed -O
-music.py:
+libs/music.py:
 	curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/music.py --compressed -O
 
 

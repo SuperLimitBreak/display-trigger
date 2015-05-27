@@ -1,5 +1,2 @@
 *.pyc
-network_display_event.py
-pygame_midi_wrapper.py
-pygame_midi_input.py
-music.py
+libs/

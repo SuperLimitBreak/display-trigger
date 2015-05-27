@@ -1,7 +1,7 @@
 from input_ import InputPlugin
 
-from music import note_to_text, MidiStatus
-from pygame_midi_input import MidiInput
+from libs.music import note_to_text, MidiStatus
+from libs.pygame_midi_input import MidiInput
 
 
 class MidiInputPlugin(MidiInput, InputPlugin):

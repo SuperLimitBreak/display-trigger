@@ -3,7 +3,7 @@ from functools import partial
 from collections import defaultdict
 
 from input_ import InputPlugin
-from network_display_event import DisplayEventHandler
+from libs.network_display_event import DisplayEventHandler
 
 import logging
 log = logging.getLogger(__name__)
