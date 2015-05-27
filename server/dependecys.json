@@ -1,7 +1,7 @@
 {
     "jquery": {
         "source": "http://code.jquery.com/jquery-VERSION.min.js",
-        "version": "2.1.1",
+        "version": "2.1.4",
         "target": "static/jquery.min.js"
     },
     
@@ -13,7 +13,7 @@
     
     "yui-reset": {
         "source": "http://yui.yahooapis.com/VERSION/build/cssreset/cssreset-min.css",
-        "version": "3.17.2",
+        "version": "3.18.1",
         "target": "static/cssreset-min.css"
     },
 
