@@ -12,9 +12,9 @@ body {
     right: 0;
 }
 
-#screen img,
-#screen video,
-#screen iframe {
+#screen > img,
+#screen > video,
+#screen > iframe {
     width: 100%;
     height: 100%;
 }

@@ -17,6 +17,7 @@ var background_scroller = {};
         //image-rendering: -o-crisp-edges,
         'image-rendering': 'pixelated',
         'background-color': 'black',
+		overflow: 'hidden',
     };
 
 	// Options -----------------------------------------------------------------
@@ -32,12 +33,22 @@ var background_scroller = {};
 
     // Functions ---------------------------------------------------------------
 
-    function px_str(x, y, ratio) {
-        if (!ratio) {ratio = 1;}
-        return ""+(x*ratio)+"px "+(y*ratio)+"px";
-    }
+	function scroller($parent, params) {
+		
+	}
     
-    function scroll_backgoround($element, params) {
+    function setup_backgoround($element, params) {
+		params = {
+            background_url: '/ext/castlevaniafullgamemapempty.PNG',
+            source_screen_height: 184,
+            source_width: 9928,
+            source_height: 1908,
+            startX: 0,
+            startY: -1563,
+			duration: 2000,
+			endX: 2000,
+			endY: -1563,
+        }
         /*
             background_url: 'sotn-castle.png',
             scource_screen_height: 206,
@@ -49,16 +60,50 @@ var background_scroller = {};
             endY: 0,
             duration: 3000,
          */
-        var ratio = $element.height / params.scource_screen_height;
+		
+		
+		$element.empty();
+		var $container = $('<div/>');
+		var $image = $('<img/>');
+		$container.css(BACKGROUND_CSS);
+		$container.append($image);
+		$element.append($container);
+		
+        var ratio = $element.innerHeight() / params.source_screen_height;
+		function px(value) {
+			return ''+(value*ratio)+'px';
+		}
+		function px2(x, y) {
+			return ''+px(x)+' '+px(y);
+		}
+		
+		$image.attr('src', params.background_url);
+		$image.css({
+			position: 'absolute',
+			top: px(params.startY),
+			left: px(params.startX),
+			width: px(params.source_width),
+			height: px(params.source_height),
+		});
+		/*
         $element.css(_.extend(BACKGROUND_CSS, {
             background: "url("+params.background_url+")",
-            backgroundSize: px_str(params.sourceWidth, parmas.sourceHeight, ratio),
-            backgroundPosition: px_str(params.startX, parmas.startY, ratio),
+            backgroundSize: px_str(params.source_width, params.source_height, ratio),
+            backgroundPosition: px_str(params.startX, params.startY, ratio),
         }));
+        */
     }
     
+	function scroll_background($element, params) {
+		$element.find('img').css({
+			transition: 'all '+params.duration+' linear',
+			transform: 'translateX('+px(params.endX)+') translateY('+px(params.endY)+')',
+		});
+	}
+	
     // External Export ---------------------------------------------------------
     
     external.scroll_backgoround = scroll_backgoround;
+	external.scroll = scroll;
 
 }(background_scroller, {}));
