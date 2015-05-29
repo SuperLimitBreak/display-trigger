@@ -31,36 +31,58 @@ var background_scroller = {};
 
 	var css = {};
 
-    // Functions ---------------------------------------------------------------
-
-	function scroller($parent, params) {
-		
-	}
-    
-    function setup_backgoround($element, params) {
-		params = {
-            background_url: '/ext/castlevaniafullgamemapempty.PNG',
+	var backgrounds = {
+		castelvania_1: {
+			background_url: '/ext/castlevaniafullgamemapempty.PNG',
             source_screen_height: 184,
             source_width: 9928,
             source_height: 1908,
-            startX: 0,
-            startY: -1563,
-			duration: 2000,
-			endX: 2000,
-			endY: -1563,
-        }
-        /*
-            background_url: 'sotn-castle.png',
+		},
+		castelvania_sotn: {
+            background_url: '/ext/sotn-castle.png',
             scource_screen_height: 206,
             source_width: 15648,
             source_height: 12000,
+		}
+	}
+	
+	var scrolls = [
+		_.extend(backgrounds.castelvania_1, {
+            startX: 0,
+            startY: -1563,
+			endX: 2000,
+			duration: '5000ms',
+        }),
+		_.extend(backgrounds.castelvania_sotn, {
             startX: -528,
             startY: -8968,
-            endX: 0,
-            endY: 0,
-            duration: 3000,
-         */
+            duration: '5000ms',
+		}),
+	]
+	
+    // Functions ---------------------------------------------------------------
+
+	function scroller($parent) {
+		var _scrolls = _.clone(scrolls);
+		console.log(_scrolls);
+		function next() {
+			setup_backgoround($parent, _scrolls.pop(), next);
+		}
+		next();
+	}
+    
+    function setup_backgoround($element, params, func_complete) {
+		console.log(params);
+		if (!func_complete) {
+			func_complete = function() {};
+		}		
 		
+		if (typeof(params.endX) == 'undefined') {
+			params.endY = params.startX
+		}
+		if (typeof(params.endY) == 'undefined') {
+			params.endY = params.startY
+		}
 		
 		$element.empty();
 		var $container = $('<div/>');
@@ -68,7 +90,7 @@ var background_scroller = {};
 		$container.css(BACKGROUND_CSS);
 		$container.append($image);
 		$element.append($container);
-		
+
         var ratio = $element.innerHeight() / params.source_screen_height;
 		function px(value) {
 			return ''+(value*ratio)+'px';
@@ -76,6 +98,15 @@ var background_scroller = {};
 		function px2(x, y) {
 			return ''+px(x)+' '+px(y);
 		}
+
+		$image.on('load', function () {
+			$image.css({
+				transition: 'all '+params.duration+' linear',
+				transform: 'translateX('+px(params.startX-params.endX)+') translateY('+px(params.startY-params.endY)+')',
+			});
+		});
+
+		$image.on('transitionend', func_complete);
 		
 		$image.attr('src', params.background_url);
 		$image.css({
@@ -85,25 +116,11 @@ var background_scroller = {};
 			width: px(params.source_width),
 			height: px(params.source_height),
 		});
-		/*
-        $element.css(_.extend(BACKGROUND_CSS, {
-            background: "url("+params.background_url+")",
-            backgroundSize: px_str(params.source_width, params.source_height, ratio),
-            backgroundPosition: px_str(params.startX, params.startY, ratio),
-        }));
-        */
     }
-    
-	function scroll_background($element, params) {
-		$element.find('img').css({
-			transition: 'all '+params.duration+' linear',
-			transform: 'translateX('+px(params.endX)+') translateY('+px(params.endY)+')',
-		});
-	}
-	
+
     // External Export ---------------------------------------------------------
     
-    external.scroll_backgoround = scroll_backgoround;
-	external.scroll = scroll;
+    external.setup_backgoround = setup_backgoround;
+	external.scroller = scroller;
 
 }(background_scroller, {}));
