@@ -34,7 +34,7 @@ var background_scroller = {};
 	var backgrounds = {
 		castelvania_1: {
 			background_url: '/ext/castlevaniafullgamemapempty.PNG',
-            source_screen_height: 184,
+            source_screen_height: 168,
             source_width: 9928,
             source_height: 1908,
 		},
@@ -46,43 +46,65 @@ var background_scroller = {};
 		},
 		super_metroid: {
 			background_url: '/ext/SuperMetroidMapZebes.png',
-			source_screen_height: 192,
+			source_screen_height: 240,
             source_width: 16896,
             source_height: 14336,			
+		},
+		super_metroid_cut: {
+			background_url: '/ext/SuperMetroidMapZebes_cut.png',
+			source_screen_height: 240,
+            source_width: 3074,
+            source_height: 240,
 		}
 	}
 	
 	var scrolls = [
-		_.extend({}, backgrounds.super_metroid, {
-            startX: -4100,
-            startY: -8968,
-			endX: 1000,
+		/*
+		_.extend({}, backgrounds.super_metroid_cut, {
+			startX: 0,
+            startY: 0,
+			endX: -2700,
             duration: '10s',
 		}),
+        */
 		_.extend({}, backgrounds.castelvania_1, {
             startX: 0,
             startY: -1563,
-			endX: 1000,
-			duration: '10s',
+			endX: -540,
+			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
-            startX: -4254,
+            startX: -767,
+            startY: -1550,
+			endX: -2119,
+			duration: '20s',
+        }),		
+		_.extend({}, backgrounds.castelvania_1, {
+            startX: -4256,
             startY: -1724,
-			endX: 1000,
-			duration: '10s',
+			endX: -5254,
+			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
             startX: -2096,
-            startY: -586,
-			endX: 1000,
-			duration: '10s',
+            startY: -590,
+			endX: -4090,
+			duration: '20s',
         }),
+		/*
 		_.extend({}, backgrounds.castelvania_sotn, {
             startX: -528,
             startY: -8968,
 			endX: 2000,
             duration: '30s',
 		}),
+		_.extend({}, backgrounds.super_metroid, {
+            startX: -4100,
+            startY: -7200,
+			endX: -6916,
+            duration: '10s',
+		}),
+		*/
 	]
 	
     // Functions ---------------------------------------------------------------
@@ -104,15 +126,15 @@ var background_scroller = {};
 	}
     
     function setup_background($element, params, func_complete) {
-		console.log(params);
+		//console.log(params);
 		if (!func_complete) {
 			func_complete = function() {};
 		}		
 		
-		if (typeof(params.endX) == 'undefined') {
+		if (typeof(params.endX) != 'number') {
 			params.endX = params.startX
 		}
-		if (typeof(params.endY) == 'undefined') {
+		if (typeof(params.endY) != 'number') {
 			params.endY = params.startY
 		}
 
@@ -123,12 +145,10 @@ var background_scroller = {};
 		function px2(x, y) {
 			return ''+px(x)+' '+px(y);
 		}
-console.log('1');
 		var $image = $element.find('img');
-		var image_loaded = ($image.attr('src') == params.background_url);
+		var image_in_dom = ($image.attr('src') == params.background_url);
 		
-		if (!image_loaded) {
-console.log('2');
+		if (!image_in_dom) {
 			$element.empty();
 			var $container = $('<div/>');
 			$image = $('<img/>');
@@ -136,16 +156,14 @@ console.log('2');
 			$container.append($image);
 			$element.append($container);
 		}
-console.log('3');
+
 		function transition_image() {
-console.log('4');
 			$image.css({
 				transition: 'all '+params.duration+' linear',
-				transform: 'translateX('+px(params.startX-params.endX)+') translateY('+px(params.startY-params.endY)+')',
+				transform: 'translateX('+px(params.endX-params.startX)+') translateY('+px(params.endY-params.startY)+')',
 			});
 		}
 		function postion_image() {
-console.log('5');
 			$image.css({
 				top: px(params.startY),
 				left: px(params.startX),
@@ -153,9 +171,8 @@ console.log('5');
 				transform: '',
 			});
 		}
-console.log('6');
-		if (!image_loaded) {
-console.log('7');
+
+		if (!image_in_dom) {
 			//$image.on('load', transition_image);
 			on_load($image, transition_image);
 			$image.attr('src', params.background_url);
@@ -167,12 +184,10 @@ console.log('7');
 			postion_image();
 		}
 		else {
-console.log('8');
 			postion_image();
-			setTimeout(transition_image, 500);  // Fucking hack
+			setTimeout(transition_image, 200);  // Fucking hack
 			//transition_image();
 		}
-console.log('9');
 		$image.on('transitionend', func_complete);
     }
 
