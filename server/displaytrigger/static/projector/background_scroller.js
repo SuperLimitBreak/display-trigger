@@ -59,33 +59,36 @@ var background_scroller = {};
 	}
 	
 	var scrolls = [
-		/*
 		_.extend({}, backgrounds.super_metroid_cut, {
+			name: "Super Metroid: Morph ball",
 			startX: 0,
             startY: 0,
 			endX: -2700,
             duration: '10s',
 		}),
-        */
 		_.extend({}, backgrounds.castelvania_1, {
+			name: "Castelvania: Outside",
             startX: 0,
             startY: -1563,
 			endX: -540,
 			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
+			name: "Castelvania: First hall",
             startX: -767,
             startY: -1550,
 			endX: -2119,
 			duration: '20s',
-        }),		
+        }),
 		_.extend({}, backgrounds.castelvania_1, {
+			name: "Castelvania: Cave",
             startX: -4256,
             startY: -1724,
 			endX: -5254,
 			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
+			name: "Castelvania: Bridge",
             startX: -2096,
             startY: -590,
 			endX: -4090,
@@ -120,13 +123,15 @@ var background_scroller = {};
 	function scroller($parent) {
 		var _scrolls = _.clone(scrolls).reverse();
 		function next() {
+			$(this).off('transitionend');
 			setup_background($parent, _scrolls.pop(), next);
 		}
 		next();
 	}
     
     function setup_background($element, params, func_complete) {
-		//console.log(params);
+console.log(params);
+console.log("1");
 		if (!func_complete) {
 			func_complete = function() {};
 		}		
@@ -137,7 +142,7 @@ var background_scroller = {};
 		if (typeof(params.endY) != 'number') {
 			params.endY = params.startY
 		}
-
+console.log("2");
         var ratio = $element.innerHeight() / params.source_screen_height;
 		function px(value) {
 			return ''+(value*ratio)+'px';
@@ -147,8 +152,9 @@ var background_scroller = {};
 		}
 		var $image = $element.find('img');
 		var image_in_dom = ($image.attr('src') == params.background_url);
-		
+console.log("3");
 		if (!image_in_dom) {
+console.log("3a");
 			$element.empty();
 			var $container = $('<div/>');
 			$image = $('<img/>');
@@ -156,14 +162,28 @@ var background_scroller = {};
 			$container.append($image);
 			$element.append($container);
 		}
-
+console.log("4");
 		function transition_image() {
+console.log("4a");
+			var targetX = params.endX - params.startX;
+			var targetY = params.endY - params.startY;
+			console.log("target1", targetX, targetY);
+			console.log("target-", $element.innerWidth(), $element.innerHeight() ,ratio);
+			if (params.endX < params.startX) {
+				targetX += $element.innerWidth() / -ratio;
+			}
+			if (params.endY < params.startY) {
+				targetY += $element.innerHeight() / -ratio;
+			}
+			console.log("target2", targetX, targetY);
 			$image.css({
 				transition: 'all '+params.duration+' linear',
-				transform: 'translateX('+px(params.endX-params.startX)+') translateY('+px(params.endY-params.startY)+')',
+				transform: 'translateX('+px(targetX)+') translateY('+px(targetY)+')',
 			});
+			$image.on('transitionend', func_complete);
 		}
 		function postion_image() {
+console.log("4b");
 			$image.css({
 				top: px(params.startY),
 				left: px(params.startX),
@@ -171,8 +191,9 @@ var background_scroller = {};
 				transform: '',
 			});
 		}
-
+console.log("5");
 		if (!image_in_dom) {
+console.log("5a");
 			//$image.on('load', transition_image);
 			on_load($image, transition_image);
 			$image.attr('src', params.background_url);
@@ -184,11 +205,12 @@ var background_scroller = {};
 			postion_image();
 		}
 		else {
+console.log("5c");
 			postion_image();
 			setTimeout(transition_image, 200);  // Fucking hack
 			//transition_image();
 		}
-		$image.on('transitionend', func_complete);
+console.log("6");
     }
 
     // External Export ---------------------------------------------------------
