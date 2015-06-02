@@ -59,6 +59,7 @@ var background_scroller = {};
 	}
 	
 	var scrolls = [
+		/*
 		_.extend({}, backgrounds.super_metroid_cut, {
 			name: "Super Metroid: Morph ball",
 			startX: 0,
@@ -66,25 +67,34 @@ var background_scroller = {};
 			endX: -2700,
             duration: '10s',
 		}),
+		*/
+		_.extend({}, backgrounds.castelvania_1, {
+			name: "Castelvania: Bridge 2",
+            startX: -7610,
+            startY: -1026,
+			endX: -6106,
+			duration: '20s',
+        }),		
+
 		_.extend({}, backgrounds.castelvania_1, {
 			name: "Castelvania: Outside",
             startX: 0,
             startY: -1563,
-			endX: -540,
+			endX: -752,
 			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
 			name: "Castelvania: First hall",
             startX: -767,
             startY: -1550,
-			endX: -2119,
+			endX: -2304,
 			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
 			name: "Castelvania: Cave",
             startX: -4256,
             startY: -1724,
-			endX: -5254,
+			endX: -5790,
 			duration: '20s',
         }),
 		_.extend({}, backgrounds.castelvania_1, {
@@ -113,7 +123,7 @@ var background_scroller = {};
     // Functions ---------------------------------------------------------------
 
 	// Cache load fix - http://mikefowler.me/2014/04/22/cached-images-load-event/
-	function on_load($image, f) {
+	function on_image_load($image, f) {
 		$image.on('load', f);
 		if ($image[0].complete) {
 		  $image.load();
@@ -131,7 +141,7 @@ var background_scroller = {};
     
     function setup_background($element, params, func_complete) {
 console.log(params);
-console.log("1");
+
 		if (!func_complete) {
 			func_complete = function() {};
 		}		
@@ -142,7 +152,7 @@ console.log("1");
 		if (typeof(params.endY) != 'number') {
 			params.endY = params.startY
 		}
-console.log("2");
+
         var ratio = $element.innerHeight() / params.source_screen_height;
 		function px(value) {
 			return ''+(value*ratio)+'px';
@@ -152,9 +162,8 @@ console.log("2");
 		}
 		var $image = $element.find('img');
 		var image_in_dom = ($image.attr('src') == params.background_url);
-console.log("3");
+
 		if (!image_in_dom) {
-console.log("3a");
 			$element.empty();
 			var $container = $('<div/>');
 			$image = $('<img/>');
@@ -162,40 +171,41 @@ console.log("3a");
 			$container.append($image);
 			$element.append($container);
 		}
-console.log("4");
+
 		function transition_image() {
-console.log("4a");
-			var targetX = params.endX - params.startX;
-			var targetY = params.endY - params.startY;
-			console.log("target1", targetX, targetY);
-			console.log("target-", $element.innerWidth(), $element.innerHeight() ,ratio);
+			var translateX = params.endX - params.startX;
+			var translateY = 0;
+			//console.log("target1", targetX, targetY);
+			//console.log("target-", $element.innerWidth(), $element.innerHeight() ,ratio);
 			if (params.endX < params.startX) {
-				targetX += $element.innerWidth() / -ratio;
+				translateX += $element.innerWidth() / ratio;
 			}
 			if (params.endY < params.startY) {
-				targetY += $element.innerHeight() / -ratio;
+				translateY = (params.endY - params.startY) + $element.innerHeight() / ratio;
 			}
-			console.log("target2", targetX, targetY);
+			//console.log("target2", targetX, targetY);
 			$image.css({
 				transition: 'all '+params.duration+' linear',
-				transform: 'translateX('+px(targetX)+') translateY('+px(targetY)+')',
+				transform: 'translateX('+px(translateX)+') translateY('+px(translateY)+')',
 			});
 			$image.on('transitionend', func_complete);
 		}
 		function postion_image() {
-console.log("4b");
+			var startX = params.startX;
+			var startY = params.startY;
+			if (params.endX > params.startX) {
+				startX += $element.innerHeight() / ratio;
+			}
 			$image.css({
-				top: px(params.startY),
-				left: px(params.startX),
+				left: px(startX),
+				top: px(startY),
 				transition: '',
 				transform: '',
 			});
 		}
-console.log("5");
+
 		if (!image_in_dom) {
-console.log("5a");
-			//$image.on('load', transition_image);
-			on_load($image, transition_image);
+			on_image_load($image, transition_image);
 			$image.attr('src', params.background_url);
 			$image.css({
 				position: 'absolute',
@@ -205,12 +215,11 @@ console.log("5a");
 			postion_image();
 		}
 		else {
-console.log("5c");
 			postion_image();
-			setTimeout(transition_image, 200);  // Fucking hack
-			//transition_image();
+			// HACK: Have to wrap transition in arbatory timeout as the position must be set beforehand
+			// As Chrome pipelines and optimises if the position and transition are set at the same time madness occours
+			setTimeout(transition_image, 100);
 		}
-console.log("6");
     }
 
     // External Export ---------------------------------------------------------
