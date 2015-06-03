@@ -141,17 +141,20 @@ var background_scroller = {};
 		var _scrolls = _.clone(scrolls).reverse();
 		function next() {
 			$(this).off('transitionend');
-			setup_background($parent, _scrolls.pop(), next);
+			setup_background($parent, _scrolls.pop(), null, next);
 		}
 		next();
 	}
 	
-	function setup_background($element, params, func_complete) {
+	function setup_background($element, params, on_start, on_end) {
 console.log(params);
 
-		if (!func_complete) {
-			func_complete = function() {};
-		}		
+		if (!on_start) {
+			on_start = function() {};
+		}
+		if (!on_end) {
+			on_end = function() {};
+		}
 		
 		if (typeof(params.endX) != 'number') {
 			params.endX = params.startX
@@ -197,7 +200,8 @@ console.log(params);
 				transition: 'all '+params.duration+' linear',
 				transform: 'translateX('+px(translateX)+') translateY('+px(translateY)+')',
 			});
-			$image.on('transitionend', func_complete);
+			$image.on('transitionend', on_end);
+			on_start();
 		}
 		function postion_image() {
 			var startX = params.startX;
