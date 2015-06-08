@@ -9,8 +9,13 @@
 .subtitle_timer {
     background-color: #00FFFF;
     height: 2vh;
-    width: 0vw;
 }
+
+@-webkit-keyframes full_width {
+  0%   { width: 0; }
+  100% { width: 100vw; }
+}
+
 .subtitle_1 {
     color: yellow;
 }

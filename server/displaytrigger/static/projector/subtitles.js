@@ -29,9 +29,7 @@ var subtitles = {};
 			$timer.addClass('subtitle_timer');
 			if (subtitle) {
 				$timer.css({
-					width: 0,
-					transition: 'all '+(subtitle.stop-subtitle.start)+'ms linear',
-					transform: 'width 500px',  // This is broken
+					animation: 'full_width '+(subtitle.stop-subtitle.start)+'ms linear',
 				});
 			}
 			return $timer;
