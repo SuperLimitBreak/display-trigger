@@ -1,4 +1,4 @@
-var subtitle_display = {};
+var subtitles = {};
 (function(external, options){
 	options = _.extend({
 		selector_holder: '#screen',
@@ -12,7 +12,6 @@ var subtitle_display = {};
     var subtitle_src = "";
     var subtitles = [];
     
-    var start_timestamp;
     var timeout;
     
     // Utils -------------------------------------------------------------------
@@ -97,7 +96,7 @@ var subtitle_display = {};
     // Play --------------------------------------------------------------------
     
     function play() {
-        start_timestamp = Date.now();
+        var start_timestamp = Date.now();
         function update() {
             var timestamp = Date.now() - start_timestamp;
             var subtitle = get_subtitle_at_timestamp(timestamp);
@@ -123,6 +122,6 @@ var subtitle_display = {};
     external.stop = stop;
     
 }(
-	subtitle_display, {
+	subtitles, {
 	}
 ));
