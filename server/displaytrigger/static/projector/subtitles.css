@@ -1,0 +1,19 @@
+.subtitle {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    height: 48vh;
+    font-size: 10vh;
+    vertical-align: middle;
+}
+.subtitle_timer {
+    background-color: #00FFFF;
+    height: 2vh;
+    width: 0vw;
+}
+.subtitle_1 {
+    color: yellow;
+}
+.subtitle_2 {
+    color: white;
+}

@@ -1,10 +1,58 @@
 var subtitles = {};
 
+//subtitles.load('/static/assets/test.srt')
 
+
+// Display ---------------------------------------------------------------------
 
 (function(external, options){
 	options = _.extend({
 		selector_holder: '#screen',
+	}, options);
+	
+	function display(a, b, c) {
+		var $container = $(options.selector_holder);
+		$container.empty();
+		
+		function line(subtitle, index) {
+			if (!index) {index=1;}
+			var $subtitle = $('<div/>');
+			$subtitle.addClass('subtitle');
+			$subtitle.addClass('subtitle_'+index);
+			if (subtitle) {
+				$subtitle.text(subtitle.text);
+			}
+			return $subtitle;
+		}
+		function timer(subtitle) {
+			$timer = $('<div/>');
+			$timer.addClass('subtitle_timer');
+			if (subtitle) {
+				$timer.css({
+					width: 0,
+					transition: 'all '+(subtitle.stop-subtitle.start)+'ms linear',
+					transform: 'width 500px',  // This is broken
+				});
+			}
+			return $timer;
+		}
+		
+		$container.append(line(a, 1));
+		$container.append(timer(a));
+		$container.append(line(b, 2));
+	}
+	
+	external.display = display;
+}(
+	subtitles,{
+	}
+));
+
+
+// Model -----------------------------------------------------------------------
+
+(function(external, options){
+	options = _.extend({
         display_function: function(a,b,c){console.log(a,b,c);},
 	}, options);
 
@@ -67,12 +115,10 @@ var subtitles = {};
     
     function load(src, _options, event_listeners) {
 		_options = _.extend({
-			'selector_holder': options.selector_holder,
 			'play': true,
 		}, _options);
 
 		if (!src) {
-			$(_options.selector_holder).empty();
             subtitles = [];
 			return;
 		}
@@ -84,7 +130,7 @@ var subtitles = {};
                 success: function(data) {
                     subtitles = parse_subtitle_data(data);
                     subtitle_src = src;
-                    load_subtitles(src, _options, event_listeners);
+                    load(src, _options, event_listeners);
                 },
             });
             return;
@@ -99,7 +145,7 @@ var subtitles = {};
     // Play --------------------------------------------------------------------
     
     function play(seek_to_time) {
-		stop();
+		 stop();
 		var start_timestamp = Date.now();
         if (seek_to_time) {
 			start_timestamp += -seek_to_time;
@@ -130,5 +176,6 @@ var subtitles = {};
     
 }(
 	subtitles, {
+		display_function: subtitles.display,
 	}
 ));
