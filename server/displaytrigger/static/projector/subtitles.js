@@ -1,4 +1,7 @@
 var subtitles = {};
+
+
+
 (function(external, options){
 	options = _.extend({
 		selector_holder: '#screen',
@@ -95,8 +98,12 @@ var subtitles = {};
 
     // Play --------------------------------------------------------------------
     
-    function play() {
-        var start_timestamp = Date.now();
+    function play(seek_to_time) {
+		stop();
+		var start_timestamp = Date.now();
+        if (seek_to_time) {
+			start_timestamp += -seek_to_time;
+		}
         function update() {
             var timestamp = Date.now() - start_timestamp;
             var subtitle = get_subtitle_at_timestamp(timestamp);
