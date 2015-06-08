@@ -62,7 +62,7 @@ var subtitles = {};
 
     // Load --------------------------------------------------------------------
     
-    function load_subtitles(src, _options, event_listeners) {
+    function load(src, _options, event_listeners) {
 		_options = _.extend({
 			'selector_holder': options.selector_holder,
 			'play': true,
@@ -117,7 +117,7 @@ var subtitles = {};
     
     // Export ------------------------------------------------------------------
     
-    external.load_subtitles = load_subtitles;
+    external.load = load;
     external.play = play;
     external.stop = stop;
     
