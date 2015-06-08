@@ -13,7 +13,6 @@ var subtitle_display = {};
     var subtitles = [];
     
     var start_timestamp;
-    var current_subtitle;
     var timeout;
     
     // Utils -------------------------------------------------------------------
@@ -102,7 +101,6 @@ var subtitle_display = {};
         function update() {
             var timestamp = Date.now() - start_timestamp;
             var subtitle = get_subtitle_at_timestamp(timestamp);
-            current_subtitle = subtitle;
             var next_subtitle = subtitles[!_.isUndefined(subtitle) && subtitle.index || 0];
             options.display_function(subtitle, next_subtitle);
             if (!_.isUndefined(next_subtitle) && (next_subtitle.index + 1 < subtitles.length)) {
