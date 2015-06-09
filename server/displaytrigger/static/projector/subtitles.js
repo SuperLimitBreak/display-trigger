@@ -8,11 +8,17 @@ var subtitles = {};
 (function(external, options){
 	options = _.extend({
 		selector_holder: '#screen',
+		scroll_time: 200,
 	}, options);
 	
 	function display(a, b, c) {
 		var $container = $(options.selector_holder);
 		$container.empty();
+		
+		var time = 0;
+		if (a) {
+			time = a.stop - a.start;
+		};
 		
 		function line(subtitle, index) {
 			if (!index) {index=1;}
@@ -29,7 +35,7 @@ var subtitles = {};
 			$timer.addClass('subtitle_timer');
 			if (subtitle) {
 				$timer.css({
-					animation: 'full_width '+(subtitle.stop-subtitle.start)+'ms linear',
+					animation: 'full_width '+time+'ms linear',
 				});
 			}
 			return $timer;
@@ -38,6 +44,10 @@ var subtitles = {};
 		$container.append(line(a, 1));
 		$container.append(timer(a));
 		$container.append(line(b, 2));
+		
+		$container.find('.subtitle').css({
+			animation: 'scroll_out '+options.scroll_time+'ms '+(time-options.scroll_time)+'ms',
+		})
 	}
 	
 	external.display = display;
@@ -152,13 +162,14 @@ var subtitles = {};
 			var timestamp = Date.now() - start_timestamp;
 			var subtitle = get_subtitle_at_timestamp(timestamp);
 			var next_subtitle = subtitles[!_.isUndefined(subtitle) && subtitle.index || 0];
+			console.log(timestamp, subtitle, next_subtitle);
 			options.display_function(subtitle, next_subtitle);
-			if (!_.isUndefined(next_subtitle) && (next_subtitle.index + 1 < subtitles.length)) {
-				timeout = setTimeout(update, next_subtitle.start-timestamp);
+			if (next_subtitle) {
+				timeout = setTimeout(update, next_subtitle.start - timestamp);
 			}
-			//else {
-			//	stop();
-			//}
+			else {
+				stop();
+			}
 		}
 		update();
 	}

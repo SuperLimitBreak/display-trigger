@@ -5,6 +5,7 @@
     height: 48vh;
     font-size: 10vh;
     vertical-align: middle;
+    position: relative;
 }
 .subtitle_timer {
     background-color: #00FFFF;
@@ -15,6 +16,11 @@
   0%   { width: 0; }
   100% { width: 100vw; }
 }
+@-webkit-keyframes scroll_out {
+  0%   { top: 0; }
+  100% { top: -52vh; }
+}
+
 
 .subtitle_1 {
     color: yellow;
