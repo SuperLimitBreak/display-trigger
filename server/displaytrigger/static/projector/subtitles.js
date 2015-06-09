@@ -22,12 +22,11 @@ var subtitles = {};
 			return 0;
 		}
 		function get_duration_difference(subtitle, next_subtitle) {
-			if (subtitle && next_subtitle) {
-				return next_subtitle.start - subtitle.start;
+			if (next_subtitle) {
+				return next_subtitle.start - (subtitle && subtitle.start || 0);
 			}
 			return 0;
 		}
-		
 		
 		function line(index, subtitle, duration) {
 			index = index || 1;
@@ -40,9 +39,11 @@ var subtitles = {};
 				$subtitle.css({
 					animation: 'scroll_out '+options.scroll_time+'ms '+(duration - options.scroll_time)+'ms',
 				});
+				$subtitle.on('animationend', function(){$subtitle.empty()});
 			}
 			return $subtitle;
 		}
+		
 		function timer(duration) {
 			$timer = $('<div/>');
 			$timer.addClass('subtitle_timer');
@@ -58,9 +59,6 @@ var subtitles = {};
 		$container.append(timer(get_duration(a)));
 		$container.append(line(2, b, get_duration_difference(a, b)));
 		
-		//$container.find('.subtitle').css({
-		//	animation: 'scroll_out '+options.scroll_time+'ms '+(time-options.scroll_time)+'ms',
-		//})
 	}
 	
 	external.display = display;
@@ -134,7 +132,7 @@ var subtitles = {};
 	
 	function parse_subtitle_data(data) {
 		data = data.replace(/(\r\n|\r|\n)/g, '\n').split('\n\n');
-		return _.map(data, parse_srt_record);
+		return _.filter(_.map(data, parse_srt_record), function(element){return element.text});
 	};
 	
 
@@ -173,12 +171,12 @@ var subtitles = {};
 	
 	function play(seek_to_time) {
 		stop();
-		var start_timestamp = Date.now();
-		if (seek_to_time) {
+		var start_timestamp = _.now();
+		if (_.isNumber(seek_to_time)) {
 			start_timestamp += -seek_to_time;
 		}
 		function update() {
-			var timestamp = Date.now() - start_timestamp;
+			var timestamp = _.now() - start_timestamp;
 			if (timestamp > _.last(subtitles).stop) {
 				stop();
 				return;
