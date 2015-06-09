@@ -15,39 +15,52 @@ var subtitles = {};
 		var $container = $(options.selector_holder);
 		$container.empty();
 		
-		var time = 0;
-		if (a) {
-			time = a.stop - a.start;
-		};
+		function get_duration(subtitle) {
+			if (subtitle) {
+				return (subtitle.stop - subtitle.start);
+			}
+			return 0;
+		}
+		function get_duration_difference(subtitle, next_subtitle) {
+			if (subtitle && next_subtitle) {
+				return next_subtitle.start - subtitle.start;
+			}
+			return 0;
+		}
 		
-		function line(subtitle, index) {
-			if (!index) {index=1;}
+		
+		function line(index, subtitle, duration) {
+			index = index || 1;
+			duration = duration || 0;
 			var $subtitle = $('<div/>');
 			$subtitle.addClass('subtitle');
 			$subtitle.addClass('subtitle_'+index);
 			if (subtitle) {
 				$subtitle.text(subtitle.text);
+				$subtitle.css({
+					animation: 'scroll_out '+options.scroll_time+'ms '+(duration - options.scroll_time)+'ms',
+				});
 			}
 			return $subtitle;
 		}
-		function timer(subtitle) {
+		function timer(duration) {
 			$timer = $('<div/>');
 			$timer.addClass('subtitle_timer');
-			if (subtitle) {
+			if (duration) {
 				$timer.css({
-					animation: 'full_width '+time+'ms linear',
+					animation: 'full_width '+duration+'ms linear',
 				});
 			}
 			return $timer;
 		}
 		
-		$container.append(line(a, 1));
-		$container.append(timer(a));
-		$container.append(line(b, 2));
+		$container.append(line(1, a, get_duration(a)));
+		$container.append(timer(get_duration(a)));
+		$container.append(line(2, b, get_duration_difference(a, b)));
 		
-		$container.find('.subtitle').css({
-			animation: 'scroll_out '+options.scroll_time+'ms '+(time-options.scroll_time)+'ms',
-		})
+		//$container.find('.subtitle').css({
+		//	animation: 'scroll_out '+options.scroll_time+'ms '+(time-options.scroll_time)+'ms',
+		//})
 	}
 	
 	external.display = display;
@@ -81,6 +94,12 @@ var subtitles = {};
 		});
 	}
 
+	function safe_get(list, index) {
+		if (!list) {return undefined;}
+		if (index < list.length) {return list[index];}
+		return undefined;
+	}
+	
 	// Parse SRT ---------------------------------------------------------------
 	
 	function parse_srt_time(value) {
@@ -130,7 +149,7 @@ var subtitles = {};
 			subtitles = [];
 			return;
 		}
-		
+
 		if (src != subtitle_src) {
 			$.ajax({
 				method: 'get',
@@ -160,15 +179,21 @@ var subtitles = {};
 		}
 		function update() {
 			var timestamp = Date.now() - start_timestamp;
-			var subtitle = get_subtitle_at_timestamp(timestamp);
-			var next_subtitle = subtitles[!_.isUndefined(subtitle) && subtitle.index || 0];
-			console.log(timestamp, subtitle, next_subtitle);
-			options.display_function(subtitle, next_subtitle);
-			if (next_subtitle) {
-				timeout = setTimeout(update, next_subtitle.start - timestamp);
-			}
-			else {
+			if (timestamp > _.last(subtitles).stop) {
 				stop();
+				return;
+			}
+			var subtitle = get_subtitle_at_timestamp(timestamp);
+			var next_subtitle_index = !_.isUndefined(subtitle) && subtitle.index;
+			var next_subtitle = subtitles[next_subtitle_index || 0];
+			
+			// Display ---
+			options.display_function(subtitle, next_subtitle);
+			
+			// Next ---
+			var next_time = (next_subtitle || {}).start || (subtitle || {}).stop;
+			if (next_time) {
+				timeout = setTimeout(update, next_time - timestamp);
 			}
 		}
 		update();
