@@ -65,7 +65,9 @@ Implemented Features
 * Local and remote assets
 * API for more advanced use
   * precache events to ensure projector client responds quickly
-
+* Additional Modules
+  * Pixel Background Scroller (smoothy scrolling images fullscree)
+  * SRT Subtitle Prompter (Trigger onscreen subtitle prompts for karaoke)
 
 
 Proposed Features
