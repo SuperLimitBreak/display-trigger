@@ -11,6 +11,10 @@ var webrtc_video = {};
 	options = _.extend({
 		selector_holder: '#offscreen_video_feeds',
 		fps: 5,
+		canvas: {
+			width: 320,
+			height: 200,
+		}
 	}, options);
 	
 	var videos = [];
@@ -53,16 +57,24 @@ var webrtc_video = {};
 		$video.attr('autoplay', true);  // http://stackoverflow.com/questions/20822833/only-one-frame-displayed-webrtc-stream
 		var video = $video[0];
 		assignStreamToVideoElement(stream, video);
+		
+		var offscreenCanvas = document.createElement('canvas');
+		offscreenCanvas.width = options.canvas.width;
+		offscreenCanvas.height = options.canvas.height;
+		var offscreenContext = offscreenCanvas.getContext('2d');
+		
 		var $canvas = $('<canvas/>');
 		var canvas = $canvas[0];
-		canvas.width = 320;
-		canvas.height = 200;
+		canvas.width = options.canvas.width;
+		canvas.height = options.canvas.height;
 		var context = canvas.getContext('2d');
 		
 		videos.push({
 			stream: stream,
 			canvas: canvas,
-			conext: context,
+			context: context,
+			offscreenCanvas: offscreenCanvas,
+			offscreenContext: offscreenContext,
 		});
 		
 		var $container = $(options.selector_holder);
@@ -71,7 +83,11 @@ var webrtc_video = {};
 		
 		function update_video_canvas() {
 			if (video.paused || video.ended) {return};
-			context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+			offscreenContext.drawImage(video, 0, 0, offscreenCanvas.width, offscreenCanvas.height);
+			//var idata = offscreenContext.getImageData(0,0,w,h);
+			//context.putImageData(idata,0,0);
+			context.drawImage(offscreenCanvas, 0, 0, canvas.width, canvas.height);
 			setTimeout(update_video_canvas, Math.floor(1000/options.fps));
 		};
 		$video.on('play', update_video_canvas);
