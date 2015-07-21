@@ -74,7 +74,7 @@ body {
     display: none;
     background-color: black;
 }
-.fade #fader {
+#fader.fade {
 	opacity: 1;
 	-webkit-animation-name: fader_fade_in;
 	-webkit-animation-iteration-count: 1;

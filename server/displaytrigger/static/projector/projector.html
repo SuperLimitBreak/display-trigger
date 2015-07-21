@@ -1,7 +1,5 @@
 <html>
-
 	<head>
-
 		<meta charset="utf-8">
 
 		<title>DisplayTrigger</title>
@@ -16,14 +14,23 @@
 		<!-- Scripts -->
 		<script src="/ext/underscore-min.js"></script>
 		<script src="/ext/jquery.min.js"></script>
+		
+		<!-- Custom External Libs -->
+		<script src="/ext/dither.js"></script>
 		<script src="/ext/websocket.js"></script>
-		<script src="projector_base.js"></script>
-		<script src="overlay.js"></script>
+		<script src="/ext/utils.js"></script>
+		
+		<!-- Display trigger modules -->
 		<script src="trigger.js"></script>
+		<script src="image.js"></script>
 		<script src="video.js"></script>
+		<script src="overlay.js"></script>
+		<script src="fader.js"></script>
 		<script src="webrtc_video.js"></script>
+		<script src="subtitles.js"></script>
 		<!--<script src="background_scroller.js"></script>-->
 		<!--<script src="/ext/pentatonic_hero_visulisation.js"></script>-->
+		<script src="init.js"></script>
 
 	</head>
 
@@ -31,16 +38,17 @@
 		<div id="screen">
 			
 		</div>
-		<div id="fader">
-			
-		</div>
-		<div id="overlay">
-			
-		</div>
 		<div id="offscreen">
 			
 		</div>
 		<div id="offscreen_video_feeds">
+			
+		</div>
+
+		<div id="fader">
+			
+		</div>
+		<div id="overlay">
 			
 		</div>
 	</body>

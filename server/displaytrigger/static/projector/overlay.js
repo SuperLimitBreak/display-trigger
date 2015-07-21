@@ -1,11 +1,11 @@
 var overlay = {};
+
 (function(external, options){
 	options = _.extend({
 		element_selector: '#overlay',
 		element_selector_top_level: 'body',
 		overlay_classname_active: 'show_overlay',
 		default_duration: 5000,
-		fade_classname_active: 'fade',
 	}, options);
 
 	function show_overlay(element_selector, html, classname_active) {
@@ -29,7 +29,7 @@ var overlay = {};
 		overlay_timeouts[timeout_name || 'default'] = setTimeout(timeout_function, duration);
 	}
 
-	external.overlay_html = function(data) {
+	function html_bubble(data) {
 		data = _.extend({
 			html            : '',
 			duration        : options.default_duration,
@@ -42,16 +42,10 @@ var overlay = {};
 		set_overlay_timeout(data.timeout_name, function(){hide_overlay(data.classname_active)}, data.duration);
 	}
 	
-	external.fade_out = function(callback_fade_complete) {
-		var fade_key = 'fade';
-		show_overlay('#fader', '', fade_key);
-		clear_overlay_timeout(fade_key);
-		set_overlay_timeout(fade_key, function(){
-			callback_fade_complete();
-			hide_overlay(fade_key);
-		}, 1500);
-	}
-}(
-	overlay, {
-	}
-));
+	_.extend(external, {
+		html_bubble: html_bubble,
+	});
+	
+}(overlay, {
+	
+}));

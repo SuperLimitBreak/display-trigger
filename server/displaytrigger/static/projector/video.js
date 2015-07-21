@@ -1,38 +1,41 @@
+var video = {};
 
 (function(external, options){
 	options = _.extend({
-		selector_holder: '#fullscreen_video',
+		target_selector: '',
+		default_event_listeners: {}
 	}, options);
 
-	function _get_video_element(create, selector_holder, onCreateVideo) {
-		if (!selector_holder) {selector_holder = options.selector_holder;}
-		var selector_video = selector_holder+' video';
+	function _get_video_element(create, target_selector, onCreateVideo) {
+		if (!target_selector) {target_selector = options.target_selector;}
+		var selector_video = target_selector+' video';
 		var video = $(selector_video).get(0);
 		if (!video && create) {
-			$(selector_holder).append('<video></video>');
+			$(target_selector).append('<video></video>');
 			video = $(selector_video).get(0);
 			onCreateVideo(video);
 		}
 		return video || {};
 	}
 
-	function load_video(src, _options, event_listeners) {
+	function load(src, _options, event_listeners) {
 		_options = _.extend({
-			'selector_holder': options.selector_holder,
+			'target_selector': options.target_selector,
 			'play': true,
 			'volume': 1.0,
 			'loop': false,
 		}, _options);
 
-		$(_options.selector_holder+' :not(video)').remove();
+		$(_options.target_selector+' :not(video)').remove();
 		if (!src) {
-			$(_options.selector_holder).empty();
+			$(_options.target_selector).empty();
 			return;
 		}
 
-		var video = _get_video_element(true, _options.selector_holder, function(video){
+		var video = _get_video_element(true, _options.target_selector, function(video){
 			_.each(event_listeners || {}, function(value, key, dict){
 				video.addEventListener(key, value);
+				// Future Feature: Consider a custom event that fires a few seconds before the end to allow a smooth fade out
 			});
 		});
 
@@ -56,9 +59,30 @@
 			video.play();
 		}
 	}
+	
+	function precache(data) {
+		//if (utils.is_video(data.src)) {
+		load(
+			data.src,
+			_.extend(data, {play: false})
+		);
+	}
 
-	external.load_video = load_video;
+	function start(data, event_listeners) {
+		//if (utils.is_video(data.src)) {
+		load(
+			data.src,
+			_.extend(data, {play: true}),
+			_.extend({}, options.default_event_listeners, event_listeners)
+		);
+	}
+	
+	_.extend(external, {
+		precache: precache,
+		start: start,
+	});
 
-}(window, {
-	'selector_holder': '#screen',
+}(video, {
+	'target_selector': '#screen',
+	'default_event_listeners': {ended: trigger.empty}
 }));
