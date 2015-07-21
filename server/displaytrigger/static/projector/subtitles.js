@@ -7,7 +7,7 @@ var subtitles = {};
 
 (function(external, options){
 	options = _.extend({
-		selector_holder: '#screen',
+		selector_holder: '',
 		scroll_time: 200,
 	}, options);
 	
@@ -64,6 +64,7 @@ var subtitles = {};
 	external.display = display;
 }(
 	subtitles,{
+		selector_holder: '#screen',
 	}
 ));
 
