@@ -17,6 +17,6 @@ var trigger = {};
 		empty: empty,
 	});
 
-}(trigger, {
+}(trigger, utils.functools.get('options.trigger') || {
 	target_selector: '#screen',
 }));

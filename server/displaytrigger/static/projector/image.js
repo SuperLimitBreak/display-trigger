@@ -21,7 +21,7 @@ var image = {};
 		start: start,
 	});
 
-}(image, {
+}(image, utils.functools.get('options.image') || {
 	'target_selector': '#screen',
 }));
 

@@ -9,7 +9,7 @@
 				if (!iframe_window) {log.error("Invalid trigger target", options.iframe_id); return;}
 				// Attempt direct javascript call to iframe
 				try {
-					utils.get_func(iframe_window, data.func_iframe)(data);
+					utils.functools.get_func(data.func_iframe, iframe_window)(data);
 				}
 				// Fallback to html5 postMessage()
 				catch (error) {

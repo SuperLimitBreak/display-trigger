@@ -5,7 +5,7 @@ var video = {};
 		target_selector: '',
 		default_event_listeners: {}
 	}, options);
-
+	
 	function _get_video_element(create, target_selector, onCreateVideo) {
 		if (!target_selector) {target_selector = options.target_selector;}
 		var selector_video = target_selector+' video';
@@ -25,7 +25,7 @@ var video = {};
 			'volume': 1.0,
 			'loop': false,
 		}, _options);
-
+		
 		$(_options.target_selector+' :not(video)').remove();
 		if (!src) {
 			$(_options.target_selector).empty();
@@ -64,7 +64,7 @@ var video = {};
 		//if (utils.is_video(data.src)) {
 		load(
 			data.src,
-			_.extend(data, {play: false})
+			_.extend({}, data, {play: false})
 		);
 	}
 
@@ -72,7 +72,7 @@ var video = {};
 		//if (utils.is_video(data.src)) {
 		load(
 			data.src,
-			_.extend(data, {play: true}),
+			_.extend({}, data, {play: true}),
 			_.extend({}, options.default_event_listeners, event_listeners)
 		);
 	}
@@ -82,7 +82,7 @@ var video = {};
 		start: start,
 	});
 
-}(video, {
+}(video, utils.functools.get('options.video') || {
 	'target_selector': '#screen',
 	'default_event_listeners': {ended: trigger.empty}
 }));

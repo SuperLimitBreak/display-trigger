@@ -30,7 +30,7 @@ var fader = {};
 		fade_out: fade_out,
 	});
 
-}(fader, {
+}(fader, utils.functools.get('options.fader') || {
 	'target_selector': '#fader',
 	'fade_duration': 1500,
 }));

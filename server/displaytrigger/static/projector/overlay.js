@@ -46,6 +46,6 @@ var overlay = {};
 		html_bubble: html_bubble,
 	});
 	
-}(overlay, {
+}(overlay, utils.functools.get('options.fader') || {
 	
 }));

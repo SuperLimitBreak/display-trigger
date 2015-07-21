@@ -212,7 +212,7 @@ var subtitles = {};
 	external.stop = stop;
 	
 }(
-	subtitles, {
+	subtitles, utils.functools.get('options.subtiles') || {
 		display_function: subtitles.display,
 	}
 ));

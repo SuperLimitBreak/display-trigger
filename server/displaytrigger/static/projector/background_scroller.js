@@ -243,4 +243,6 @@ console.log(params);
 	external.setup_background = setup_background;
 	external.scroller = scroller;
 
-}(background_scroller, {}));
+}(background_scroller, utils.functools.get('options.background_scroller') || {
+	
+}));
