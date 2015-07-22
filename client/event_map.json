@@ -15,7 +15,7 @@
             "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"
         }
     },
-	{
+    {
         "name": "overlay_silent_hill2_2",
         "events": ["i", "note_on-D#2"],
         "func": "overlay.html_bubble",
@@ -71,7 +71,7 @@
             "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"
         }
     },
-	{
+    {
         "name": "overlay_world_is_mine",
         "events": ["note_on-D5"],
         "func": "overlay.html_bubble",
@@ -115,7 +115,7 @@
             "src": "/static/assets/assets/miku.mp4"
         }
     },
-	{
+    {
         "name": "test_video_miku",
         "events": ["b", "note_on-C#5"],
         "func": "video.start",
@@ -157,7 +157,7 @@
             "volume": 0
         }
     },
-	{
+    {
         "name": "test_video_saikano_precache",
         "events": ["x", "note_on-C6"],
         "func": "video.precache",
@@ -203,7 +203,7 @@
             "volume": 0
         }
     },
-	{
+    {
         "name": "test_reignite",
         "events": ["t", "note_on-C7"],
         "func": "image.start",
@@ -214,16 +214,24 @@
     
     
     
-	{
-		"name":"test_lighting",
-		"events": "0",
-		"func": "DMXRendererLightTiming.start",
-		"params": {
-			"sequence": "test",
-			"bpm": 200.0
-		}
-	},
-    
+    {
+        "name":"test_lighting",
+        "events": "0",
+        "func": "DMXRendererLightTiming.start",
+        "params": {
+            "sequence": "test",
+            "bpm": 200.0
+        }
+    },
+
+    {
+        "name":"test_scroller",
+        "events": "9",
+        "func": "background_scroller.start_scroll_sequence",
+        "params": {
+            "name": "castelvania_1"
+        }
+    },
     
     
     {
