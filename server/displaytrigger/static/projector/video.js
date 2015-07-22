@@ -2,7 +2,7 @@ var video = {};
 
 (function(external, options){
 	options = _.extend({
-		target_selector: '',
+		target_selector: '#screen',
 		default_event_listeners: {}
 	}, options);
 	
@@ -82,7 +82,4 @@ var video = {};
 		start: start,
 	});
 
-}(video, utils.functools.get('options.video') || {
-	'target_selector': '#screen',
-	'default_event_listeners': {ended: trigger.empty}
-}));
+}(video, utils.functools.get('options.video')));

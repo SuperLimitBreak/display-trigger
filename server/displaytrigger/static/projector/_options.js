@@ -1,9 +1,10 @@
-var x_options = {
+var options = {
     image: {
         
     },
     video: {
-        
+        target_selector: '#screen',
+        //default_event_listeners: {ended: trigger.empty},
     },
     fader: {
         

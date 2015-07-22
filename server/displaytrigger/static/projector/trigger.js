@@ -3,7 +3,6 @@ var trigger = {};
 (function(external, options){
 	options = _.extend({
 		target_selector: '#screen',
-		iframe_id: 'iframe_id',
 	}, options);
 	
 	
@@ -17,6 +16,4 @@ var trigger = {};
 		empty: empty,
 	});
 
-}(trigger, utils.functools.get('options.trigger') || {
-	target_selector: '#screen',
-}));
+}(trigger, utils.functools.get('options.trigger')));

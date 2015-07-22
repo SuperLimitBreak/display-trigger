@@ -2,8 +2,8 @@ var fader = {};
 
 (function(external, options){
 	options = _.extend({
-		target_selector: '',
-		fade_duration: 1000,
+		target_selector: '#fader',
+		fade_duration: 1500,
 		fade_classname_active: 'fade',
 	}, options);
 
@@ -30,7 +30,4 @@ var fader = {};
 		fade_out: fade_out,
 	});
 
-}(fader, utils.functools.get('options.fader') || {
-	'target_selector': '#fader',
-	'fade_duration': 1500,
-}));
+}(fader, utils.functools.get('options.fader')));

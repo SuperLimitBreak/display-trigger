@@ -185,7 +185,5 @@ var constraints = {
 	}
 
 	external.initVideoDevices = initVideoDevices;
-}(
-	webrtc_video, utils.functools.get('options.webrtc_video') || {
-	}
-));
+
+}(webrtc_video, utils.functools.get('options.webrtc_video')));

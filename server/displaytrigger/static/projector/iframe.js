@@ -1,4 +1,8 @@
 /*
+
+	iframe_id: 'iframe_id',
+		
+		
 		iframe: function(data) {
 			if (data.src) {
 				set_target("<iframe id='IFRAME_ID' src='SRC' scrolling='no'>".replace('SRC', data.src).replace('IFRAME_ID', options.iframe_id));

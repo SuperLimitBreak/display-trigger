@@ -31,6 +31,7 @@ var background_scroller = {};
 
 	var css = {};
 
+	// TODO: move backgrounds and scrolls to 'options'
 	var backgrounds = {
 		castelvania_1: {
 			background_url: '/ext/castlevaniafullgamemapempty.PNG',
@@ -243,6 +244,4 @@ console.log(params);
 	external.setup_background = setup_background;
 	external.scroller = scroller;
 
-}(background_scroller, utils.functools.get('options.background_scroller') || {
-	
-}));
+}(background_scroller, utils.functools.get('options.background_scroller')));
