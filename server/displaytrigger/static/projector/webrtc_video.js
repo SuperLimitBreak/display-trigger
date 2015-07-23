@@ -10,7 +10,10 @@ var webrtc_video = {};
 (function(external, options){
 	options = _.extend({
 		selector_holder: '#offscreen_video_feeds',
-		fps: 3,
+		auto_init_devices: false,
+		video_source: {
+			minFrameRate: 30,
+		},
 		canvas: {
 			width: 320,
 			height: 200,
@@ -42,10 +45,10 @@ var webrtc_video = {};
 						mandatory: {
 							//width: 1280,
 							//framerate: 60,
-							minWidth: 320, minHeight: 240,
-							maxWidth: 320, maxHeight: 240,
+							minWidth: options.canvas.width, minHeight: options.canvas.height,
+							maxWidth: options.canvas.width, maxHeight: options.canvas.height,
 							//framerate: 60,
-							minFrameRate: 30
+							minFrameRate: options.video_source.minFrameRate,
 						},
 						optional: [{
 							sourceId: media_source.id
@@ -154,6 +157,9 @@ var constraints = {
 		var context = canvas.getContext('2d');
 		
 		videos.push({
+			id: stream.id,
+			$video: $video,
+			video: video,
 			stream: stream,
 			canvas: canvas,
 			context: context,
@@ -172,7 +178,7 @@ var constraints = {
 			//var idata = offscreenContext.getImageData(0,0,w,h);
 			//context.putImageData(idata,0,0);
 			
-			DitherJSInternals.dither(offscreenContext, "ordered", DitherJSInternals.palettes.C64, 1, context);
+			//DitherJSInternals.dither(offscreenContext, "ordered", DitherJSInternals.palettes.C64, 1, context);
 			//context.drawImage(offscreenCanvas, 0, 0, canvas.width, canvas.height);
 			
 			//setTimeout(update_video_canvas, 1);// Math.floor(1000/options.fps)
@@ -182,8 +188,23 @@ var constraints = {
 
 	function initVideoDevices() {
 		getAllVideoDevices(openNewStream, errorCallback);
+	};
+	
+	function stopVideoDevices() {
+		$(options.selector_holder).empty();
+		_.each(videos, function(video, index, list){
+			video.stream.stop();
+		});
+		videos = [];
+	};
+
+	_.extend(external, {
+		initVideoDevices: initVideoDevices,
+		stopVideoDevices: stopVideoDevices,
+		videos: videos,
+	});
+
+	if (options.auto_init_devices) {
+		initVideoDevices();
 	}
-
-	external.initVideoDevices = initVideoDevices;
-
 }(webrtc_video, utils.functools.get('options.webrtc_video')));

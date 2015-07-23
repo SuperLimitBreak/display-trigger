@@ -244,6 +244,14 @@
     },
 
     
+    {
+        "name":"test_webrtc_video",
+        "events": "7",
+        "func": "webrtc_video.initVideoDevices",
+        "params": {}
+    },
+
+    
     
     {
         "name": "test1",
