@@ -3,24 +3,6 @@ var background_scroller = {};
 
 (function(external, options) {
 
-	// Constants ---------------------------------------------------------------
-
-	var BACKGROUND_CSS = {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		left: 0,
-		right: 0,
-		//image-rendering: -webkit-optimize-contrast,
-		//image-rendering: -webkit-crisp-edges,
-		//'image-rendering': "-moz-crisp-edges",
-		//image-rendering: -o-crisp-edges,
-		'image-rendering': 'pixelated',
-		'background-color': 'black',
-		overflow: 'hidden',
-	};
-
-
 	// Options -----------------------------------------------------------------
 
 	options = _.extend({
@@ -30,7 +12,7 @@ var background_scroller = {};
 	}, options);
 
 
-	// Functions ---------------------------------------------------------------
+	// Utils -------------------------------------------------------------------
 
 	// Cache load fix - http://mikefowler.me/2014/04/22/cached-images-load-event/
 	function on_image_load($image, f) {
@@ -39,11 +21,13 @@ var background_scroller = {};
 			$image.load();
 		}
 	}
+
+	// Scroll Sequence  --------------------------------------------------------
 	
-	function start_scroll_sequence(data) {
+	function scroll_sequence(data) {
 		var name = data.name || data;
 		var _scrolls = _.map(options.scrolls[name], function(scroll_item_data){
-			var background_item_data = options.backgrounds[scroll_item.background] || {};
+			var background_item_data = options.backgrounds[scroll_item_data.background] || {};
 			return _.extend({}, background_item_data, scroll_item_data);
 		}).reverse();
 		function next() {
@@ -52,11 +36,17 @@ var background_scroller = {};
 		}
 		next();
 	}
+
+	// Scroll Item  ------------------------------------------------------------
 	
 	function scroll_item(scroll_params, on_start, on_end, _options) {
-		var options = _.extend({}, options, _options);
-		var $element = $(options.selector_holder);
-console.log(scroll_params);
+		_options = _.extend({}, options, _options);
+		var $parent_container = $(_options.selector_holder);
+		
+		if (!scroll_params.background_url) {
+			console.error('scroll_item unable to process because missing background_url');
+			return;
+		}
 		
 		if (!on_start) {
 			on_start = function() {};
@@ -72,39 +62,38 @@ console.log(scroll_params);
 			scroll_params.endY = scroll_params.startY
 		}
 
-		var ratio = $element.innerHeight() / scroll_params.source_screen_height;
+		var ratio = $parent_container.innerHeight() / scroll_params.source_screen_height;
 		function px(value) {
 			return ''+(value*ratio)+'px';
 		}
 		function px2(x, y) {
 			return ''+px(x)+' '+px(y);
 		}
-		var $image = $element.find('img');
-		var image_in_dom = ($image.attr('src') == scroll_params.background_url);
+		var $image = $parent_container.find('img');
+		var is_image_in_dom = ($image.attr('src') == scroll_params.background_url);
 
-		if (!image_in_dom) {
-			$element.empty();
+		if (!is_image_in_dom) {
+			$parent_container.empty();
 			var $container = $('<div/>');
 			$image = $('<img/>');
-			$container.css(BACKGROUND_CSS);
+			//$container.css(BACKGROUND_CSS);
+			$container.addClass('background_scroller');
 			$container.append($image);
-			$element.append($container);
+			$parent_container.append($container);
 		}
-
 		function transition_image() {
 			var translateX = scroll_params.endX - scroll_params.startX;
 			var translateY = 0;
 			if (scroll_params.endX < scroll_params.startX) {
-				translateX += $element.innerWidth() / ratio;
+				translateX += $parent_container.innerWidth() / ratio;
 			}
 			if (scroll_params.endX > scroll_params.startX) {
-				translateX += -$element.innerWidth() / ratio;
+				translateX += -$parent_container.innerWidth() / ratio;
 			}
 			if (scroll_params.endY < scroll_params.startY) {
-				translateY = (scroll_params.endY - scroll_params.startY) + $element.innerHeight() / ratio;
+				translateY = (scroll_params.endY - scroll_params.startY) + $parent_container.innerHeight() / ratio;
 			}
 			// todo: inverse y direction
-
 			$image.css({
 				transition: 'all '+scroll_params.duration+' linear',
 				transform: 'translateX('+px(translateX)+') translateY('+px(translateY)+')',
@@ -116,10 +105,10 @@ console.log(scroll_params);
 			var startX = scroll_params.startX;
 			var startY = scroll_params.startY;
 			if (scroll_params.endX > scroll_params.startX) {
-				startX += $element.innerWidth() / ratio;
+				startX += $parent_container.innerWidth() / ratio;
 			}
 			if (scroll_params.endY > scroll_params.startY) {
-				startY += $element.innerHeight() / ratio;
+				startY += $parent_container.innerHeight() / ratio;
 			}
 			$image.css({
 				left: px(startX),
@@ -128,8 +117,7 @@ console.log(scroll_params);
 				transform: '',
 			});
 		}
-
-		if (!image_in_dom) {
+		if (!is_image_in_dom) {
 			on_image_load($image, transition_image);
 			$image.attr('src', scroll_params.background_url);
 			$image.css({
@@ -151,7 +139,7 @@ console.log(scroll_params);
 	
 	_.extend(external, {
 		scroll_item: scroll_item,
-		start_scroll_sequence: start_scroll_sequence,
+		scroll_sequence: scroll_sequence,
 	});
 
 }(background_scroller, utils.functools.get('options.background_scroller')));

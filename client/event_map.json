@@ -227,7 +227,7 @@
     {
         "name":"test_scroller",
         "events": "9",
-        "func": "background_scroller.start_scroll_sequence",
+        "func": "background_scroller.scroll_sequence",
         "params": {
             "name": "castelvania_1"
         }
