@@ -1,6 +1,6 @@
 var subtitles = {};
 
-//subtitles.load('/static/assets/test.srt')
+//subtitles.load({src: '/static/assets/test.srt'})
 
 
 // Display ---------------------------------------------------------------------
@@ -135,42 +135,45 @@ var subtitles = {};
 
 	// Load --------------------------------------------------------------------
 	
-	function load(src, _options, event_listeners) {
+	function load(_options, event_listeners) {
 		_options = _.extend({
-			'play': true,
+			src: '',
+			play_on_load: true,
+			seek_to_time: null,
 		}, _options);
 
-		if (!src) {
+		if (!_options.src) {
 			subtitles = [];
 			return;
 		}
 
-		if (src != subtitle_src) {
+		if (_options.src != subtitle_src) {
 			$.ajax({
 				method: 'get',
-				url: src,
+				url: _options.src,
 				success: function(data) {
 					subtitles = parse_subtitle_data(data);
-					subtitle_src = src;
-					load(src, _options, event_listeners);
+					subtitle_src = _options.src;
+					load(_options, event_listeners);
 				},
 			});
 			return;
 		}
 		
-		if (!_.isEmpty(subtitles) && _options.play) {
-			play();
+		if (!_.isEmpty(subtitles) && _options.play_on_load) {
+			play(_options);
 		}
 
 	};
 
 	// Play --------------------------------------------------------------------
 	
-	function play(seek_to_time) {
+	function play(_options) {
+		_options = _options || {};
 		stop();
 		var start_timestamp = _.now();
-		if (_.isNumber(seek_to_time)) {
-			start_timestamp += -seek_to_time;
+		if (_.isNumber(_options.seek_to_time)) {
+			start_timestamp += -_options.seek_to_time;
 		}
 		function update() {
 			var timestamp = _.now() - start_timestamp;

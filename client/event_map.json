@@ -233,6 +233,17 @@
         }
     },
     
+    {
+        "name":"test_subtitles",
+        "events": "8",
+        "func": "subtitles.load",
+        "params": {
+            "src": "/static/assets/test.srt",
+            "play_on_load": true
+        }
+    },
+
+    
     
     {
         "name": "test1",
