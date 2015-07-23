@@ -210,8 +210,7 @@ var subtitles = {};
 	external.play = play;
 	external.stop = stop;
 	
-}(
-	subtitles, utils.functools.get('options.subtiles') || {
+}(subtitles, {
 		display_function: subtitles.display,
 	}
 ));
