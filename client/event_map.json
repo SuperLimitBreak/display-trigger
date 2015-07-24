@@ -271,6 +271,36 @@
     },
     
     {
+        "name":"test_pentatonic_hero",
+        "events": "1",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1",
+            "mute": true
+        }
+    },
+    {
+        "name":"test_pentatonic_hero",
+        "events": "2",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1",
+            "mute": false
+        }
+    },
+    {
+        "name":"test_pentatonic_hero",
+        "events": "3",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1"
+        }
+    },
+
+
+    
+    
+    {
         "name": "test1",
         "events": ["q"],
         "payload": {
