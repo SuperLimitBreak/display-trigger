@@ -252,7 +252,7 @@
             "func": "webrtc_video.initVideoDevices"
         }
     },
-
+    
     {
         "name":"test_multi_command",
         "events": "6",
@@ -262,6 +262,13 @@
         ]
     },
     
+    {
+        "name":"test_pentatonic_hero",
+        "events": "5",
+        "payload": {
+            "func": "pentatonic_hero.start"
+        }
+    },
     
     {
         "name": "test1",
