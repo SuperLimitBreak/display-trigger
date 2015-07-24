@@ -2,80 +2,81 @@
     {
         "name": "empty",
         "events": [" ", "note_on-A3"],
-        "func": "trigger.empty",
-        "params": {}
+        "payload": {
+            "func": "trigger.empty"
+        }
     },
 
     
     {
         "name": "overlay_silent_hill2_1",
         "events": ["i", "note_on-D2"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"
         }
     },
     {
         "name": "overlay_silent_hill2_2",
         "events": ["i", "note_on-D#2"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"
         }
     },
     {
         "name": "overlay_remilla_scarlet",
         "events": ["o", "note_on-C#4"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"
         }
     },
     {
         "name": "overlay_gurren_lagan",
         "events": ["p", "note_on-C#0"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
         }
     },
     {
         "name": "overlay_final_fasntasy_7",
         "events": ["k"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"
         }
     },
     {
         "name": "overlay_reignite",
         "events": ["u", "note_on-C#7"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"
         }
     },
     {
         "name": "overlay_god_knows",
         "events": ["y", "note_on-C#1"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
         }
     },
     {
         "name": "overlay_siakano",
         "events": ["l", "note_on-D6"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"
         }
     },
     {
         "name": "overlay_world_is_mine",
         "events": ["note_on-D5"],
-        "func": "overlay.html_bubble",
-        "params": {
+        "payload": {
+            "func": "overlay.html_bubble",
             "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"
         }
     },
@@ -88,16 +89,16 @@
     {
         "name": "ff7_iframe",
         "events": ["a", "note_on-C3"],
-        "func": "trigger.iframe",
-        "params": {
+        "payload": {
+            "func": "trigger.iframe",
             "src": "http://localhost:8808/static/projector/battlescape.html"
         }
     },
     {
         "name": "ff7_iframe",
         "events": ["s", "note_on-C#3"],
-        "func": "trigger.iframe",
-        "params": {
+        "payload": {
+            "func": "trigger.iframe",
             "func_iframe": "preroll"
         }
     },
@@ -110,24 +111,24 @@
     {
         "name": "test_video_miku_precache",
         "events": ["b", "note_on-C5"],
-        "func": "video.precache",
-        "params": {
+        "payload": {
+            "func": "video.precache",
             "src": "/static/assets/assets/miku.mp4"
         }
     },
     {
         "name": "test_video_miku",
         "events": ["b", "note_on-C#5"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/miku.mp4"
         }
     },
     {
         "name": "test_video_remilla",
         "events": ["v", "note_on-C4"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/remilla_scarlet.mp4",
             "volume": 0.0
         }
@@ -135,24 +136,24 @@
     {
         "name": "test_video_remilla_precache",
         "events": ["c"],
-        "func": "video.precache",
-        "params": {
+        "payload": {
+            "func": "video.precache",
             "src": "/static/assets/assets/remilla_scarlet.mp4"
         }
     },
     {
         "name": "test_video_silent_hill_precache",
         "events": ["n", "note_on-C2"],
-        "func": "video.precache",
-        "params": {
+        "payload": {
+            "func": "video.precache",
             "src": "/static/assets/assets/silent_hill.mp4"
         }
     },
     {
         "name": "test_video_silent_hill",
         "events": ["m", "note_on-C#2"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/silent_hill.mp4",
             "volume": 0
         }
@@ -160,8 +161,8 @@
     {
         "name": "test_video_saikano_precache",
         "events": ["x", "note_on-C6"],
-        "func": "video.precache",
-        "params": {
+        "payload": {
+            "func": "video.precache",
             "src": "/static/assets/assets/saikano_rough.mp4",
             "volume": 0.0
         }
@@ -169,8 +170,8 @@
     {
         "name": "test_video_saikano",
         "events": ["x", "note_on-C#6"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/saikano_rough.mp4",
             "volume": 0.0
         }
@@ -178,8 +179,8 @@
     {
         "name": "test_video_saikano_seek",
         "events": ["z"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/saikano_rough.mp4",
             "volume": 0.0,
             "currentTime": 60
@@ -188,8 +189,8 @@
     {
         "name": "test_video_guren_lagann",
         "events": ["g", "note_on-C0"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/gurren_lagann.mp4",
             "volume": 0
         }
@@ -197,8 +198,8 @@
     {
         "name": "test_video_haruhi",
         "events": ["h", "note_on-C1"],
-        "func": "video.start",
-        "params": {
+        "payload": {
+            "func": "video.start",
             "src": "/static/assets/assets/god_knows.mp4",
             "volume": 0
         }
@@ -206,8 +207,8 @@
     {
         "name": "test_reignite",
         "events": ["t", "note_on-C7"],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/assets/reignite_placeholder.png"
         }
     },
@@ -217,8 +218,8 @@
     {
         "name":"test_lighting",
         "events": "0",
-        "func": "DMXRendererLightTiming.start",
-        "params": {
+        "payload": {
+            "func": "DMXRendererLightTiming.start",
             "sequence": "test",
             "bpm": 200.0
         }
@@ -227,8 +228,8 @@
     {
         "name":"test_scroller",
         "events": "9",
-        "func": "background_scroller.scroll_sequence",
-        "params": {
+        "payload": {
+            "func": "background_scroller.scroll_sequence",
             "name": "castelvania_1"
         }
     },
@@ -236,8 +237,8 @@
     {
         "name":"test_subtitles",
         "events": "8",
-        "func": "subtitles.load",
-        "params": {
+        "payload": {
+            "func": "subtitles.load",
             "src": "/static/assets/test.srt",
             "play_on_load": true
         }
@@ -247,49 +248,58 @@
     {
         "name":"test_webrtc_video",
         "events": "7",
-        "func": "webrtc_video.initVideoDevices",
-        "params": {}
+        "payload": {
+            "func": "webrtc_video.initVideoDevices"
+        }
     },
 
+    {
+        "name":"test_multi_command",
+        "events": "6",
+        "payload": [
+            {"func": "image.start", "src": "/static/assets/test.jpg"},
+            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0}
+        ]
+    },
     
     
     {
         "name": "test1",
         "events": ["q"],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/test.jpg"
         }
     },
     {
         "name": "test2",
         "events": ["w"],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/test2.jpg"
         }
     },
     {
         "name": "test3",
         "events": ["e"],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/test3.jpg"
         }
     },
     {
         "name": "test4",
         "events": ["r"],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/test4.jpg"
         }
     },
     {
         "name": "test5",
         "events": [],
-        "func": "image.start",
-        "params": {
+        "payload": {
+            "func": "image.start",
             "src": "/static/assets/test5.jpg"
         }
     }

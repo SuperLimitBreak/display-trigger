@@ -39,7 +39,7 @@ def event_handler(display_event_func, event_lookup, event_key):
         log.warn('unknown event {0}'.format(event_key))
         return
     for event_item in event_lookup[event_key]:
-        display_event_func(event_item['func'], **event_item['params'])
+        display_event_func(event_item['payload'])
 
 
 # Input Plugins ----------------------------------------------------------------
