@@ -15,6 +15,8 @@ var image = {};
 		image_id_prefix: 'image_',
 	}, options);
 
+	var images = [];
+
 	function precache(data) {
 		var src = data.src || data;
 		if (utils.is_image(src)) {
@@ -28,7 +30,10 @@ var image = {};
 			method: 'get',
 			url: data.src,
 			success: function(data) {
-				_.each(data, precache(data));
+				images = data;
+				_.each(images, function(element, index, list) {
+					precache(element);
+				});
 			},
 		});
 	};
@@ -47,17 +52,22 @@ var image = {};
 	}
 
 	function start(data) {
+		var id = data.id || null;
+		var src = data.src || data;
+		if (src == "random" && !_.isEmpty(images)) {
+			src = images[Math.floor(Math.random()*images.length)];
+		}
 		var $target = $(options.target_selector);
-		var image_id = options.image_id_prefix + (data.id || options.fullscreen_image_id);
-		if (!data.id) {
+		var image_id = options.image_id_prefix + (id || options.fullscreen_image_id);
+		if (!id) {
 			$target.empty();
 		}
 		var $exisiting_image = $target.find('#'+image_id);
 		if ($exisiting_image.length) {
-			$exisiting_image.attr('src', data.src);
+			$exisiting_image.attr('src', src);
 		}
 		else {
-			$target.append("<img id='ID' src='SRC'>".replace('ID', image_id).replace('SRC', data.src));
+			$target.append("<img id='ID' src='SRC'>".replace('ID', image_id).replace('SRC', src));
 		}
 	};
 
