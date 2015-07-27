@@ -12,7 +12,6 @@ body {
 	overflow: hidden;
 }
 
-#screen > img,
 #screen > video,
 #screen > iframe {
     width: 100%;

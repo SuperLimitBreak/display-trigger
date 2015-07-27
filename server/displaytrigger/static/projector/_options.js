@@ -4,7 +4,7 @@ var options = {
     },
     video: {
         target_selector: '#screen',
-        //default_event_listeners: {ended: trigger.empty},
+        default_event_listeners: {ended: function(){$.publish('trigger.empty', null);}},
     },
     fader: {
         

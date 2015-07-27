@@ -298,6 +298,18 @@
     },
 
 
+    {
+        "name": "images",
+        "events": ["4"],
+        "payload": [
+            {"func": "image.start", "src": "/static/assets/test.jpg" , "id": "top_left"},
+            {"func": "image.start", "src": "/static/assets/test2.jpg", "id": "top_right"},
+            {"func": "image.start", "src": "/static/assets/test3.jpg", "id": "bottom_left"},
+            {"func": "image.start", "src": "/static/assets/test4.jpg", "id": "bottom_right"},
+            {"func": "image.start", "src": "/static/assets/test5.jpg", "id": "center"}
+        ]
+    },
+
     
     
     {

@@ -13,6 +13,8 @@ var trigger = {};
 		});
 	}
 	
+	$.subscribe('trigger.empty', empty);
+	
 	external = _.extend(external, {
 		empty: empty,
 	});

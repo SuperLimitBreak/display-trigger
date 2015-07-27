@@ -12,7 +12,7 @@ var image = {};
 	options = _.extend({
 		target_selector: '#screen',
 		fullscreen_image_id: 'fullscreen',
-		image_id_prefix: '#image_',
+		image_id_prefix: 'image_',
 	}, options);
 
 	function precache(data) {
@@ -49,7 +49,10 @@ var image = {};
 	function start(data) {
 		var $target = $(options.target_selector);
 		var image_id = options.image_id_prefix + (data.id || options.fullscreen_image_id);
-		var $exisiting_image = $target.find(image_id);
+		if (!data.id) {
+			$target.empty();
+		}
+		var $exisiting_image = $target.find('#'+image_id);
 		if ($exisiting_image.length) {
 			$exisiting_image.attr('src', data.src);
 		}
