@@ -198,13 +198,19 @@ var constraints = {
 		videos = [];
 	};
 
+	// EventBus ----------------------------------------------------------------
+	$.subscribe('trigger.stop', stopVideoDevices);
+
+	// Export ------------------------------------------------------------------
 	_.extend(external, {
 		initVideoDevices: initVideoDevices,
 		stopVideoDevices: stopVideoDevices,
 		videos: videos,
 	});
 
+	// Init --------------------------------------------------------------------
 	if (options.auto_init_devices) {
 		initVideoDevices();
 	}
+
 }(webrtc_video, utils.functools.get('options.webrtc_video')));

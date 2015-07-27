@@ -8,10 +8,11 @@ var trigger = {};
 	
 	function empty(data) {
 		fader.fade_out(function() {
+			$.publish('trigger.stop', null);
 			$(options.target_selector).html('');
 		});
 	}
-
+	
 	external = _.extend(external, {
 		empty: empty,
 	});
