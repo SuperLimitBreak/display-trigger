@@ -316,6 +316,7 @@
         "name": "test1",
         "events": ["q"],
         "payload": {
+            "deviceid": "test",
             "func": "image.start",
             "src": "/static/assets/test.jpg"
         }

@@ -1,3 +1,6 @@
+var displaytrigger = window.displaytrigger || {
+	deviceid: "",
+};
 
 (function(){
 
@@ -8,13 +11,29 @@
 		}
 		return _.map(param.split(','), function(item){return item.trim();});
 	}
-	var include = getModuleList('include');
-	var exclude = getModuleList('exclude');
-	
+	//var include = getModuleList('include');
+	//var exclude = getModuleList('exclude');
 	//console.log(include, exclude);
+	
+	displaytrigger.deviceid = utils.url.getUrlParameter('deviceid') || displaytrigger.deviceid;
+	
+	function is_data_for_this_deviceid(data) {
+		return data && (!data.deviceid || displaytrigger.deviceid.search(data.deviceid)>=0);
+	}
+
+	var socket = WebSocketReconnect({
+		onopen: function() {},
+		onmessage: function(data){
+			// Filter messages not intended for this device
+			if (_.isArray(data)) {
+				data = _.filter(data, is_data_for_this_deviceid)
+			}
+			else if (!is_data_for_this_deviceid(data)) {
+				data = {};
+			}
+			utils.functools.run_funcs(data)
+		},
+	});
+	
 })();
 
-var socket = WebSocketReconnect({
-	onopen: function() {},
-	onmessage: utils.functools.run_funcs,
-});
