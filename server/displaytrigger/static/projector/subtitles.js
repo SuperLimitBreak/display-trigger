@@ -79,7 +79,7 @@ var subtitles = {};
 	var subtitle_src = "";
 	var subtitles = [];
 	
-	var timeout;
+	var timeout = null;
 	
 	// Utils -------------------------------------------------------------------
 
@@ -201,6 +201,7 @@ var subtitles = {};
 		options.display_function(null, null);
 		if (timeout) {
 			clearInterval(timeout);
+			timeout = null;
 		}
 	}
 	
