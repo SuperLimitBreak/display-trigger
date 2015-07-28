@@ -14,6 +14,7 @@ var subtitles = {};
 	function display(a, b, c) {
 		var $container = $(options.selector_holder);
 		$container.empty();
+		if (!a && !b && !c) {return;}
 		
 		function get_duration(subtitle) {
 			if (subtitle) {
