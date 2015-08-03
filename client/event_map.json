@@ -221,7 +221,8 @@
         "payload": {
             "func": "DMXRendererLightTiming.start",
             "sequence": "test",
-            "bpm": 200.0
+            "bpm": 200.0,
+            "timesigniture": "4:4"
         }
     },
 
