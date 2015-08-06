@@ -311,7 +311,15 @@
         ]
     },
 
-    
+    {
+        "name": "test_audio",
+        "events": [","],
+        "payload": {
+            "func": "audio.start",
+            "src": "/static/assets/assets/test_god_knows.ogg"
+        }
+    },
+
     
     {
         "name": "test1",

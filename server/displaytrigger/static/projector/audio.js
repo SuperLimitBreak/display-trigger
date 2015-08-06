@@ -7,18 +7,66 @@ var audio = {};
 	}, options);
 	
 
-	function precache() {
+	function load(src, _options, event_listeners) {
+		_options = _.extend({
+			'target_selector': options.target_selector,
+			'play': true,
+			'volume': 1.0,
+			'loop': false,
+		}, _options);
 		
+		var $audio = $(options.target_selector+" audio");
+		if (!$audio.length) {
+			$(options.target_selector).append('<audio/>');
+			$audio = $(options.target_selector+" audio");
+		}
+		var audio = $audio.get(0);
+		
+		audio.loop = _options.loop;
+		audio.volume = _options.volume;
+		audio.controls = false;
+		audio.preload = "auto";
+		audio.autoplay = _options.play;
+
+		if (audio.currentSrc.indexOf(src) > -1) {
+			console.log('audio already loaded');
+			audio.pause();
+		}
+		else {
+			console.log('audio loading')
+			audio.src = src;
+			audio.load();
+		}
+		audio.currentTime = _options.currentTime || 0;
+		if (_options.play) {
+			audio.play();
+		}
+
+	}
+	
+	function precache(data) {
+		load(
+			data.src,
+			_.extend({}, data, {play: false})
+		);
 	}
 
-	function start() {
-		
+	function start(data, event_listeners) {
+		load(
+			data.src,
+			_.extend({}, data, {play: true}),
+			_.extend({}, options.default_event_listeners, event_listeners)
+		);
 	}
 
 	function stop() {
-		
+		$(options.target_selector+" audio").remove();
 	}
 
+	// EventBus ----------------------------------------------------------------
+	$.subscribe('trigger.stop', stop);
+
+	// Export ------------------------------------------------------------------
 	_.extend(external, {
 		precache: precache,
 		start: start,
