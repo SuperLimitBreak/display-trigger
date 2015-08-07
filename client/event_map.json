@@ -320,6 +320,15 @@
         }
     },
 
+    {
+        "name": "test_audio_light_seek",
+        "events": ["."],
+        "payload": [
+            {"func": "audio.start", "src": "/static/assets/assets/test_god_knows.ogg", "currentTime": 10},
+            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
+        ]
+    },
+
     
     {
         "name": "test1",
