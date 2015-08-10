@@ -207,10 +207,11 @@
     {
         "name": "test_reignite",
         "events": ["t", "note_on-C7"],
-        "payload": {
-            "func": "image.start",
-            "src": "/static/assets/assets/reignite_placeholder.png"
-        }
+        "payload": [
+            {"func": "image.start","src": "/static/assets/assets/reignite_placeholder.png"},
+            {"func": "audio.start", "src": "/static/assets/assets/test_reignite.mp3"},
+            {"func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 140.0, "timesigniture": "4:8", "time_offset": 0}
+        ]
     },
     
     
@@ -328,7 +329,7 @@
             {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
         ]
     },
-
+    
     
     {
         "name": "test1",
