@@ -22,24 +22,27 @@ Subtitle prompt screen driven by raspberry pi
   * Boot to gui with user pi
   * Enable ssh
 * Connect wireless to required network
-* `sudo apt-get update && apt-get install chromium -y`
-* `echo "@/boot/pi_boot.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart`
-* todo - rem the following line in autostart `@xscreensaver -no-splash`
+* Open up terminal and obtain ip address `ip -f inet addr show dev wlan0`
+* `ssh` into the pi (`ssh pi@1.1.1.1`) (password: raspberry) and paste the script below into a terminal
 
+'
 
-`sudo nano /boot/pi_boot.sh && sudo chmod 755 /boot/pi_boot.sh`
-
-
-	xset s noblank
-	xset s off
-	xset -dpms
-	rm -rf ~/.cache/chromium ~/.config/chromium
-	while ! ip -f inet addr show dev wlan0 | sed -n 's/^ *inet *\([.0-9]*\).*/\1/p' | grep "" > /dev/null
-	do
-  	  sleep 1
-	done
-	chromium --noerrdialogs --ignore-certificate-errors --kiosk --disable-plugins --disable-extensions --no-first-run --disable-overlay-scrollbar 'http://192.168.0.3:6543/static/projector/projector.html'
-	
-* `sudo reboot`
-
+	sudo -s
+	apt-get update && apt-get install chromium -y
+	cat <<EOF > /boot/pi_boot.sh
+	#!/bin/sh
+	    xset s noblank
+	    xset s off
+	    xset -dpms
+	    rm -rf ~/.cache/chromium ~/.config/chromium
+	    while ! ip -f inet addr show dev wlan0 | sed -n 's/^ *inet *\([.0-9]*\).*/\1/p' | grep "" > /dev/null
+	    do
+  	        sleep 1
+	    done
+	    chromium --noerrdialogs --ignore-certificate-errors --kiosk --disable-plugins --disable-extensions --no-first-run --disable-overlay-scrollbar 'http://192.168.0.3:6543/static/projector/projector.html?deviceid=pi_prompt'
+    EOF
+	chmod 755 /boot/pi_boot.sh
+	sed -i 's/@xscreensaver -no-splash/#@xscreensaver -no-splash/' /etc/xdg/    lxsession/LXDE-pi/autostart
+	echo "@/boot/pi_boot.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+	reboot
 
