@@ -42,7 +42,7 @@ Subtitle prompt screen driven by raspberry pi
 	    chromium --noerrdialogs --ignore-certificate-errors --kiosk --disable-plugins --disable-extensions --no-first-run --disable-overlay-scrollbar 'http://192.168.0.3:6543/static/projector/projector.html?deviceid=pi_prompt'
     EOF
 	chmod 755 /boot/pi_boot.sh
-	sed -i 's/@xscreensaver -no-splash/#@xscreensaver -no-splash/' /etc/xdg/    lxsession/LXDE-pi/autostart
+	sed -i 's/@xscreensaver -no-splash/#@xscreensaver -no-splash/' /etc/xdg/lxsession/LXDE-pi/autostart
 	echo "@/boot/pi_boot.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 	reboot
 
