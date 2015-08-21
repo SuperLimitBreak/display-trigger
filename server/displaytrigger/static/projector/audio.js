@@ -9,7 +9,7 @@ var audio = {};
 			//	console.log('timeupdate', current_time);
 			//}
 			seeked: function(event){
-				socket.send({seeked: event.target.currentTime});
+				socket.send({func: 'DMXRendererLightTiming.seek', currentTime: event.target.currentTime});
 			}
 		}
 	}, options);
