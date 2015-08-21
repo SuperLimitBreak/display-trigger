@@ -2,7 +2,7 @@ var displaytrigger = window.displaytrigger || {
 	deviceid: "",
 };
 
-(function(){
+(function(external){
 
 	function getModuleList(name) {
 		var param = utils.url.getUrlParameter(name);
@@ -35,5 +35,8 @@ var displaytrigger = window.displaytrigger || {
 		},
 	});
 	
-})();
+	// Exports
+	external.socket = socket;
+	
+})(window);
 

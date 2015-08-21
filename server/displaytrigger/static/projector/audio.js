@@ -2,11 +2,19 @@ var audio = {};
 
 (function(external, options){
 	options = _.extend({
-		target_selector: '#offscreen',
-		default_event_listeners: {}
+		target_selector: '#screen',
+		default_event_listeners: {
+			//timeupdate: function (event) {
+			//	var current_time = event.target.currentTime;
+			//	console.log('timeupdate', current_time);
+			//}
+			seeked: function(event){
+				socket.send({seeked: event.target.currentTime});
+			}
+		}
 	}, options);
 	
-
+	
 	function load(src, _options, event_listeners) {
 		_options = _.extend({
 			'target_selector': options.target_selector,
@@ -22,12 +30,18 @@ var audio = {};
 		}
 		var audio = $audio.get(0);
 		
+		_.each(event_listeners || {}, function(value, key, dict){
+			audio.removeEventListener(key);
+			audio.addEventListener(key, value);
+			// Future Feature: Consider a custom event that fires a few seconds before the end to allow a smooth fade out
+		});
+		
 		audio.loop = _options.loop;
 		audio.volume = _options.volume;
-		audio.controls = false;
+		audio.controls = true;
 		audio.preload = "auto";
 		audio.autoplay = _options.play;
-
+		
 		if (audio.currentSrc.indexOf(src) > -1) {
 			console.log('audio already loaded');
 			audio.pause();
