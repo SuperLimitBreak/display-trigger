@@ -2,7 +2,7 @@ var audio = {};
 
 (function(external, options){
 	options = _.extend({
-		target_selector: '#screen',
+		target_selector: '#offscreen',
 		default_event_listeners: {
 			//timeupdate: function (event) {
 			//	var current_time = event.target.currentTime;
@@ -23,10 +23,10 @@ var audio = {};
 			'loop': false,
 		}, _options);
 		
-		var $audio = $(options.target_selector+" audio");
+		var $audio = $(_options.target_selector+" audio");
 		if (!$audio.length) {
-			$(options.target_selector).append('<audio/>');
-			$audio = $(options.target_selector+" audio");
+			$(_options.target_selector).append('<audio/>');
+			$audio = $(_options.target_selector+" audio");
 		}
 		var audio = $audio.get(0);
 		
