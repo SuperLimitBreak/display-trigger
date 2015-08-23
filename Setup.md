@@ -31,11 +31,13 @@ Subtitle prompt screen driven by raspberry pi
 	apt-get update && apt-get install chromium -y
 	cat <<EOF > /boot/pi_boot.sh
 	#!/bin/sh
+	    INTERFACE=wlan0
+	    IPLIST=ifconfig $(INTERFACE) | awk '/inet addr/{print substr($2,6)}'
 	    xset s noblank
 	    xset s off
 	    xset -dpms
 	    rm -rf ~/.cache/chromium ~/.config/chromium
-	    while ! ip -f inet addr show dev wlan0 | sed -n 's/^ *inet *\([.0-9]*\).*/\1/p' | grep "" > /dev/null
+	    while ! $(IPLIST) | grep "" > /dev/null
 	    do
   	        sleep 1
 	    done
