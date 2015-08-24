@@ -40,7 +40,7 @@ function set_event_map(data) {
         $event_triggers.append(
             "<li><button onclick='socket.send($(this).data().event);' data-event='DATA'>EVENT_NAME</button></li>"
             .replace('EVENT_NAME', data.name)
-            .replace('DATA', JSON.stringify(_.extend(data, data.payload)).replace())
+            .replace('DATA', JSON.stringify(data.payload).replace())
         );
     });
 }
