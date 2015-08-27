@@ -4,11 +4,22 @@ $out = "C:\Users\IEUser\Desktop\python.msi"
 (New-Object System.Net.WebClient).DownloadFile($url, $out)
 
 #Install python
-(Start-Process -FilePath "msiexec.exe" -ArgumentList "/i $out /passive /qn" -Wait -Passthru).ExitCode
+$phony = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i $out /passive /qn" -Wait -Passthru
 If($?) {
 	echo "Python Installed"
 } Else {
 	echo "Please manualy install python"
 }
 
-#Download pygame
+#download pygame
+$url = "http://pygame.org/ftp/pygame-1.9.1.win32-py3.1.msi"
+$out = "C:\Users\IEUser\Desktop\pygame.msi"
+(New-Object System.Net.WebClient).DownloadFile($url, $out)
+
+#Install pygame
+$phony = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i $out /passive /qn" -Wait -Passthru
+If($?) {
+	echo "Pygame Installed"
+} Else {
+	echo "Please manualy install pygame"
+}
