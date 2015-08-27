@@ -6,6 +6,15 @@
             "func": "trigger.empty"
         }
     },
+    {
+        "name": "plain_lights",
+        "events": ["!", "note_on-B3"],
+        "payload": [
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "plain_lights"}
+        ]
+    },
+    
+    
 
     
     {
