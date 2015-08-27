@@ -13,6 +13,7 @@
         "events": ["i", "note_on-D2"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"
         }
     },
@@ -21,6 +22,7 @@
         "events": ["i", "note_on-D#2"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"
         }
     },
@@ -29,6 +31,7 @@
         "events": ["o", "note_on-C#4"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"
         }
     },
@@ -37,6 +40,7 @@
         "events": ["p", "note_on-C#0"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
         }
     },
@@ -45,6 +49,7 @@
         "events": ["k"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"
         }
     },
@@ -53,6 +58,7 @@
         "events": ["u", "note_on-C#7"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"
         }
     },
@@ -61,6 +67,7 @@
         "events": ["y", "note_on-C#1"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
         }
     },
@@ -69,6 +76,7 @@
         "events": ["l", "note_on-D6"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"
         }
     },
@@ -77,6 +85,7 @@
         "events": ["note_on-D5"],
         "payload": {
             "func": "overlay.html_bubble",
+            "deviceid": "main",
             "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"
         }
     },
@@ -91,6 +100,7 @@
         "events": ["a", "note_on-C3"],
         "payload": {
             "func": "trigger.iframe",
+            "deviceid": "main",
             "src": "http://localhost:8808/static/projector/battlescape.html"
         }
     },
@@ -99,6 +109,7 @@
         "events": ["s", "note_on-C#3"],
         "payload": {
             "func": "trigger.iframe",
+            "deviceid": "main",
             "func_iframe": "preroll"
         }
     },
@@ -109,108 +120,184 @@
     
     
     {
-        "name": "test_video_miku_precache",
+        "name": "video_miku_precache",
         "events": ["b", "note_on-C5"],
         "payload": {
             "func": "video.precache",
+            "deviceid": "main",
             "src": "/static/assets/assets/miku.mp4"
         }
     },
     {
-        "name": "test_video_miku",
+        "name": "video_miku",
         "events": ["b", "note_on-C#5"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/miku.mp4"
         }
     },
     {
-        "name": "test_video_remilla",
+        "name": "video_remilla",
         "events": ["v", "note_on-C4"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/remilla_scarlet.mp4",
             "volume": 0.0
         }
     },
     {
-        "name": "test_video_remilla_precache",
+        "name": "video_remilla_precache",
         "events": ["c"],
         "payload": {
             "func": "video.precache",
+            "deviceid": "main",
             "src": "/static/assets/assets/remilla_scarlet.mp4"
         }
     },
     {
-        "name": "test_video_silent_hill_precache",
+        "name": "video_silent_hill_precache",
         "events": ["n", "note_on-C2"],
         "payload": {
             "func": "video.precache",
+            "deviceid": "main",
             "src": "/static/assets/assets/silent_hill.mp4"
         }
     },
     {
-        "name": "test_video_silent_hill",
+        "name": "video_silent_hill",
         "events": ["m", "note_on-C#2"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/silent_hill.mp4",
             "volume": 0
         }
     },
     {
-        "name": "test_video_saikano_precache",
+        "name": "video_saikano_precache",
         "events": ["x", "note_on-C6"],
         "payload": {
             "func": "video.precache",
+            "deviceid": "main",
             "src": "/static/assets/assets/saikano_rough.mp4",
             "volume": 0.0
         }
     },
     {
-        "name": "test_video_saikano",
+        "name": "video_saikano",
         "events": ["x", "note_on-C#6"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/saikano_rough.mp4",
             "volume": 0.0
         }
     },
     {
-        "name": "test_video_saikano_seek",
-        "events": ["z"],
-        "payload": {
-            "func": "video.start",
-            "src": "/static/assets/assets/saikano_rough.mp4",
-            "volume": 0.0,
-            "currentTime": 60
-        }
-    },
-    {
-        "name": "test_video_guren_lagann",
+        "name": "video_guren_lagann",
         "events": ["g", "note_on-C0"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/gurren_lagann.mp4",
             "volume": 0
         }
     },
     {
-        "name": "test_video_haruhi",
+        "name": "video_haruhi",
         "events": ["h", "note_on-C1"],
         "payload": {
             "func": "video.start",
+            "deviceid": "main",
             "src": "/static/assets/assets/god_knows.mp4",
             "volume": 0
         }
     },
+    
+    
+
+
+
+    {
+        "name":"pentatonic_hero",
+        "events": "5",
+        "payload": {
+            "func": "pentatonic_hero.start",
+            "deviceid": "main"
+        }
+    },    
+    {
+        "name":"pentatonic_hero_mute_player1",
+        "events": "1",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1",
+            "mute": true
+        }
+    },
+    {
+        "name":"pentatonic_hero_unmute_player1",
+        "events": "2",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1",
+            "mute": false
+        }
+    },
+    {
+        "name":"test_pentatonic_hero_toggle_mute_player1",
+        "events": "3",
+        "payload": {
+            "func": "pentatonic_hero.control.mute",
+            "input": "player1"
+        }
+    },
+
+
+    
+    
+    
+    
+    
+    {
+        "name": "gurren_lighting_piano",
+        "events": ["-", "not_on-D0"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_gurren_full.ogg", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
+        ]
+    },
+    {
+        "name": "gurren_lighting",
+        "events": ["=", "not_on-D#0"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_gurren.ogg", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0}
+        ]
+    },
+    
+    
+    {
+        "name": "god_knows_lighting",
+        "events": ["{", "not_on-D#1"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_god_knows.ogg", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0}
+        ]
+    },
+    
+    
+    
+    
     {
         "name": "test_reignite",
         "events": ["t", "note_on-C7"],
         "payload": [
-            {"func": "image.start","src": "/static/assets/assets/reignite_placeholder.png"},
-            {"func": "audio.start", "src": "/static/assets/assets/test_reignite.mp3", "target_selector": "#screen"},
-            {"func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0}
+            {"deviceid": "main", "func": "image.start","src": "/static/assets/assets/reignite_placeholder.png"},
+            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_reignite.mp3", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0}
         ]
     },
     
@@ -241,6 +328,7 @@
         "events": "8",
         "payload": {
             "func": "subtitles.load",
+            "deviceid": "subtitles",
             "src": "/static/assets/test.srt",
             "play_on_load": true
         }
@@ -254,50 +342,20 @@
             "func": "webrtc_video.initVideoDevices"
         }
     },
+
+    {
+        "name": "test_video_saikano_seek",
+        "events": ["6"],
+        "payload": {
+            "func": "video.start",
+            "deviceid": "main",
+            "src": "/static/assets/assets/saikano_rough.mp4",
+            "volume": 0.0,
+            "currentTime": 60
+        }
+    },
+
     
-    {
-        "name":"test_multi_command",
-        "events": "6",
-        "payload": [
-            {"func": "image.start", "src": "/static/assets/test.jpg"},
-            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0}
-        ]
-    },
-    
-    {
-        "name":"test_pentatonic_hero",
-        "events": "5",
-        "payload": {
-            "func": "pentatonic_hero.start"
-        }
-    },
-    
-    {
-        "name":"test_pentatonic_hero",
-        "events": "1",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1",
-            "mute": true
-        }
-    },
-    {
-        "name":"test_pentatonic_hero",
-        "events": "2",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1",
-            "mute": false
-        }
-    },
-    {
-        "name":"test_pentatonic_hero",
-        "events": "3",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1"
-        }
-    },
 
 
     {
