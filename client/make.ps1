@@ -11,6 +11,7 @@ if ($install -eq $true ) {
 	
     #Powershell v1+ support
     mkdir libs
+    echo $null >> "$(pwd)\libs\__init__.py"
     $url = "https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/network_display_event.py"
     $out = "$(pwd)\libs\network_display_event.py"
     (New-Object System.Net.WebClient).DownloadFile($url, $out)
