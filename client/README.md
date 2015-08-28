@@ -5,6 +5,9 @@ Windows Installation
 2. Install python pygame for 3.1
 3. Select python 3.1 from registry during pygame install
 
+##Using dependancy script
+`powershell -noexit -executionpolicy unrestricted -command C:\Users\[user]\Desktop\dependancies.ps1`
+
 #Editing path (Windows 7 & Vista)
 1. Click start
 2. Right-Click "Computer"
