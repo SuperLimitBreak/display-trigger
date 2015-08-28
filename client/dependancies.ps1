@@ -1,6 +1,6 @@
 #download python
 $url = "https://www.python.org/ftp/python/3.1.4/python-3.1.4.msi"
-$out = "C:\Users\IEUser\Desktop\python.msi"
+$out = "C:\Users\Music\Desktop\python.msi"
 (New-Object System.Net.WebClient).DownloadFile($url, $out)
 
 #Install python
@@ -13,7 +13,7 @@ If($?) {
 
 #download pygame
 $url = "http://pygame.org/ftp/pygame-1.9.1.win32-py3.1.msi"
-$out = "C:\Users\IEUser\Desktop\pygame.msi"
+$out = "C:\Users\Music\Desktop\pygame.msi"
 (New-Object System.Net.WebClient).DownloadFile($url, $out)
 
 #Install pygame
