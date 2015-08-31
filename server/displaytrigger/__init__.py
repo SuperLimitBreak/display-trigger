@@ -25,6 +25,7 @@ def main(global_config, **settings):
 
     config.add_static_view(name='static', path='static')  # , cache_max_age=3600
     config.add_static_view(name='ext', path=settings['static.path.ext'], cache_max_age=3600)
+    config.add_static_view(name='assets', path=settings['static.path.assets'], cache_max_age=60*60*24)
 
     config.add_route('index', '/')
     config.add_route('event', '/event/{func:.*}')

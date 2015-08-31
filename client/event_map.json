@@ -134,7 +134,7 @@
         "payload": {
             "func": "video.precache",
             "deviceid": "main",
-            "src": "/static/assets/assets/miku.mp4"
+            "src": "/assets/miku.mp4"
         }
     },
     {
@@ -143,7 +143,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/miku.mp4"
+            "src": "/assets/miku.mp4"
         }
     },
     {
@@ -152,7 +152,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/remilla_scarlet.mp4",
+            "src": "/assets/remilla_scarlet.mp4",
             "volume": 0.0
         }
     },
@@ -162,7 +162,7 @@
         "payload": {
             "func": "video.precache",
             "deviceid": "main",
-            "src": "/static/assets/assets/remilla_scarlet.mp4"
+            "src": "/assets/remilla_scarlet.mp4"
         }
     },
     {
@@ -171,7 +171,7 @@
         "payload": {
             "func": "video.precache",
             "deviceid": "main",
-            "src": "/static/assets/assets/silent_hill.mp4"
+            "src": "/assets/silent_hill.mp4"
         }
     },
     {
@@ -180,7 +180,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/silent_hill.mp4",
+            "src": "/assets/silent_hill.mp4",
             "volume": 0
         }
     },
@@ -190,7 +190,7 @@
         "payload": {
             "func": "video.precache",
             "deviceid": "main",
-            "src": "/static/assets/assets/saikano_rough.mp4",
+            "src": "/assets/saikano_rough.mp4",
             "volume": 0.0
         }
     },
@@ -200,7 +200,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/saikano_rough.mp4",
+            "src": "/assets/saikano_rough.mp4",
             "volume": 0.0
         }
     },
@@ -210,7 +210,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/gurren_lagann.mp4",
+            "src": "/assets/gurren_lagann.mp4",
             "volume": 0
         }
     },
@@ -220,7 +220,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/god_knows.mp4",
+            "src": "/assets/god_knows.mp4",
             "volume": 0
         }
     },
@@ -274,7 +274,7 @@
         "name": "gurren_lighting_piano",
         "events": ["-", "not_on-D0"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_gurren_full.ogg", "target_selector": "#screen"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren_full.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
         ]
     },
@@ -282,7 +282,7 @@
         "name": "gurren_lighting",
         "events": ["=", "not_on-D#0"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_gurren.ogg", "target_selector": "#screen"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0}
         ]
     },
@@ -292,7 +292,7 @@
         "name": "god_knows_lighting",
         "events": ["{", "not_on-D#1"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_god_knows.ogg", "target_selector": "#screen"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god_knows.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0}
         ]
     },
@@ -304,8 +304,8 @@
         "name": "test_reignite",
         "events": ["t", "note_on-C7"],
         "payload": [
-            {"deviceid": "main", "func": "image.start","src": "/static/assets/assets/reignite_placeholder.png"},
-            {"deviceid": "test", "func": "audio.start", "src": "/static/assets/assets/test_reignite.mp3", "target_selector": "#screen"},
+            {"deviceid": "main", "func": "image.start","src": "/assets/reignite_placeholder.png"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0}
         ]
     },
@@ -338,7 +338,7 @@
         "payload": {
             "func": "subtitles.load",
             "deviceid": "subtitles",
-            "src": "/static/assets/test.srt",
+            "src": "/assets/test.srt",
             "play_on_load": true
         }
     },
@@ -358,7 +358,7 @@
         "payload": {
             "func": "video.start",
             "deviceid": "main",
-            "src": "/static/assets/assets/saikano_rough.mp4",
+            "src": "/assets/saikano_rough.mp4",
             "volume": 0.0,
             "currentTime": 60
         }
@@ -371,11 +371,11 @@
         "name": "images",
         "events": ["4"],
         "payload": [
-            {"func": "image.start", "src": "/static/assets/test.jpg" , "id": "top_left"},
-            {"func": "image.start", "src": "/static/assets/test2.jpg", "id": "top_right"},
-            {"func": "image.start", "src": "/static/assets/test3.jpg", "id": "bottom_left"},
-            {"func": "image.start", "src": "/static/assets/test4.jpg", "id": "bottom_right"},
-            {"func": "image.start", "src": "/static/assets/test5.jpg", "id": "center"}
+            {"func": "image.start", "src": "/assets/test.jpg" , "id": "top_left"},
+            {"func": "image.start", "src": "/assets/test2.jpg", "id": "top_right"},
+            {"func": "image.start", "src": "/assets/test3.jpg", "id": "bottom_left"},
+            {"func": "image.start", "src": "/assets/test4.jpg", "id": "bottom_right"},
+            {"func": "image.start", "src": "/assets/test5.jpg", "id": "center"}
         ]
     },
 
@@ -384,7 +384,7 @@
         "events": [","],
         "payload": {
             "func": "audio.start",
-            "src": "/static/assets/assets/test_god_knows.ogg"
+            "src": "/assets/test_god_knows.ogg"
         }
     },
 
@@ -392,7 +392,7 @@
         "name": "test_audio_light_seek",
         "events": ["."],
         "payload": [
-            {"func": "audio.start", "src": "/static/assets/assets/test_god_knows.ogg", "currentTime": 10},
+            {"func": "audio.start", "src": "/assets/test_god_knows.ogg", "currentTime": 10},
             {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
         ]
     },
@@ -404,7 +404,7 @@
         "payload": {
             "deviceid": "test",
             "func": "image.start",
-            "src": "/static/assets/test.jpg"
+            "src": "/assets/test.jpg"
         }
     },
     {
@@ -412,7 +412,7 @@
         "events": ["w"],
         "payload": {
             "func": "image.start",
-            "src": "/static/assets/test2.jpg"
+            "src": "/assets/test2.jpg"
         }
     },
     {
@@ -420,7 +420,7 @@
         "events": ["e"],
         "payload": {
             "func": "image.start",
-            "src": "/static/assets/test3.jpg"
+            "src": "/assets/test3.jpg"
         }
     },
     {
@@ -428,7 +428,7 @@
         "events": ["r"],
         "payload": {
             "func": "image.start",
-            "src": "/static/assets/test4.jpg"
+            "src": "/assets/test4.jpg"
         }
     },
     {
@@ -436,7 +436,7 @@
         "events": [],
         "payload": {
             "func": "image.start",
-            "src": "/static/assets/test5.jpg"
+            "src": "/assets/test5.jpg"
         }
     }
 ]

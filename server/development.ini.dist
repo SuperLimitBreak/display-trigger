@@ -14,6 +14,7 @@ pyramid.default_locale_name = en
 pyramid.includes =
 
 static.path.ext = %(here)s/externals/static
+static.path.assets = static/assets
 
 mako.directories = displaytrigger:templates
 
