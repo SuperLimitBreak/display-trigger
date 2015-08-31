@@ -16,52 +16,7 @@
     
     
 
-    
-    {
-        "name": "overlay_silent_hill2_1",
-        "events": ["i", "note_on-D2"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"
-        }
-    },
-    {
-        "name": "overlay_silent_hill2_2",
-        "events": ["i", "note_on-D#2"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"
-        }
-    },
-    {
-        "name": "overlay_remilla_scarlet",
-        "events": ["o", "note_on-C#4"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"
-        }
-    },
-    {
-        "name": "overlay_gurren_lagan",
-        "events": ["p", "note_on-C#0"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
-        }
-    },
-    {
-        "name": "overlay_final_fasntasy_7",
-        "events": ["k"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"
-        }
-    },
+
     {
         "name": "overlay_reignite",
         "events": ["u", "note_on-C#7"],
@@ -71,160 +26,18 @@
             "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"
         }
     },
-    {
-        "name": "overlay_god_knows",
-        "events": ["y", "note_on-C#1"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"
-        }
-    },
-    {
-        "name": "overlay_siakano",
-        "events": ["l", "note_on-D6"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"
-        }
-    },
-    {
-        "name": "overlay_world_is_mine",
-        "events": ["note_on-D5"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"
-        }
-    },
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-    
-    
-    
-    
-    
-    {
-        "name": "ff7_iframe",
-        "events": ["a", "note_on-C3"],
-        "payload": {
-            "func": "trigger.iframe",
-            "deviceid": "main",
-            "src": "http://localhost:8808/static/projector/battlescape.html"
-        }
-    },
-    {
-        "name": "ff7_iframe",
-        "events": ["s", "note_on-C#3"],
-        "payload": {
-            "func": "trigger.iframe",
-            "deviceid": "main",
-            "func_iframe": "preroll"
-        }
-    },
-    
-    
-    
-    
-    
-    
-    {
-        "name": "video_miku_precache",
-        "events": ["b", "note_on-C5"],
-        "payload": {
-            "func": "video.precache",
-            "deviceid": "main",
-            "src": "/assets/miku.mp4"
-        }
-    },
-    {
-        "name": "video_miku",
-        "events": ["b", "note_on-C#5"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/miku.mp4"
-        }
-    },
-    {
-        "name": "video_remilla",
-        "events": ["v", "note_on-C4"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/remilla_scarlet.mp4",
-            "volume": 0.0
-        }
-    },
-    {
-        "name": "video_remilla_precache",
-        "events": ["c"],
-        "payload": {
-            "func": "video.precache",
-            "deviceid": "main",
-            "src": "/assets/remilla_scarlet.mp4"
-        }
-    },
-    {
-        "name": "video_silent_hill_precache",
-        "events": ["n", "note_on-C2"],
-        "payload": {
-            "func": "video.precache",
-            "deviceid": "main",
-            "src": "/assets/silent_hill.mp4"
-        }
-    },
-    {
-        "name": "video_silent_hill",
-        "events": ["m", "note_on-C#2"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/silent_hill.mp4",
-            "volume": 0
-        }
-    },
-    {
-        "name": "video_saikano_precache",
-        "events": ["x", "note_on-C6"],
-        "payload": {
-            "func": "video.precache",
-            "deviceid": "main",
-            "src": "/assets/saikano_rough.mp4",
-            "volume": 0.0
-        }
-    },
-    {
-        "name": "video_saikano",
-        "events": ["x", "note_on-C#6"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/saikano_rough.mp4",
-            "volume": 0.0
-        }
-    },
-    {
-        "name": "video_guren_lagann",
-        "events": ["g", "note_on-C0"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/gurren_lagann.mp4",
-            "volume": 0
-        }
-    },
-    {
-        "name": "video_haruhi",
-        "events": ["h", "note_on-C1"],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/god_knows.mp4",
-            "volume": 0
-        }
-    },
-    
     
 
 
@@ -274,6 +87,7 @@
         "name": "gurren_lighting_piano",
         "events": ["-", "note_on-D0"],
         "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren_full.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
         ]
@@ -282,16 +96,36 @@
         "name": "gurren_lighting",
         "events": ["=", "note_on-D#0"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen"},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0}
+            {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen"}
         ]
     },
+    {
+        "name": "overlay_gurren_lagan",
+        "events": ["p", "note_on-C#0"],
+        "payload": {
+            "func": "overlay.html_bubble",
+            "deviceid": "main",
+            "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
+        }
+    },
+
+    
     
     
     {
-        "name": "god_knows_lighting",
-        "events": ["{", "note_on-D#1"],
+        "name": "god_knows_video",
+        "events": ["h", "note_on-D#1"],
         "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0}
+        ]
+    },
+    {
+        "name": "god_knows",
+        "events": ["y", "note_on-C#1"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god_knows.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0}
         ]
@@ -299,10 +133,138 @@
     
     
     
+
+    {
+        "name": "silent_hill_precache",
+        "events": ["n", "note_on-C2"],
+        "payload": {
+            "func": "video.precache",
+            "deviceid": "main",
+            "src": "/assets/silent_hill.mp4"
+        }
+    },
+    {
+        "name": "silent_hill_1",
+        "events": ["m", "note_on-C#2"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_1", "bpm": 87.0, "time_offset": 0}
+        ]
+    },
+    {
+        "name": "silent_hill2_2",
+        "events": ["i", "note_on-D#2"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_2", "bpm": 115.0, "time_offset": 0}
+        ]
+    },
+    
+    
+    
+
+
+
+    {
+        "name": "ff7_iframe",
+        "events": ["a", "note_on-C3"],
+        "payload": [
+            {"deviceid": "main", "func": "trigger.iframe", "src": "http://localhost:8808/static/projector/battlescape.html"}
+        ]
+    },
+    {
+        "name": "ff7_iframe",
+        "events": ["s", "note_on-C#3"],
+        "payload": [
+            {"deviceid": "main", "func": "trigger.iframe", "func_iframe": "preroll"},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
+        ]
+    },
+    
+    
+
+
     
     {
-        "name": "test_reignite",
-        "events": ["t", "note_on-C7"],
+        "name": "remilla",
+        "events": ["v", "note_on-C4"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
+        ]
+    },
+
+    
+
+ 
+    {
+        "name": "miku_precache",
+        "events": ["note_on-C5"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/miku.mp4"}
+        ]
+    },
+    {
+        "name": "miku",
+        "events": ["b", "note_on-C#5"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/miku.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_1", "bpm": 146.0, "time_offset": 0}
+        ]
+    },
+    {
+        "name": "miku",
+        "events": ["b", "note_on-D5"],
+        "payload": [
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_2", "bpm": 165.0, "time_offset": 0}
+        ]
+    },
+    
+
+
+
+
+    {
+        "name": "saikano_precache",
+        "events": ["note_on-C6"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/saikano.mp4"}
+        ]
+    },
+    {
+        "name": "saikano_video",
+        "events": ["x", "note_on-C#6"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "saikano",
+        "events": ["note_on-D6"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
+        ]
+    },
+
+
+    
+    
+    
+    
+    {
+        "name": "reignite_precache",
+        "events": ["note_on-C7"],
+        "payload": [
+        ]
+    },    
+    {
+        "name": "reignite",
+        "events": ["t", "note_on-C#7"],
         "payload": [
             {"deviceid": "main", "func": "image.start","src": "/assets/reignite_placeholder.png"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen"},
