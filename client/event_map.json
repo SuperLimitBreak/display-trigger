@@ -272,7 +272,7 @@
     
     {
         "name": "gurren_lighting_piano",
-        "events": ["-", "not_on-D0"],
+        "events": ["-", "note_on-D0"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren_full.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
@@ -280,7 +280,7 @@
     },
     {
         "name": "gurren_lighting",
-        "events": ["=", "not_on-D#0"],
+        "events": ["=", "note_on-D#0"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0}
@@ -290,7 +290,7 @@
     
     {
         "name": "god_knows_lighting",
-        "events": ["{", "not_on-D#1"],
+        "events": ["{", "note_on-D#1"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god_knows.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0}
