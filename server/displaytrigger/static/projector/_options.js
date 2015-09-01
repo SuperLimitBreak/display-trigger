@@ -2,9 +2,21 @@ var options = {
     image: {
         
     },
+    audio: {
+        default_event_listeners: {
+    		seeked: function(event){
+				socket.send({func: 'DMXRendererLightTiming.seek', currentTime: event.target.currentTime});
+			}
+        }
+    },
     video: {
         target_selector: '#screen',
-        default_event_listeners: {ended: function(){$.publish('trigger.empty', null);}},
+        default_event_listeners: {
+            ended: function(event){
+                console.log("ended video");
+                $.publish('trigger.empty', null);
+            }
+        },
     },
     fader: {
         
