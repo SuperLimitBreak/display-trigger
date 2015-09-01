@@ -87,8 +87,8 @@
         "name": "gurren_lighting_piano",
         "events": ["-", "note_on-D0"],
         "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 4.22},
             {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren_full.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
         ]
     },
@@ -96,9 +96,9 @@
         "name": "gurren_lighting",
         "events": ["=", "note_on-D#0"],
         "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 35.3},
             {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true}
         ]
     },
@@ -127,7 +127,7 @@
         "events": ["y", "note_on-C#1"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god_knows.ogg", "target_selector": "#screen"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true}
         ]
@@ -151,6 +151,7 @@
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 5.44},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_1", "bpm": 87.0, "time_offset": 0}
         ]
     },
@@ -159,6 +160,7 @@
         "events": ["i", "note_on-D#2"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 110},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_2", "bpm": 115.0, "time_offset": 0}
         ]
     },
@@ -181,6 +183,7 @@
         "payload": [
             {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
         ]
     },
@@ -195,6 +198,7 @@
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
         ]
     },
@@ -222,6 +226,7 @@
         "name": "miku",
         "events": ["note_on-D5"],
         "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_2", "bpm": 165.0, "time_offset": 0}
         ]
     },
@@ -249,6 +254,7 @@
         "events": ["note_on-D6"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
         ]
     },
@@ -269,7 +275,7 @@
         "events": ["t", "note_on-C#7"],
         "payload": [
             {"deviceid": "main", "func": "image.start","src": "/assets/reignite_placeholder.png"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true}
         ]
@@ -282,6 +288,7 @@
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.mp3", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "alchemy", "bpm": 150.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": true}
         ]
     },
