@@ -172,14 +172,14 @@
         "name": "ff7_iframe",
         "events": ["a", "note_on-C3"],
         "payload": [
-            {"deviceid": "main", "func": "trigger.iframe", "src": "http://localhost:8808/static/projector/battlescape.html"}
+            {"deviceid": "main", "func": "iframe.init", "src": "http://localhost:8808/static/projector/battlescape.html"}
         ]
     },
     {
-        "name": "ff7_iframe",
+        "name": "ff7_iframe_start",
         "events": ["s", "note_on-C#3"],
         "payload": [
-            {"deviceid": "main", "func": "trigger.iframe", "func_iframe": "preroll"},
+            {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
         ]
