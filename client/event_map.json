@@ -138,7 +138,7 @@
 
     {
         "name": "silent_hill_precache",
-        "events": ["n", "note_on-C2"],
+        "events": ["note_on-C2"],
         "payload": {
             "func": "video.precache",
             "deviceid": "main",
@@ -146,22 +146,22 @@
         }
     },
     {
-        "name": "silent_hill_1",
-        "events": ["m", "note_on-C#2"],
+        "name": "silent_hill_promise",
+        "events": ["n", "note_on-C#2"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 5.44},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_1", "bpm": 87.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_promise", "bpm": 87.0, "time_offset": 0}
         ]
     },
     {
-        "name": "silent_hill2_2",
-        "events": ["i", "note_on-D#2"],
+        "name": "silent_hill2_lauras_theme",
+        "events": ["m", "note_on-D#2"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 110},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_2", "bpm": 115.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_lauras_theme", "bpm": 115.0, "time_offset": 0}
         ]
     },
     
@@ -183,7 +183,7 @@
         "payload": [
             {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen", "currentTime": 2.9},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
         ]
     },
