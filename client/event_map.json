@@ -198,7 +198,7 @@
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen", "currentTime": 4.7},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
         ]
     },
