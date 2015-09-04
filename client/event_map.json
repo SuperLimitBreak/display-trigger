@@ -251,7 +251,7 @@
     },
     {
         "name": "saikano",
-        "events": ["note_on-D6"],
+        "events": ["c", "note_on-D6"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 0},
@@ -300,7 +300,7 @@
     
     {
         "name":"test_lighting",
-        "events": "0",
+        "events": [],
         "payload": {
             "func": "DMXRendererLightTiming.start",
             "sequence": "test",
@@ -340,7 +340,7 @@
 
     {
         "name": "test_video_saikano_seek",
-        "events": ["6"],
+        "events": [],
         "payload": {
             "func": "video.start",
             "deviceid": "main",
@@ -367,7 +367,7 @@
 
     {
         "name": "test_audio",
-        "events": [","],
+        "events": [],
         "payload": {
             "func": "audio.start",
             "src": "/assets/test_god_knows.ogg"
@@ -376,7 +376,7 @@
 
     {
         "name": "test_audio_light_seek",
-        "events": ["."],
+        "events": [],
         "payload": [
             {"func": "audio.start", "src": "/assets/test_god_knows.ogg", "currentTime": 10},
             {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
@@ -388,7 +388,7 @@
         "name": "test1",
         "events": ["q"],
         "payload": {
-            "deviceid": "test",
+            "deviceid": "main",
             "func": "image.start",
             "src": "/assets/test.jpg"
         }

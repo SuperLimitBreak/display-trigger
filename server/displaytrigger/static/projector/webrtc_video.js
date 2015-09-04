@@ -16,7 +16,7 @@ var webrtc_video = {};
 		},
 		canvas: {
 			width: 320,
-			height: 200,
+			height: 240,
 		}
 	}, options);
 	
