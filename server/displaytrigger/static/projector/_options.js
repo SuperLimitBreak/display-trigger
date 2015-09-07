@@ -13,7 +13,7 @@ var options = {
         target_selector: '#screen',
         default_event_listeners: {
             ended: function(event){
-                console.log("ended video");
+                console.log("video ended");
                 $.publish('trigger.empty', null);
             }
         },

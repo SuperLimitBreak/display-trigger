@@ -60,16 +60,15 @@ var video = {};
 		}
 	}
 	
-	function precache(data) {
-		//if (utils.is_video(data.src)) {
+	function precache(data, event_listeners) {
 		load(
 			data.src,
-			_.extend({}, data, {play: false})
+			_.extend({}, data, {play: false}),
+			_.extend({}, options.default_event_listeners, event_listeners)
 		);
 	}
 
 	function start(data, event_listeners) {
-		//if (utils.is_video(data.src)) {
 		load(
 			data.src,
 			_.extend({}, data, {play: true}),
