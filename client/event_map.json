@@ -15,70 +15,6 @@
     },
     
     
-
-
-    {
-        "name": "overlay_reignite",
-        "events": ["u", "note_on-C#7"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"
-        }
-    },
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-
-
-
-    {
-        "name":"pentatonic_hero",
-        "events": "5",
-        "payload": {
-            "func": "pentatonic_hero.start",
-            "deviceid": "main"
-        }
-    },    
-    {
-        "name":"pentatonic_hero_mute_player1",
-        "events": "1",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1",
-            "mute": true
-        }
-    },
-    {
-        "name":"pentatonic_hero_unmute_player1",
-        "events": "2",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1",
-            "mute": false
-        }
-    },
-    {
-        "name":"test_pentatonic_hero_toggle_mute_player1",
-        "events": "3",
-        "payload": {
-            "func": "pentatonic_hero.control.mute",
-            "input": "player1"
-        }
-    },
-
-
-    
     
     
     
@@ -89,7 +25,8 @@
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 4.22},
             {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0}
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": false}
         ]
     },
     {
@@ -119,7 +56,8 @@
         "name": "god_knows_video",
         "events": ["h", "note_on-D#1"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0}
+            {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": false}
         ]
     },
     {
@@ -244,7 +182,7 @@
     },
     {
         "name": "saikano_video",
-        "events": ["x", "note_on-C#6"],
+        "events": ["d", "note_on-C#6"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0.0}
         ]
@@ -268,32 +206,93 @@
         "name": "reignite_precache",
         "events": ["note_on-C7"],
         "payload": [
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": false}
         ]
-    },    
+    },
     {
         "name": "reignite",
         "events": ["t", "note_on-C#7"],
         "payload": [
             {"deviceid": "main", "func": "image.start","src": "/assets/reignite_placeholder.png"},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true}
         ]
     },
     
-    
+
+    {
+        "name": "alchemy_precache",
+        "events": ["note_on-C8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/alchemy_title.mp4"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": false}
+        ]
+    },
     {
         "name": "alchemy",
-        "events": ["z", "note_on-C8"],
+        "events": ["z", "note_on-C#8"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.mp3", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "alchemy", "bpm": 150.0, "time_offset": 0},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Angel Beats</h1><p>Alchemy</p><p>Girls Dead Monster</p>"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": true}
+        ]
+    },
+    {
+        "name": "alchemy_title",
+        "events": ["x", "note_on-D8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
+        ]
+    },
+    {
+        "name": "alchemy_blip",
+        "events": ["c", "note_on-D#8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":0, "max_x":0, "min_y":0, "max_y":0, "time_offset_for_position": 0},
         ]
     },
 
     
+    
+
+    {
+        "name": "pentatonic_hero",
+        "events": ["\\", "note_on-C9"],
+        "payload": [
+            {"deviceid": "main", "func": "pentatonic_hero.start"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic_hero.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_player2",
+        "events": ["1", "note_on-C#9"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": false},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_player1",
+        "events": ["2", "note_on-D9"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": false}
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_all",
+        "events": ["2", "note_on-D#9"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
+        ]
+    },
+
     
     
     
@@ -350,7 +349,7 @@
         }
     },
 
-    
+
 
 
     {

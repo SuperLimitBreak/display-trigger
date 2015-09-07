@@ -76,9 +76,18 @@ var video = {};
 		);
 	}
 	
+	function random_position(data) {
+		console.log("video.js", "random_position has unimplemented functionality");
+		load(
+			data.src,
+			_.extend({}, data, {play: true})
+		);
+	}
+	
 	_.extend(external, {
 		precache: precache,
 		start: start,
+		random_position: random_position
 	});
 
 }(video, utils.functools.get('options.video')));
