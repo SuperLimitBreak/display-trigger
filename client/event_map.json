@@ -245,14 +245,14 @@
         "name": "alchemy_title",
         "events": ["x", "note_on-D8"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0}
         ]
     },
     {
         "name": "alchemy_blip",
         "events": ["c", "note_on-D#8"],
         "payload": [
-            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":0, "max_x":0, "min_y":0, "max_y":0, "time_offset_for_position": 0},
+            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":0, "max_x":0, "min_y":0, "max_y":0, "time_offset_for_position": 0}
         ]
     },
 
@@ -264,8 +264,8 @@
         "events": ["\\", "note_on-C9"],
         "payload": [
             {"deviceid": "main", "func": "pentatonic_hero.start"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic_hero.ogg", "target_selector": "#screen", "currentTime": 0},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0}
         ]
     },
     {
@@ -286,7 +286,7 @@
     },
     {
         "name":"pentatonic_hero_mute_all",
-        "events": ["2", "note_on-D#9"],
+        "events": ["3", "note_on-D#9"],
         "payload": [
             {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
             {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
