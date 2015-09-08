@@ -189,7 +189,7 @@
     },
     {
         "name": "saikano",
-        "events": ["c", "note_on-D6"],
+        "events": ["f", "note_on-D6"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 0},
@@ -252,7 +252,7 @@
         "name": "alchemy_blip",
         "events": ["c", "note_on-D#8"],
         "payload": [
-            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":0, "max_x":0, "min_y":0, "max_y":0, "time_offset_for_position": 0}
+            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":-50, "max_x":0, "min_y":-20, "max_y":15, "scale":1.5, "time_offset_for_position": 0}
         ]
     },
 

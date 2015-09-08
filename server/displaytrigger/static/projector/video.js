@@ -13,8 +13,8 @@ var video = {};
 		if (!video && create) {
 			$(target_selector).append('<video></video>');
 			video = $(selector_video).get(0);
-			onCreateVideo(video);
 		}
+		onCreateVideo(video);
 		return video || {};
 	}
 
@@ -24,6 +24,7 @@ var video = {};
 			'play': true,
 			'volume': 1.0,
 			'loop': false,
+			'css': {},
 		}, _options);
 		
 		$(_options.target_selector+' :not(video)').remove();
@@ -39,6 +40,11 @@ var video = {};
 			});
 		});
 
+		// Hack - needed the jquery version for css manipulation. This could be done better
+		var $video = $(_options.target_selector+' video');
+		$video.removeAttr('style');
+		$video.css(_options.css);
+		
 		video.loop = _options.loop;
 		video.volume = _options.volume;
 		video.controls = false;
@@ -77,7 +83,22 @@ var video = {};
 	}
 	
 	function random_position(data) {
-		console.log("video.js", "random_position has unimplemented functionality");
+		console.log("video.js", "random_position has unimplemented functionality", data);
+		data = _.extend({
+			min_x: 0,
+			may_x: 0,
+			min_y: 0,
+			max_y: 0,
+			scale: 1.0,
+			time_offset_for_position: 0,
+		}, data);
+		data.css = {
+			left: ''+_.random(data.min_x, data.max_x)+'vw',
+			top: ''+_.random(data.min_y, data.max_y)+'vw',
+			width: '' + (data.scale * 100)+'vw',
+			height: 'auto',
+			position: 'absolute',
+		}
 		load(
 			data.src,
 			_.extend({}, data, {play: true})
