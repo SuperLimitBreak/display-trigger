@@ -57,6 +57,7 @@
         "events": ["h", "note_on-D#1"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "none"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": false}
         ]
     },
@@ -178,6 +179,7 @@
         "name": "saikano_precache",
         "events": ["note_on-C6"],
         "payload": [
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "none"},
             {"deviceid": "main", "func": "video.precache", "src": "/assets/saikano.mp4"}
         ]
     },
@@ -262,16 +264,18 @@
 
     {
         "name": "pentatonic_hero",
-        "events": ["\\", "note_on-C9"],
+        "events": ["\\", "note_on-E8"],
         "payload": [
             {"deviceid": "main", "func": "pentatonic_hero.start"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic.ogg", "target_selector": "#screen", "currentTime": 0},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
         ]
     },
     {
         "name":"pentatonic_hero_mute_player2",
-        "events": ["1", "note_on-C#9"],
+        "events": ["1", "note_on-F8"],
         "payload": [
             {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": false},
             {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
@@ -279,7 +283,7 @@
     },
     {
         "name":"pentatonic_hero_mute_player1",
-        "events": ["2", "note_on-D9"],
+        "events": ["2", "note_on-F#8"],
         "payload": [
             {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
             {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": false}
@@ -287,7 +291,7 @@
     },
     {
         "name":"pentatonic_hero_mute_all",
-        "events": ["3", "note_on-D#9"],
+        "events": ["3", "note_on-G8"],
         "payload": [
             {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
             {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
