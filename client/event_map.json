@@ -33,7 +33,7 @@
         "name": "gurren_lighting",
         "events": ["=", "note_on-D#0"],
         "payload": [
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 35.3},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 37.57},
             {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true}
