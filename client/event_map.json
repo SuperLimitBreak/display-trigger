@@ -68,7 +68,7 @@
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true, "seek_to_time": 1500}
         ]
     },
     
@@ -220,9 +220,9 @@
         "payload": [
             {"deviceid": "main", "func": "video.start","src": "/assets/reignite.mp4", "volume": 0.0, "css":{"width":"auto", "margin-left":"-350px"}},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen", "currentTime": 3.42},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true, "seek_to_time": 3420}
         ]
     },
     
