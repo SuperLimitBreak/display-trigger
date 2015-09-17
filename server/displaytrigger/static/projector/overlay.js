@@ -41,7 +41,7 @@ var overlay = {};
 		clear_overlay_timeout(data.timeout_name);
 		set_overlay_timeout(data.timeout_name, function(){hide_overlay(data.classname_active)}, data.duration);
 	}
-	
+
 	_.extend(external, {
 		html_bubble: html_bubble,
 	});

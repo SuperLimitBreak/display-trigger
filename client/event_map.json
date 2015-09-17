@@ -122,7 +122,7 @@
         "payload": [
             {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen", "currentTime": 2.9},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
         ]
     },
@@ -137,7 +137,7 @@
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen", "currentTime": 4.7},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen"},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
         ]
     },
@@ -195,7 +195,7 @@
         "events": ["f", "note_on-D6"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 2.45},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
         ]
     },
@@ -210,6 +210,7 @@
         "events": ["note_on-C7"],
         "payload": [
             {"deviceid": "main", "func": "video.precache","src": "/assets/reignite.mp4"},
+            {"deviceid": "main", "func": "mask.mask","src": "/assets/reignite_mask.png", "css_class": "reignite_mask"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": false}
         ]
     },
@@ -217,7 +218,7 @@
         "name": "reignite",
         "events": ["t", "note_on-C#7"],
         "payload": [
-            {"deviceid": "main", "func": "video.start","src": "/assets/reignite.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "video.start","src": "/assets/reignite.mp4", "volume": 0.0, "css":{"width":"auto", "margin-left":"-350px"}},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
