@@ -36,7 +36,7 @@
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 37.57},
             {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true, "seek_to_time": 37000}
         ]
     },
     {
@@ -239,11 +239,11 @@
         "name": "alchemy",
         "events": ["z", "note_on-C#8"],
         "payload": [
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "alchemy", "bpm": 150.0, "time_offset": 0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "alchemy", "bpm": 165.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 2.7},
             {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Angel Beats</h1><p>Alchemy</p><p>Girls Dead Monster</p>"},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": true}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": true, "seek_to_time": 2700}
         ]
     },
     {
