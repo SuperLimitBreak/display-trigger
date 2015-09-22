@@ -18,7 +18,7 @@ var displaytrigger = window.displaytrigger || {
 	displaytrigger.deviceid = utils.url.getUrlParameter('deviceid') || displaytrigger.deviceid;
 	
 	function is_data_for_this_deviceid(data) {
-		return data && (!data.deviceid || displaytrigger.deviceid.search(data.deviceid)>=0);
+		return data && (!data.deviceid || !displaytrigger.deviceid || displaytrigger.deviceid.search(data.deviceid)>=0);
 	}
 
 	var socket = WebSocketReconnect({

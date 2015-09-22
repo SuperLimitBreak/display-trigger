@@ -1,7 +1,7 @@
 from pyramid.config import Configurator
 
 from externals.lib.misc import convert_str_with_type
-from externals.lib.multisocket.multisocket_server import EchoServerManager
+from externals.lib.multisocket.subscription_echo_server import SubscriptionEchoServerManager
 
 import logging
 log = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ def main(global_config, **settings):
         config.registry.settings[key] = convert_str_with_type(config.registry.settings[key])
 
     # TCP/Websocket
-    socket_manager = EchoServerManager(
+    socket_manager = SubscriptionEchoServerManager(
         websocket_port=config.registry.settings['multisocket.websocket.port'],
         tcp_port=config.registry.settings['multisocket.tcp.port'],
     )
