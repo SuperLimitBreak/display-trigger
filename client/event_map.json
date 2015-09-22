@@ -66,9 +66,9 @@
         "events": ["y", "note_on-C#1"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 3.1},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true, "seek_to_time": 1500}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true, "seek_to_time": 4600}
         ]
     },
     
@@ -158,7 +158,7 @@
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/miku.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 2.91},
             {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_1", "bpm": 164.0, "time_offset": 0}
         ]
     },
