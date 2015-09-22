@@ -211,9 +211,12 @@ var subtitles = {};
 	
 	// Export ------------------------------------------------------------------
 	
-	external.load = load;
-	external.play = play;
-	external.stop = stop;
+	_.extend(external, {
+		load: load,
+		play: play,
+		stop: stop,
+	});
+
 	
 }(subtitles, {
 		display_function: subtitles.display,
