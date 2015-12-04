@@ -9,7 +9,7 @@ help:
 
 # Installation -----------------------------------------------------------------
 
-install: $(OS) libs/network_display_event.py libs/pygame_midi_wrapper.py libs/music.py
+install: $(OS) libs/client_reconnect.py libs/pygame_midi_wrapper.py libs/music.py
 
 # OSX installation
 Darwin:
@@ -28,8 +28,8 @@ Linux:
 libs:
 	mkdir libs
 	touch libs/__init__.py
-libs/network_display_event.py:
-	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/network_display_event.py --compressed -O
+libs/client_reconnect.py:
+	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/client_reconnect.py --compressed -O
 libs/pygame_midi_wrapper.py:
 	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py --compressed -O
 libs/music.py:

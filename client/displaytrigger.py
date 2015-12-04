@@ -3,7 +3,7 @@ from functools import partial
 from collections import defaultdict
 
 from input_ import InputPlugin
-from libs.network_display_event import DisplayEventHandler
+from libs.client_reconnect import JsonSocketReconnect
 
 import logging
 log = logging.getLogger(__name__)
@@ -125,9 +125,9 @@ if __name__ == "__main__":
     logging.basicConfig(level=options['log_level'])
 
     event_lookup = generate_event_lookup(json.load(options['event_map']))
-    display_event_handler = DisplayEventHandler.factory(*options['display_host'].split(':'))
+    socket = JsonSocketReconnect.factory(*options['display_host'].split(':'))
 
-    _event_handler = partial(event_handler, display_event_handler.event, event_lookup)
+    _event_handler = partial(event_handler, socket.send, event_lookup)
 
     init_input_plugins(_event_handler, options)
     InputPlugin.inputs[options['input_device']].open()
