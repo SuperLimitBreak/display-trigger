@@ -3,7 +3,7 @@ from functools import partial
 from collections import defaultdict
 
 from input_ import InputPlugin
-from libs.client_reconnect import JsonSocketReconnect
+from libs.client_reconnect import SubscriptionClient
 
 import logging
 log = logging.getLogger(__name__)
@@ -125,11 +125,14 @@ if __name__ == "__main__":
     logging.basicConfig(level=options['log_level'])
 
     event_lookup = generate_event_lookup(json.load(options['event_map']))
-    socket = JsonSocketReconnect.factory(*options['display_host'].split(':'))
+    socket = SubscriptionClient.factory(*options['display_host'].split(':'))
+    socket.subscriptions.add('none')
+    socket.send_subscriptions()
 
-    _event_handler = partial(event_handler, socket.send, event_lookup)
+    _event_handler = partial(event_handler, socket.send_message, event_lookup)
 
     init_input_plugins(_event_handler, options)
+
     InputPlugin.inputs[options['input_device']].open()
 
-    display_event_handler.close()
+    socket.close()
