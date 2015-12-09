@@ -30,7 +30,7 @@ def generate_event_lookup(data):
     return event_lookup
 
 
-def event_handler(display_event_func, event_lookup, event_key):
+def event_handler(send_message_func, event_lookup, event_key):
     """
     Typically called with a partial function to consistanty pass
     display_event_func and event_lookup (globals are bad and the functional paragdime is nice)
@@ -39,7 +39,7 @@ def event_handler(display_event_func, event_lookup, event_key):
         log.warn('unknown event {0}'.format(event_key))
         return
     for event_item in event_lookup[event_key]:
-        display_event_func(event_item['payload'])
+        send_message_func(*event_item['payload'])
 
 
 # Input Plugins ----------------------------------------------------------------
@@ -125,9 +125,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=options['log_level'])
 
     event_lookup = generate_event_lookup(json.load(options['event_map']))
-    socket = SubscriptionClient.factory(*options['display_host'].split(':'))
-    socket.subscriptions.add('none')
-    socket.send_subscriptions()
+    socket = SubscriptionClient.factory(*options['display_host'].split(':'), subscriptions=('none',))
 
     _event_handler = partial(event_handler, socket.send_message, event_lookup)
 

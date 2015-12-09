@@ -2,9 +2,9 @@
     {
         "name": "empty",
         "events": [" ", "note_on-A3"],
-        "payload": {
-            "func": "trigger.empty"
-        }
+        "payload": [
+            {"func": "trigger.empty"}
+        ]
     },
     {
         "name": "plain_lights",
@@ -42,11 +42,9 @@
     {
         "name": "overlay_gurren_lagan",
         "events": ["p", "note_on-C#0"],
-        "payload": {
-            "func": "overlay.html_bubble",
-            "deviceid": "main",
-            "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"
-        }
+        "payload": [
+            {"func": "overlay.html_bubble", "deviceid": "main", "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"}
+        ]
     },
 
     
@@ -78,11 +76,9 @@
     {
         "name": "silent_hill_precache",
         "events": ["note_on-C2"],
-        "payload": {
-            "func": "video.precache",
-            "deviceid": "main",
-            "src": "/assets/silent_hill.mp4"
-        }
+        "payload": [
+            {"func": "video.precache", "deviceid": "main", "src": "/assets/silent_hill.mp4"}
+        ]
     },
     {
         "name": "silent_hill_promise",
@@ -307,53 +303,42 @@
     {
         "name":"test_lighting",
         "events": [],
-        "payload": {
-            "func": "DMXRendererLightTiming.start",
-            "sequence": "test",
-            "bpm": 200.0,
-            "timesigniture": "4:4"
-        }
+        "payload": [
+            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "timesigniture": "4:4"}
+        ]
     },
 
     {
         "name":"test_scroller",
         "events": "9",
-        "payload": {
-            "func": "background_scroller.scroll_sequence",
-            "name": "castelvania_1"
-        }
+        "payload": [
+            {"func": "background_scroller.scroll_sequence", "name": "castelvania_1"}
+        ]
     },
     
     {
         "name":"test_subtitles",
         "events": "8",
-        "payload": {
-            "func": "subtitles.load",
-            "deviceid": "subtitles",
-            "src": "/assets/test.srt",
-            "play_on_load": true
-        }
+        "payload": [
+            {"func": "subtitles.load", "deviceid": "subtitles", "src": "/assets/test.srt", "play_on_load": true}
+        ]
     },
 
     
     {
         "name":"test_webrtc_video",
         "events": "7",
-        "payload": {
-            "func": "webrtc_video.initVideoDevices"
-        }
+        "payload": [
+            {"func": "webrtc_video.initVideoDevices"}
+        ]
     },
 
     {
         "name": "test_video_saikano_seek",
         "events": [],
-        "payload": {
-            "func": "video.start",
-            "deviceid": "main",
-            "src": "/assets/saikano_rough.mp4",
-            "volume": 0.0,
-            "currentTime": 60
-        }
+        "payload": [
+            {"func": "video.start", "deviceid": "main", "src": "/assets/saikano_rough.mp4", "volume": 0.0, "currentTime": 60}
+        ]
     },
 
 
@@ -374,10 +359,9 @@
     {
         "name": "test_audio",
         "events": [],
-        "payload": {
-            "func": "audio.start",
-            "src": "/assets/test_god_knows.ogg"
-        }
+        "payload": [
+            {"func": "audio.start", "src": "/assets/test_god_knows.ogg"}
+        ]
     },
 
     {
@@ -393,42 +377,36 @@
     {
         "name": "test1",
         "events": ["q"],
-        "payload": {
-            "deviceid": "main",
-            "func": "image.start",
-            "src": "/assets/test.jpg"
-        }
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+        ]
     },
     {
         "name": "test2",
         "events": ["w"],
-        "payload": {
-            "func": "image.start",
-            "src": "/assets/test2.jpg"
-        }
+        "payload": [
+            {"func": "image.start", "src": "/assets/test2.jpg"}
+        ]
     },
     {
         "name": "test3",
         "events": ["e"],
-        "payload": {
-            "func": "image.start",
-            "src": "/assets/test3.jpg"
-        }
+        "payload": [
+            {"func": "image.start", "src": "/assets/test3.jpg"}
+        ]
     },
     {
         "name": "test4",
         "events": ["r"],
-        "payload": {
-            "func": "image.start",
-            "src": "/assets/test4.jpg"
-        }
+        "payload": [
+            {"func": "image.start", "src": "/assets/test4.jpg"}
+        ]
     },
     {
         "name": "test5",
         "events": [],
-        "payload": {
-            "func": "image.start",
-            "src": "/assets/test5.jpg"
-        }
+        "payload": [
+            {"func": "image.start", "src": "/assets/test5.jpg"}
+        ]
     }
 ]
