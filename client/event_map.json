@@ -3,7 +3,7 @@
         "name": "empty",
         "events": [" ", "note_on-A3"],
         "payload": [
-            {"func": "trigger.empty"}
+            {"deviceid": "all", "func": "trigger.empty"}
         ]
     },
     {

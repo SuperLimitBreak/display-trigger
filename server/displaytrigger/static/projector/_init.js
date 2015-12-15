@@ -1,5 +1,5 @@
 var displaytrigger = window.displaytrigger || {
-	deviceids: null,
+	deviceids: ['all'],
 };
 
 (function(external){
@@ -18,18 +18,17 @@ var displaytrigger = window.displaytrigger || {
 	//var exclude = getModuleList('exclude');
 	//console.log(include, exclude);
 	
-	displaytrigger.deviceids = _.filter(
-		_.map(
-			(utils.url.getUrlParameter('deviceid') || "").split(','),
-			function(item){return item.trim();}
+	displaytrigger.deviceids = _.union(
+		_.filter(
+			_.map((utils.url.getUrlParameter('deviceid') || "").split(','), function(item){return item.trim();}),
+			function (item) {return item;}
 		),
-		function (item) {
-            return item;
-        }
+		displaytrigger.deviceids
 	);
 	
 	function is_data_for_this_deviceid(data) {
 		if (_.isEmpty(displaytrigger.deviceids)) {
+			console.log('emplty', displaytrigger.deviceids);
             return true;
         }
 		return _.find(displaytrigger.deviceids, function(deviceid){
@@ -47,14 +46,9 @@ var displaytrigger = window.displaytrigger || {
 			$('body').addClass(options.disconnected_class);
 		},
 		onmessage: function(data){
-			// Filter messages not intended for this device
-			//if (_.isArray(data)) {
-			//	data = _.filter(data, is_data_for_this_deviceid)
-			//} else
 			if (!is_data_for_this_deviceid(data)) {
 				data = {};
 			}
-			console.log(data);
 			utils.functools.run_funcs(data)
 		},
 	});
