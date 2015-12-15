@@ -1,8 +1,11 @@
 var displaytrigger = window.displaytrigger || {
-	deviceid: "",
+	deviceids: null,
 };
 
 (function(external){
+	var options = {
+		disconnected_class: 'websocket_disconnected',
+	};
 
 	function getModuleList(name) {
 		var param = utils.url.getUrlParameter(name);
@@ -15,22 +18,43 @@ var displaytrigger = window.displaytrigger || {
 	//var exclude = getModuleList('exclude');
 	//console.log(include, exclude);
 	
-	displaytrigger.deviceid = utils.url.getUrlParameter('deviceid') || displaytrigger.deviceid;
+	displaytrigger.deviceids = _.filter(
+		_.map(
+			(utils.url.getUrlParameter('deviceid') || "").split(','),
+			function(item){return item.trim();}
+		),
+		function (item) {
+            return item;
+        }
+	);
 	
 	function is_data_for_this_deviceid(data) {
-		return data && (!data.deviceid || !displaytrigger.deviceid || displaytrigger.deviceid.search(data.deviceid)>=0);
+		if (_.isEmpty(displaytrigger.deviceids)) {
+            return true;
+        }
+		return _.find(displaytrigger.deviceids, function(deviceid){
+			return data && (!data.deviceid || !deviceid || deviceid.search(data.deviceid)>=0);
+		});
 	}
 
-	var socket = WebSocketReconnect({
-		onopen: function() {},
+	var socket = SubscriptionSocketReconnect({
+		subscriptions: displaytrigger.deviceids,
+	}, {
+		onconnected: function() {
+			$('body').removeClass(options.disconnected_class);
+		},
+		ondisconnected: function() {
+			$('body').addClass(options.disconnected_class);
+		},
 		onmessage: function(data){
 			// Filter messages not intended for this device
-			if (_.isArray(data)) {
-				data = _.filter(data, is_data_for_this_deviceid)
-			}
-			else if (!is_data_for_this_deviceid(data)) {
+			//if (_.isArray(data)) {
+			//	data = _.filter(data, is_data_for_this_deviceid)
+			//} else
+			if (!is_data_for_this_deviceid(data)) {
 				data = {};
 			}
+			console.log(data);
 			utils.functools.run_funcs(data)
 		},
 	});
