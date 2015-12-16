@@ -1,11 +1,9 @@
-var socket = WebSocketReconnect({
-    onopen: function() {
-        console.log('connected');
-    },
-    onmessage: function(data) {
-        //console.log('message', data);
+var socket = SubscriptionSocketReconnect({
+        subscriptions: ['none'],
+    },{
+        
     }
-});
+);
 
 
 function get_event_maps() {
@@ -38,7 +36,7 @@ function set_event_map(data) {
     $event_triggers.empty();
     $.each(data, function(i, data){
         $event_triggers.append(
-            "<li><button onclick='socket.send($(this).data().event);' data-event='DATA'>EVENT_NAME</button></li>"
+            "<li><button onclick='socket.send_message_array($(this).data().event);' data-event='DATA'>EVENT_NAME</button></li>"
             .replace('EVENT_NAME', data.name)
             .replace('DATA', JSON.stringify(data.payload).replace())
         );
