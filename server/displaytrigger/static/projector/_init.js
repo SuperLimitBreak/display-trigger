@@ -28,7 +28,6 @@ var displaytrigger = window.displaytrigger || {
 	
 	function is_data_for_this_deviceid(data) {
 		if (_.isEmpty(displaytrigger.deviceids)) {
-			console.log('emplty', displaytrigger.deviceids);
             return true;
         }
 		return _.find(displaytrigger.deviceids, function(deviceid){

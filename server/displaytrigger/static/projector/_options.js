@@ -5,7 +5,7 @@ var options = {
     audio: {
         default_event_listeners: {
     		seeked: function(event){
-				socket.send({func: 'DMXRendererLightTiming.seek', currentTime: event.target.currentTime});
+				socket.send_message({func: 'DMXRendererLightTiming.seek', currentTime: event.target.currentTime});
 			}
         }
     },
