@@ -125,7 +125,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=options['log_level'])
 
     event_lookup = generate_event_lookup(json.load(options['event_map']))
-    socket = SubscriptionClient.factory(*options['display_host'].split(':'), subscriptions=('none',))
+    socket = SubscriptionClient(*options['display_host'].split(':'), subscriptions=('none',))
 
     _event_handler = partial(event_handler, socket.send_message, event_lookup)
 
