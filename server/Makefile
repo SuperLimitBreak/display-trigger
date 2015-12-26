@@ -50,7 +50,11 @@ $(PROJECT).egg-info: env
 	env/bin/python setup.py develop
 
 dependency_downloader.py:
-	curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py --compressed -O
+	if [ -d ../../libs/ ] ; then \
+		../../libs/python3/lib/dependency_downloader.py ;\
+	else \
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py --compressed -O ;\
+	fi
 
 externals:
 	mkdir externals && touch externals/__init__.py
@@ -58,7 +62,21 @@ externals:
 dependency_download: dependency_downloader.py externals
 	env/bin/python dependency_downloader.py --destination externals
 
-install: development.ini production.inidiff $(PROJECT).egg-info dependency_download
+install: development.ini production.inidiff $(PROJECT).egg-info libs dependency_download
+
+libs:
+	mkdir libs
+	touch libs/__init__.py
+	cd libs && \
+	if [ -d ../../libs/ ] ; then \
+		ln -s ../../../libs/python3/lib/misc.py                            misc.py                ;\
+		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py            ;\
+		ln -s ../../../libs/python3/lib/multisocket/subscription_server.py subscription_server.py ;\
+	else \
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/misc.py                            --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/make_ini.py                        --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/subscription_server.py --compressed -O ;\
+	fi
 
 
 # Ini files --------------------------------------------------------------------
@@ -69,10 +87,10 @@ development.ini:
 production.inidiff:
 	cp production.inidiff.dist production.inidiff
 
-ini_test: development.ini
-	env/bin/python3 externals/lib/make_ini.py test
-ini_production: production.inidiff
-	env/bin/python3 externals/lib/make_ini.py production
+ini_test: development.ini libs
+	env/bin/python3 libs/make_ini.py test
+ini_production: production.inidiff libs
+	env/bin/python3 libs/make_ini.py production
 
 run: install
 	env/bin/pserve --reload $(INI_DEV)
