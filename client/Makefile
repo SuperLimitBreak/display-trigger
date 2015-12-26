@@ -9,7 +9,7 @@ help:
 
 # Installation -----------------------------------------------------------------
 
-install: $(OS) libs/client_reconnect.py libs/pygame_midi_wrapper.py libs/music.py
+install: $(OS) libs
 
 # OSX installation
 Darwin:
@@ -28,14 +28,19 @@ Linux:
 libs:
 	mkdir libs
 	touch libs/__init__.py
-libs/client_reconnect.py:
-	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/client_reconnect.py --compressed -O
-libs/pygame_midi_wrapper.py:
-	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py --compressed -O
-libs/music.py:
-	cd libs && curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/music.py --compressed -O
 
+	cd libs && \
+	if [ -d ../libs/ ] ; then \
+		ln -s ../../libs/python3/lib/net/client_reconnect.py client_reconnect.py ;\
+		ln -s ../../libs/python3/lib/midi/pygame_midi_wrapper.py pygame_midi_wrapper.py ;\
+		ln -s ../../libs/python3/lib/midi/music.py music.py ;\
+	else \
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/client_reconnect.py      --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py  --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/music.py                --compressed -O ;\
+	fi
 
+	
 # Run --------------------------------------------------------------------------
 
 run:
