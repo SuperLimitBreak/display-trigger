@@ -9,22 +9,30 @@ INI_PROD = production.ini
 
 help:
 	# Usage: make <target>, where target is
-	# install        -- run after clean checkout to pull dependecys and setup
+	#   - install        -- run after clean checkout to pull dependecys and setup
+	#   - run            -- run development setup (depends on install)
+	#   - run_production --
+	#   - clean          -- Remove all generated files and return to base checkout
 	#
 	# Typical first use should be: run
 
 
 # Installation -----------------------------------------------------------------
 
+install: development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json
+
+
+# Dependencys ------------------------------------------------------------------
+
+# DEPRICATED
+# TODO: Installing system levels dependencys should not be the role of this Makefile
 .installed_python: .installed_python_$(OS)
 	touch .installed_python
-
 # OSX installation
 .installed_python_Darwin:
 	brew install python3
 	# python virtualenv?
 	touch .installed_python_Darwin
-
 # Linux installation
 .installed_python_Linux:
 	if dpkg -s python-virtualenv ; then \
@@ -41,7 +49,12 @@ help:
 	fi
 	touch .installed_python_Linux
 
-env: .installed_python
+has-python:
+	which python
+	which python3
+	which virtualenv
+
+env: has-python
 	# Reference - http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/install.html
 	virtualenv --no-site-packages -p python3 env
 	env/bin/easy_install pyramid
@@ -49,30 +62,23 @@ env: .installed_python
 $(PROJECT).egg-info: env
 	env/bin/python setup.py develop
 
-dependency_downloader.py:
-	if [ -d ../../libs/ ] ; then \
-		../../libs/python3/lib/dependency_downloader.py ;\
-	else \
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py --compressed -O ;\
-	fi
-
 externals:
 	mkdir externals && touch externals/__init__.py
 
-dependency_download: dependency_downloader.py externals
-	env/bin/python dependency_downloader.py --destination externals
-
-install: development.ini production.inidiff $(PROJECT).egg-info libs dependency_download
+dependencys_installed.json: libs externals
+	env/bin/python libs/dependency_downloader.py --destination externals
 
 libs:
 	mkdir libs
 	touch libs/__init__.py
 	cd libs && \
 	if [ -d ../../libs/ ] ; then \
-		ln -s ../../../libs/python3/lib/misc.py                            misc.py                ;\
-		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py            ;\
-		ln -s ../../../libs/python3/lib/multisocket/subscription_server.py subscription_server.py ;\
+		ln -s ../../../libs/python3/lib/dependency_downloader.py           dependency_downloader.py ;\
+		ln -s ../../../libs/python3/lib/misc.py                            misc.py                  ;\
+		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py              ;\
+		ln -s ../../../libs/python3/lib/multisocket/subscription_server.py subscription_server.py   ;\
 	else \
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py           --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/misc.py                            --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/make_ini.py                        --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/subscription_server.py --compressed -O ;\
@@ -113,5 +119,5 @@ clean:
 	rm -f $(INI_TEST)
 	rm -f $(INI_PROD)
 	rm -rf externals
-	rm -rf dependency_downloader.py
+	rm -rf libs
 	rm -rf dependencys_installed.json
