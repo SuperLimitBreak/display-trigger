@@ -7,6 +7,7 @@ INI_TEST = test.ini
 INI_PROD = production.ini
 
 
+.PHONY: help
 help:
 	# Usage: make <target>, where target is
 	#   - install        -- run after clean checkout to pull dependecys and setup
@@ -19,7 +20,8 @@ help:
 
 # Installation -----------------------------------------------------------------
 
-install: development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
+.PHONY: install
+install: has-python development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
 
 
 # Dependencys ------------------------------------------------------------------
@@ -49,18 +51,20 @@ install: development.ini production.inidiff $(PROJECT).egg-info libs dependencys
 	fi
 	touch .installed_python_Linux
 
+.PHONY: has-python
 has-python:
 	which python
 	which python3
 	which virtualenv
-
-env: has-python
+	
+env:
 	# Reference - http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/install.html
 	virtualenv --no-site-packages -p python3 env
 	env/bin/easy_install pyramid
 
 $(PROJECT).egg-info: env
 	env/bin/python setup.py develop
+	
 
 externals:
 	mkdir externals && touch externals/__init__.py
@@ -87,11 +91,13 @@ libs:
 		ln -s ../../../libs/python3/lib/dependency_downloader.py           dependency_downloader.py ;\
 		ln -s ../../../libs/python3/lib/misc.py                            misc.py                  ;\
 		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py              ;\
+		ln -s ../../../libs/python3/lib/multisocket/multisocket_server.py  multisocket_server.py    ;\
 		ln -s ../../../libs/python3/lib/multisocket/subscription_server.py subscription_server.py   ;\
 	else \
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py           --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/misc.py                            --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/make_ini.py                        --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/multisocket_server.py  --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/subscription_server.py --compressed -O ;\
 	fi
 
@@ -120,6 +126,7 @@ shell:
 
 # Cleanup ----------------------------------------------------------------------
 
+.PHONY: clean
 clean:
 	rm -rf *.pyc
 	rm -rf .installed_*
