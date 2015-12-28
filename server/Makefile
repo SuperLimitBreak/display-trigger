@@ -21,7 +21,7 @@ help:
 # Installation -----------------------------------------------------------------
 
 .PHONY: install
-install: has-python development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
+install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
 
 
 # Dependencys ------------------------------------------------------------------
