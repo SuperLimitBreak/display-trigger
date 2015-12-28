@@ -1,6 +1,7 @@
 .installed_*
 *.egg-info
 /env/
+/libs/
 /externals/
 /data/
 /development.ini
