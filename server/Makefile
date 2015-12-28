@@ -19,7 +19,7 @@ help:
 
 # Installation -----------------------------------------------------------------
 
-install: development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json
+install: development.ini production.inidiff $(PROJECT).egg-info libs dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
 
 
 # Dependencys ------------------------------------------------------------------
@@ -65,6 +65,17 @@ $(PROJECT).egg-info: env
 externals:
 	mkdir externals && touch externals/__init__.py
 
+externals/static/pentatonic_hero_visulisation.js:
+	mkdir -p externals/static/
+	cd externals/static/ && \
+	if [ -d ../../../../pentatonicHero/ ] ; then \
+		ln -s ../../../../pentatonicHero/pentatonic_hero_visulisation.js        pentatonic_hero_visulisation.js  ;\
+		ln -s ../../../../pentatonicHero/pentatonic_hero_visulisation.css       pentatonic_hero_visulisation.css ;\
+	else \
+		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.js  --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.css --compressed -O ;\
+	fi
+
 dependencys_installed.json: libs externals
 	env/bin/python libs/dependency_downloader.py --destination externals
 
@@ -72,7 +83,7 @@ libs:
 	mkdir libs
 	touch libs/__init__.py
 	cd libs && \
-	if [ -d ../../libs/ ] ; then \
+	if [ -d ../../../libs/ ] ; then \
 		ln -s ../../../libs/python3/lib/dependency_downloader.py           dependency_downloader.py ;\
 		ln -s ../../../libs/python3/lib/misc.py                            misc.py                  ;\
 		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py              ;\
