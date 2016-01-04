@@ -10,7 +10,7 @@
         "name": "plain_lights",
         "events": ["!", "note_on-B3"],
         "payload": [
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "plain_lights"}
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "plain_lights"}
         ]
     },
     
@@ -25,7 +25,7 @@
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 4.22},
             {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": false}
         ]
     },
@@ -35,7 +35,7 @@
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 37.57},
             {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "gurren", "bpm": 175.0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "gurren", "bpm": 175.0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true, "seek_to_time": 37000}
         ]
     },
@@ -55,7 +55,7 @@
         "events": ["h", "note_on-D#1"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "none"},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "none"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": false}
         ]
     },
@@ -65,7 +65,7 @@
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God knows</p><p>Satoru Kousaki - Aya Hirano - Aki Hata</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 3.1},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "god", "bpm": 150.0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "god", "bpm": 150.0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true, "seek_to_time": 4600}
         ]
     },
@@ -87,7 +87,7 @@
             {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 5.44},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_promise", "bpm": 87.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "silent_hill_promise", "bpm": 87.0, "time_offset": 0}
         ]
     },
     {
@@ -96,7 +96,7 @@
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 110},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "silent_hill_lauras_theme", "bpm": 115.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "silent_hill_lauras_theme", "bpm": 115.0, "time_offset": 0}
         ]
     },
     
@@ -119,7 +119,7 @@
             {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still more fighting</p><p>Nobuo Uematsu</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen"},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
         ]
     },
     
@@ -134,7 +134,7 @@
             {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touho 6: Embodyment of the Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen"},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
         ]
     },
 
@@ -155,7 +155,7 @@
             {"deviceid": "main", "func": "video.start", "src": "/assets/miku.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>ryo (Supercell)</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 2.91},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_1", "bpm": 164.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "miku_1", "bpm": 164.0, "time_offset": 0}
         ]
     },
     {
@@ -163,7 +163,7 @@
         "events": ["k", "note_on-D5"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 20.7},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "miku_2", "bpm": 165.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "miku_2", "bpm": 165.0, "time_offset": 0}
         ]
     },
     
@@ -175,7 +175,7 @@
         "name": "saikano_precache",
         "events": ["note_on-C6"],
         "payload": [
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "scene": "none"},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "none"},
             {"deviceid": "main", "func": "video.precache", "src": "/assets/saikano.mp4"}
         ]
     },
@@ -192,7 +192,7 @@
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the ultimate weapon)</h1><p>Hoshi no hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 2.45},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
         ]
     },
 
@@ -217,7 +217,7 @@
             {"deviceid": "main", "func": "video.start","src": "/assets/reignite.mp4", "volume": 0.0, "css":{"width":"auto", "margin-left":"-350px"}},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen", "currentTime": 3.42},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true, "seek_to_time": 3420}
         ]
     },
@@ -235,7 +235,7 @@
         "name": "alchemy",
         "events": ["z", "note_on-C#8"],
         "payload": [
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "alchemy", "bpm": 165.0, "time_offset": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "alchemy", "bpm": 165.0, "time_offset": 0},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 2.7},
             {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Angel Beats</h1><p>Alchemy</p><p>Girls Dead Monster</p>"},
@@ -266,7 +266,7 @@
         "payload": [
             {"deviceid": "main", "func": "pentatonic_hero.start"},
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic.ogg", "target_selector": "#screen", "currentTime": 0},
-            {"deviceid": "lights", "func": "DMXRendererLightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
             {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
             {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
         ]
@@ -304,7 +304,7 @@
         "name":"test_lighting",
         "events": [],
         "payload": [
-            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "timesigniture": "4:4"}
+            {"func": "LightTiming.start", "sequence": "test", "bpm": 200.0, "timesigniture": "4:4"}
         ]
     },
 
@@ -369,7 +369,7 @@
         "events": [],
         "payload": [
             {"func": "audio.start", "src": "/assets/test_god_knows.ogg", "currentTime": 10},
-            {"func": "DMXRendererLightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
+            {"func": "LightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
         ]
     },
     
