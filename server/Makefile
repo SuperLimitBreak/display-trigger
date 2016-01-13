@@ -21,7 +21,7 @@ help:
 # Installation -----------------------------------------------------------------
 
 .PHONY: install
-install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js
+install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html
 
 
 # Dependencys ------------------------------------------------------------------
@@ -78,6 +78,15 @@ externals/static/pentatonic_hero_visulisation.js:
 	else \
 		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.js  --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.css --compressed -O ;\
+	fi
+
+externals/static/lightingRemoteControl.html:
+	mkdir -p externals/static/
+	cd externals/static/ && \
+	if [ -d ../../../../lightingAutomation/ ] ; then \
+		ln -s ../../../../lightingAutomation/webRemoteControl.html              lightingRemoteControl.html ;\
+	else \
+		echo "lightingAutomation not linked" > lightingRemoteControl.html ;\
 	fi
 
 dependencys_installed.json: libs externals

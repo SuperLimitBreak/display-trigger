@@ -18,6 +18,7 @@
 		<ul>
 			<li><a href="/static/projector/projector.html">Projector</a>
 			<li><a href="/static/control/control.html">Control</a>
+			<li><a href="/ext/lightingRemoteControl.html">lightingRemoteControl</a></li>
 		</ul>
 	</body>
 </html>
