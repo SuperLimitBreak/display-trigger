@@ -1,4 +1,4 @@
-from input_ import InputPlugin
+from . import InputPlugin
 
 
 class ConsoleInputPlugin(InputPlugin):

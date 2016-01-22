@@ -1,5 +1,8 @@
 OS = $(shell uname -s)
 
+LIBS_PATH= ../../../libs
+
+
 help:
 	# -- Display Trigger Client --
 	# install : Install
@@ -42,13 +45,12 @@ libs:
 	# Link to files in "lib" repo in the folder above the displayTrigger repo
 	# If the don't exist gather the correct files
 	cd libs && \
-	base_libs='../../../libs';\
-	if [ -d $$base_libs ] ; then \
-	    echo "Libs found, linking";\
-		ln -sf $$base_libs/python3/lib/net/client_reconnect.py client_reconnect.py ;\
-		ln -sf $$base_libs/python3/lib/midi/pygame_midi_wrapper.py pygame_midi_wrapper.py ;\
-		ln -sf $$base_libs/python3/lib/midi/pygame_midi_input.py pygame_midi_input.py ;\
-		ln -sf $$base_libs/python3/lib/midi/music.py music.py ;\
+	if [ -d $(LIBS_PATH) ] ; then \
+	    echo "Libs found, linking" ;\
+		ln -sf $(LIBS_PATH)/python3/lib/net/client_reconnect.py      client_reconnect.py ;\
+		ln -sf $(LIBS_PATH)/python3/lib/midi/pygame_midi_wrapper.py  pygame_midi_wrapper.py ;\
+		ln -sf $(LIBS_PATH)/python3/lib/midi/pygame_midi_input.py    pygame_midi_input.py ;\
+		ln -sf $(LIBS_PATH)/python3/lib/midi/music.py                music.py ;\
 	else \
 	    echo "Libs not found, retreiving";\
 		wget https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/client_reconnect.py -c 2>/dev/null;\

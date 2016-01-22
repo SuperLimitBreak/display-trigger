@@ -1,6 +1,6 @@
 import pygame
 
-from input_ import InputPlugin
+from . import InputPlugin
 
 
 class KeyboardInputPlugin(InputPlugin):
@@ -12,7 +12,7 @@ class KeyboardInputPlugin(InputPlugin):
         pygame.display.set_caption(__name__)
         pygame.event.set_blocked(pygame.MOUSEMOTION)
         pygame.display.set_mode((1,1))
-		
+
         self.run()
 
     def run(self):

@@ -1,4 +1,4 @@
-from input_ import InputPlugin
+from . import InputPlugin
 
 from libs.music import note_to_text, MidiStatus
 from libs.pygame_midi_input import MidiInput

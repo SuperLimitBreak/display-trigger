@@ -2,7 +2,7 @@ import json
 from functools import partial
 from collections import defaultdict
 
-from input_ import InputPlugin
+from input_plugin import InputPlugin
 from libs.client_reconnect import SubscriptionClient
 
 import logging
@@ -46,16 +46,18 @@ def event_handler(send_message_func, event_lookup, event_key):
 
 def init_input_plugins(event_handler_func, options):
 
-    import input_console
-    input_console.ConsoleInputPlugin(event_handler_func, options)
+    import input_plugin.console
+    input_plugin.console.ConsoleInputPlugin(event_handler_func, options)
 
-    # TODO: try: import pygame - Startup should not be dependent on pygame being installed
+    try:
+        import input_plugin.keyboard
+        input_plugin.keyboard.KeyboardInputPlugin(event_handler_func, options)
 
-    import input_keyboard
-    input_keyboard.KeyboardInputPlugin(event_handler_func, options)
-
-    import input_midi
-    input_midi.MidiInputPlugin(event_handler_func, options)
+        import input_plugin.midi
+        input_plugin.midi.MidiInputPlugin(event_handler_func, options)
+    except ImportError:
+        # Startup should not be dependent on pygame being installed
+        log.error('Unable setup keyboard and midi plugins. Possible pygame is not installed')
 
 
 # Main -------------------------------------------------------------------------
