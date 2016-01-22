@@ -3,6 +3,8 @@ Display Trigger
 
 Trigger displays/audio/events on an html5 document.
 
+TODO: This document is wildly out of date and needs a complete overhaul. May more features and functions have been added.
+
 
 Overview
 --------
