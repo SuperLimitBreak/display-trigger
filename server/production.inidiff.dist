@@ -1,0 +1,3 @@
+[app:main]
+
+systemd.dbus.notification=true

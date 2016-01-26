@@ -23,6 +23,9 @@ multisocket.tcp.port       = 9872 -> int
 
 event_map_folder = %(here)s/../client/
 
+# notify systemd this service started properly
+systemd.dbus.notification = false
+
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
 # debugtoolbar.hosts = 127.0.0.1 ::1
