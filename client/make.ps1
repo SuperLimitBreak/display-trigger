@@ -13,7 +13,7 @@ if ($install -eq $true ) {
     mkdir libs
     echo $null >> "$(pwd)\libs\__init__.py"
     $url = "https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/net/client_reconnect.py"
-    $out = "$(pwd)\libs\client_reocnnect.py"
+    $out = "$(pwd)\libs\client_reconnect.py"
     (New-Object System.Net.WebClient).DownloadFile($url, $out)
 
     $url = "https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/midi/pygame_midi_wrapper.py"
