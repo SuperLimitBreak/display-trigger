@@ -7,7 +7,7 @@
         ]
     },
     {
-        "name": "plain_lights",
+        "name": "lights_on",
         "events": ["!", "note_on-B3"],
         "payload": [
             {"deviceid": "lights", "func": "LightTiming.start", "scene": "plain_lights"}
@@ -20,7 +20,7 @@
     
     
     {
-        "name": "gurren_lighting_piano",
+        "name": "gurren_intro",
         "events": ["-", "note_on-D0"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 4.22},
@@ -30,7 +30,7 @@
         ]
     },
     {
-        "name": "gurren_lighting",
+        "name": "gurren",
         "events": ["=", "note_on-D#0"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 37.57},
@@ -40,7 +40,7 @@
         ]
     },
     {
-        "name": "overlay_gurren_lagan",
+        "name": "gurren_lagan_overlay",
         "events": ["p", "note_on-C#0"],
         "payload": [
             {"func": "overlay.html_bubble", "deviceid": "main", "html": "<h1>Gurren Lagann</h1><p>Sororio Days</p><p>Ginax - Iwasaki Taku (岩崎 琢)</p>"}
@@ -51,7 +51,7 @@
     
     
     {
-        "name": "god_knows_video",
+        "name": "god_knows_preache",
         "events": ["h", "note_on-D#1"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0},
@@ -81,7 +81,7 @@
         ]
     },
     {
-        "name": "silent_hill_promise",
+        "name": "silent_hill_1_promise",
         "events": ["n", "note_on-C#2"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
@@ -91,7 +91,7 @@
         ]
     },
     {
-        "name": "silent_hill2_lauras_theme",
+        "name": "silent_hill_2_lauras_theme",
         "events": ["m", "note_on-D#2"],
         "payload": [
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Lauras Theme</p><p>Akira Yamaoka</p>"},
@@ -106,10 +106,11 @@
 
 
     {
-        "name": "ff7_iframe",
+        "name": "ff7_iframe_radical_dreamers",
         "events": ["a", "note_on-C3"],
         "payload": [
-            {"deviceid": "main", "func": "iframe.init", "src": "http://localhost:8808/static/projector/battlescape.html"}
+            {"deviceid": "main", "func": "iframe.init", "src": "http://localhost:8808/static/projector/battlescape.html"},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "radical_dreamers", "bpm": 150.0, "time_offset": 0}
         ]
     },
     {
@@ -149,7 +150,7 @@
         ]
     },
     {
-        "name": "miku",
+        "name": "miku1",
         "events": ["j", "note_on-C#5"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/miku.mp4", "volume": 0.0},
@@ -159,7 +160,7 @@
         ]
     },
     {
-        "name": "miku",
+        "name": "miku2",
         "events": ["k", "note_on-D5"],
         "payload": [
             {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 20.7},
