@@ -31,5 +31,5 @@ if ($install -eq $true ) {
 }
 
 if ($run -eq $true) {
-    python3 displaytrigger.py --input midi
+    python3 displaytrigger.py --input_device midi --midi_port_name displaytrigger --display_host 192.168.2.1
 }
