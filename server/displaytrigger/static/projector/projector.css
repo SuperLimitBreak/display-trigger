@@ -2,6 +2,7 @@ body {
     background-color: black;
     font-family: sans-serif;
     cursor: none;  /* !important */
+    overflow: hidden;
 }
 
 #screen {
