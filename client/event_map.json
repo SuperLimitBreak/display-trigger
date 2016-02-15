@@ -12,6 +12,13 @@
         "payload": [
             {"deviceid": "lights", "func": "LightTiming.start", "scene": "plain_lights"}
         ]
+    },    
+    {
+        "name": "smoke",
+        "events": ["smoke", "note_on-D3"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
+        ]
     },
     
     
