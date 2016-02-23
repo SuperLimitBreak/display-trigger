@@ -291,13 +291,13 @@
         "name": "power_rangers",
         "events": ["l", "note_on-G0"],
         "payload": [
-            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "power_rangers", "bpm": 120.0, "time_offset": 0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_power_rangers.mp3", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "power_rangers", "bpm": 188.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_power_rangers.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "main", "func": "video.start", "src": "/assets/power_rangers.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Power Rangers</h1><p>Main Theme</p><p>Ron Wasserman</p>"},
             {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/power_rangers.srt", "play_on_load": true, "seek_to_time": 0}
         ]
-    },    
+    },
     
 
     {

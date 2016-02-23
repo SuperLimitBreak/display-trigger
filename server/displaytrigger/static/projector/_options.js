@@ -7,7 +7,7 @@ var options = {
     		seeked: function(event){
 				socket.send_message(
                     {deviceid: "lights", func: 'LightTiming.seek', currentTime: event.target.currentTime},
-                    {deviceid: "subtitles", func: 'subtitles.play', seek_to_time: event.target.currentTime}
+                    {deviceid: "subtitles", func: 'subtitles.play', seek_to_time: event.target.currentTime*1000}
                 );
 			}
         }
