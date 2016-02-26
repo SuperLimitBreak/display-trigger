@@ -266,24 +266,15 @@
         ]
     },
 
-
-    {
-        "name": "go_precache",
-        "events": ["note_on-F#0"],
-        "payload": [
-            {"deviceid": "main", "func": "video.precache", "src": "/assets/go.mp4"},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/go.srt", "play_on_load": false}
-        ]
-    },
     {
         "name": "go",
         "events": ["g", "note_on-F0"],
         "payload": [
-            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "go", "bpm": 134.0, "time_offset": 0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_go.mp3", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "go", "bpm": 134.0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_go.mp3", "target_selector": "#screen", "currentTime": 0.0},
             {"deviceid": "main", "func": "video.start", "src": "/assets/go.mp4", "volume": 0.0},
             {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Naruto (Opening 4)</h1><p>GO!!!</p><p>Flow</p>"},
-            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/go.srt", "play_on_load": true, "seek_to_time": 3500}
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/go.srt", "play_on_load": true, "seek_to_time": 0}
         ]
     },
     
