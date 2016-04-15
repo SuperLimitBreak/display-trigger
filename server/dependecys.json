@@ -28,6 +28,12 @@
         "version": "0.0.0",
         "target": "static/websocket.js"
     },
+    
+    "js_lib_music": {
+        "source": "https://raw.githubusercontent.com/calaldees/libs/master/js/music.js",
+        "version": "0.0.0",
+        "target": "static/music.js"
+    },
 
     "js_lib_utils": {
         "source": "https://raw.githubusercontent.com/calaldees/libs/master/js/utils.js",
