@@ -21,7 +21,7 @@ help:
 # Installation -----------------------------------------------------------------
 
 .PHONY: install
-install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html
+install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html externals/static/websocket.js
 
 
 # Dependencys ------------------------------------------------------------------
@@ -79,6 +79,19 @@ externals/static/pentatonic_hero_visulisation.js:
 	else \
 		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.js  --compressed -O ;\
 		curl https://raw.githubusercontent.com/calaldees/pentatonicHero/master/pentatonic_hero_visulisation.css --compressed -O ;\
+	fi
+
+externals/static/websocket.js:
+	mkdir -p externals/static/
+	cd externals/static/ && \
+	if [ -d ../../../../libs/ ] ; then \
+		ln -s ../../../../libs/js/websocket.js        websocket.js  ;\
+		ln -s ../../../../libs/js/music.js            music.js ;\
+		ln -s ../../../../libs/js/utils.js            utils.js ;\
+	else \
+		curl https://raw.githubusercontent.com/calaldees/libs/master/js/websocket.js  --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/js/music.js      --compressed -O ;\
+		curl https://raw.githubusercontent.com/calaldees/libs/master/js/utils.js      --compressed -O ;\
 	fi
 
 externals/static/lightingRemoteControl.html:
