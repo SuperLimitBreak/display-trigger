@@ -21,7 +21,7 @@ help:
 # Installation -----------------------------------------------------------------
 
 .PHONY: install
-install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html externals/static/websocket.js
+install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html externals/static/webMidiMultiplexer.html externals/static/websocket.js
 
 
 # Dependencys ------------------------------------------------------------------
@@ -100,7 +100,16 @@ externals/static/lightingRemoteControl.html:
 	if [ -d ../../../../lightingAutomation/ ] ; then \
 		ln -s ../../../../lightingAutomation/webRemoteControl.html              lightingRemoteControl.html ;\
 	else \
-		echo "lightingAutomation not linked" > lightingRemoteControl.html ;\
+		echo "lightingAutomation.html not linked" > lightingRemoteControl.html ;\
+	fi
+
+externals/static/webMidiMultiplexer.html:
+	mkdir -p externals/static/
+	cd externals/static/ && \
+	if [ -d ../../../../webMidiTools/ ] ; then \
+		ln -s ../../../../webMidiTools/webMidiMultiplexer.html              webMidiMultiplexer.html ;\
+	else \
+		echo "webMidiMultiplexer.html not linked" > webMidiMultiplexer.html ;\
 	fi
 
 dependencys_installed.json: libs externals
