@@ -101,7 +101,7 @@ function initMidi() {
             $midi_input_devices.append("<option>NAME</option>".replace('NAME', midi_input.name));
         }
         if (!localStorage.midi_input_device_name) {
-            localStorage.midi_input_device_name = midiAccess.inputs.values().next().value.name;
+            localStorage.midi_input_device_name = midiAccess.inputs.values().next().name;
         }
         console.log('Binding to midi input', localStorage.midi_input_device_name);
         bindMidiDevice(localStorage.midi_input_device_name);
