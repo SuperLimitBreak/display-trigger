@@ -1,6 +1,7 @@
-displayTrigger Client
-=====================
+displayTrigger controlPython
+============================
 
+*Depricated* Use triggerWeb in preference. This is here as legacy documentation and could be a useful reference for alternate implementations later.
 
 A client to send triggers to displayTrigger Server.
 The payloads are stored in `event_map.json`

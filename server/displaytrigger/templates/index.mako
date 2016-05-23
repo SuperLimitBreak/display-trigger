@@ -16,8 +16,11 @@
 	<body>
 		<h1>${project}</h1>
 		<ul>
-			<li><a href="/static/projector/projector.html">Projector</a>
-			<li><a href="/static/control/control.html">Control</a>
+			<li><a href="/display/display.html">display</a>
+			<li><a href="/display/display.html?deviceid=main">display?deviceid=main</a>
+			<li><a href="/display/display.html?deviceid=test">display?deviceid=test</a>
+			<li><a href="/display/display.html?deviceid=subtitles">display?deviceid=subtitles</a>
+			<li><a href="/trigger/trigger.html">triggerWeb</a>
 			<li><a href="/ext/lightingRemoteControl.html">lightingRemoteControl</a></li>
 			<li><a href="/ext/webMidiMultiplexer.html">webMidiMultiplexer</a></li>
 		</ul>

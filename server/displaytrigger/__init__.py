@@ -38,7 +38,7 @@ def main(global_config, **settings):
         log.info("Notifying systemd when service starts OK")
         def service_running_ok():
             try:
-                response = urllib.request.urlopen("http://localhost:6543/static/projector/projector.html")
+                response = urllib.request.urlopen("http://localhost:6543/display/display.html")
                 return response.getcode() == 200
             except urllib.error.URLError:
                 return False
@@ -72,8 +72,10 @@ def main(global_config, **settings):
             raise ex
 
     config.add_static_view(name='static', path='static')  # , cache_max_age=3600
-    config.add_static_view(name='ext', path=settings['static.path.ext'], cache_max_age=3600)
-    config.add_static_view(name='assets', path=settings['static.path.assets'], cache_max_age=60*60*24)
+    config.add_static_view(name='ext', path=settings['path.static.ext'], cache_max_age=3600)
+    config.add_static_view(name='trigger', path=settings['path.static.trigger'])
+    config.add_static_view(name='display', path=settings['path.static.display'])
+    config.add_static_view(name='assets', path=settings['path.static.assets'], cache_max_age=60*60*24)
 
     config.add_route('index', '/')
     config.add_route('event', '/event/{func:.*}')
