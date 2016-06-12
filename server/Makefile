@@ -2,6 +2,14 @@ OS = $(shell uname -s)
 
 PROJECT=displaytrigger
 
+ENV:=_env
+PYTHON:=$(ENV)/bin/python3
+PIP:=$(ENV)/bin/pip3
+PSERVE:=$(ENV)/bin/pserve
+PSHELL:=$(ENV)/bin/pshell
+PYTEST:=$(ENV)/bin/py.test
+
+
 INI_DEV  = development.ini
 INI_TEST = test.ini
 INI_PROD = production.ini
@@ -57,15 +65,16 @@ has-python:
 	which python3
 	which virtualenv
 
-env:
+$(ENV):
 	# Reference - http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/install.html
 	# system-site-packages used as we require python3-dbus, this isn't can't be installed from venvs!
 	# 	hope to remove this!
-	virtualenv --system-site-packages -p python3 env
-	env/bin/easy_install pyramid
+	virtualenv --system-site-packages -p python3 $@
+	$(PIP) install --upgrade pip setuptools
+	$(ENV)/bin/easy_install pyramid
 
-$(PROJECT).egg-info: env
-	env/bin/python setup.py develop
+$(PROJECT).egg-info: $(ENV)
+	$(PYTHON) setup.py develop
 
 externals:
 	mkdir externals && touch externals/__init__.py
@@ -113,7 +122,7 @@ externals/static/webMidiMultiplexer.html:
 	fi
 
 dependencys_installed.json: libs externals
-	env/bin/python libs/dependency_downloader.py --destination externals
+	$(PYTHON) libs/dependency_downloader.py --destination externals
 
 libs:
 	mkdir libs
@@ -143,18 +152,18 @@ production.inidiff:
 	cp production.inidiff.dist production.inidiff
 
 ini_test: development.ini libs
-	env/bin/python3 libs/make_ini.py test
+	$(PYTHON) libs/make_ini.py test
 ini_production: production.inidiff libs
-	env/bin/python3 libs/make_ini.py production
+	$(PYTHON) libs/make_ini.py production
 
 run: install
-	env/bin/pserve --reload $(INI_DEV)
+	$(PSERVE) --reload $(INI_DEV)
 
 run_production: ini_production
-	env/bin/pserve $(INI_PROD)
+	$(PSERVE) $(INI_PROD)
 
 shell:
-	env/bin/pshell $(INI_DEV)
+	$(PSHELL) $(INI_DEV)
 
 # Cleanup ----------------------------------------------------------------------
 
@@ -162,7 +171,7 @@ shell:
 clean:
 	rm -rf *.pyc
 	rm -rf .installed_*
-	rm -rf env
+	rm -rf $(ENV)
 	rm -rf *.egg-info
 	rm -f *.log
 	rm -f $(INI_DEV)

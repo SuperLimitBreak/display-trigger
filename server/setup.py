@@ -11,14 +11,14 @@ requires = [
 here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, '../README.md')) as f:
     README = f.read()
-with open(os.path.join(here, '../CHANGES.md')) as f:
-    CHANGES = f.read()
+#with open(os.path.join(here, '../CHANGES.md')) as f:
+#    CHANGES = f.read()
 
 setup(
     name='displaytrigger',
     version='0.0',
     description='displaytrigger',
-    long_description="\n\n".join((README, CHANGES)),
+    long_description="\n\n".join((README, )),  # CHANGES
     classifiers=[
         "Programming Language :: Python",
         "Framework :: Pyramid",

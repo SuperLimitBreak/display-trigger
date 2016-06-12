@@ -21,6 +21,5 @@
         "source": "https://raw.github.com/cowboy/jquery-tiny-pubsub/VERSION/src/tiny-pubsub.js",
         "version": "0.7.0",
         "target": "static/tiny-pubsub.js"
-    },
-   
+    }
 }

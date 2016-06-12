@@ -1,6 +1,6 @@
 .installed_*
 *.egg-info
-/env/
+/_env/
 /libs/
 /externals/
 /data/
@@ -8,5 +8,4 @@
 /test.ini
 /production.ini
 /production.inidiff
-dependency_downloader.py
 dependencys_installed.json

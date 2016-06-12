@@ -193,7 +193,10 @@ var constraints = {
 	function stopVideoDevices() {
 		$(options.selector_holder).empty();
 		_.each(videos, function(video, index, list){
-			video.stream.stop();
+			//	video.stream.stop();  // Depricated api
+			for (let track of [...video.stream.getAudioTracks(), ...video.stream.getVideoTracks()]) {
+				track.stop();
+			}
 		});
 		videos = [];
 	};

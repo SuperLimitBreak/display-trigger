@@ -360,7 +360,7 @@
         "name":"test_webrtc_video",
         "events": "7",
         "payload": [
-            {"func": "webrtc_video.initVideoDevices"}
+            {"deviceid": "main", "func": "webrtc_video.initVideoDevices"}
         ]
     },
 

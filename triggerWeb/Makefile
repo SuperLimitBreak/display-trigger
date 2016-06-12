@@ -7,7 +7,7 @@ help:
 
 .PHONY: install
 install:  build/libs/utils.js build/libs/websocket.js build/libs/music.js
-	#build/ext/underscore-min.js build/ext/jquery.min.js
+	#build/ext/underscore-min.js build/ext/jquery.min.js build/ext/cssreset-min.css
 
 build/ext:
 	mkdir $@
@@ -19,23 +19,11 @@ build/ext/jquery.min.js: build/ext
 	curl http://code.jquery.com/jquery-2.1.4.min.js --compressed -o $@
 build/ext/cssreset-min.css:
 	curl http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css --compressed -o $@
-build/libs/utils.js: build/libs
+build/libs/%: build/libs
 	if [ -d $(LIBS_PATH) ] ; then \
-		ln -s ../../$(LIBS_PATH)/js/utils.js $@ ;\
+		ln -s ../../$(LIBS_PATH)/js/$% $@ ;\
 	else \
-		curl $(URL_LIBS)/js/utils.js --compressed -o $@ ;\
-	fi
-build/libs/websocket.js: 
-	if [ -d $(LIBS_PATH) ] ; then \
-		ln -s ../../$(LIBS_PATH)/js/websocket.js $@ ;\
-	else \
-		curl $(URL_LIBS)/js/websocket.js --compressed -o $@ ;\
-	fi
-build/libs/music.js: 
-	if [ -d $(LIBS_PATH) ] ; then \
-		ln -s ../../$(LIBS_PATH)/js/music.js $@ ;\
-	else \
-		curl $(URL_LIBS)/js/music.js --compressed -o $@ ;\
+		curl $(URL_LIBS)/js/$% --compressed -o $@ ;\
 	fi
 
 .PHONY: clean
