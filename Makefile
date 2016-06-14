@@ -1,3 +1,5 @@
+ENV:=_env
+
 .PHONEY: help
 help:
 	#
@@ -9,6 +11,10 @@ install:
 .PHONEY: test
 test:
 	#
+
+.PHONY: cloc
+cloc:
+	cloc --exclude-dir=$(ENV),libs ./
 
 .PHONEY: clean
 clean:
