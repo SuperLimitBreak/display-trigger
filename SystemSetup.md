@@ -1,19 +1,31 @@
 Setup
 =====
 
-Server Setup
-------------
+Setting up a full displayTrigger system requires understanding of core components.
+Below are notes to guide users in their first test setup
 
-* Use router to assign constant ip
-* todo
+`server` setup
+--------------
 
-Projector Setup
+* setup absolute asset path in development.ini
+    * _details required_
+
+
+### Local use
+
+
+`triggerWeb` setup
+------------------
+
+`display` setup
 ---------------
 
-todo
+`eventMap` setup
+----------------
 
-Raspberry Pi Setup
-------------------
+
+`display` on Raspberry Pi
+-------------------------
 
 Subtitle prompt screen driven by raspberry pi
 
@@ -48,3 +60,17 @@ Subtitle prompt screen driven by raspberry pi
 	echo "@/boot/pi_boot.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 	reboot
 
+Some css3 effects (like transparency) are poorly optimised in the default browser on the pi.
+
+
+lightingAutomation
+------------------
+
+There are other projects that can hook into displayTrigger triggers.
+[lightingAutomation](https://github.com/SuperLimitBreak/lightingAutomation) is a python dmx control system that can be triggered.
+
+
+systemSetup
+-----------
+
+[systemSetup](https://github.com/SuperLimitBreak/systemSetup) is a `Makefile` that pulls the entire suite [SuperLimitBreak.uk](http://superlimitbreak.uk) tech stack repos and link the shared librarys together.

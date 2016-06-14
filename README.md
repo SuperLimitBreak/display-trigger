@@ -3,6 +3,8 @@ displayTrigger
 
 Trigger video/audio/lighting events to be displayed by a html5 display.
 
+`displayTrigger` is part of the [SuperLimitBreak.uk](http://superlimitbreak.uk) tech stack.
+
 
 Overview
 --------
@@ -99,10 +101,3 @@ Example Flow
 ------------
 
 Cuebase Music Project -> Midi Track with note_on events -> Virtual Midi port -> `triggerWeb` -> `eventMap` payload sent to `subscription_server` -> inpect payload and forward via tcp or websocket to the correct client with deviceid -> `display` actions the command by displaying the video/subtitles/function.
-
-* Virtual Midi Client
-  * Midi events can trigger a json payload stored in a mapping file. These payloads are sent via a network to the html5 projector.
-* DisplayTrigger server that recives events via TCP/Websockets/HTTP and forwards this to all listeners.
-* A HTML5 projecor interface capable of displaying images, audio, video, executing functions, displaying text overlays, etc
-
-* precache events to ensure projector client responds quickly
