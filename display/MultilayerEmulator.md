@@ -72,8 +72,8 @@ WebRTC DisplayCapture
 We have achived Mednafen with Chrome.
 Megadrive Street Fighter 2. At 30fps. Will have to mute all sound. Key automation will have to be setup to toggle the layers after emulator start.
 
-Link to Muzu Khan plugin
-Link to test page
+https://github.com/muaz-khan/Chrome-Extensions
+https://webrtc.github.io/samples/src/content/capture/canvas-video/
 
 
 Virtual Webcam
