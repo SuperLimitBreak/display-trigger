@@ -27,3 +27,17 @@ Kinect pointed at stage.
         * Saikano mood settings.
     * Beams
         * Disapaited by extreems of left/right?
+
+
+Video with Alpha
+================
+
+https://developers.google.com/web/updates/2013/07/Alpha-transparency-in-Chrome-video?hl=en
+
+
+Noise
+=====
+
+https://vimeo.com/29185333
+
+    ffmpeg -i Super8Noise.mp4 -vf lutrgb="r=negval:g=negval:b=negval" Super8Noise.inverted.mp4

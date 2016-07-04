@@ -267,6 +267,22 @@
     },
 
     {
+        "name": "kiri",
+        "events": ["note_on-E8"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "kiri", "bpm": 182.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.mp3", "target_selector": "#screen", "currentTime": 0}
+        ]
+    },
+    {
+        "name": "kiri_noise",
+        "events": ["note_on-E#8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0}
+        ]
+    },
+    
+    {
         "name": "go",
         "events": ["g", "note_on-F0"],
         "payload": [

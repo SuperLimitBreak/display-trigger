@@ -28,7 +28,7 @@ var audio = {};
 		var audio = $audio.get(0);
 		
 		_.each(event_listeners || {}, function(value, key, dict){
-			audio.removeEventListener(key);
+			//audio.detachEvent(key);
 			audio.addEventListener(key, value);
 			// Future Feature: Consider a custom event that fires a few seconds before the end to allow a smooth fade out
 		});
