@@ -7,6 +7,13 @@
         ]
     },
     {
+        "name": "clear_screen",
+        "events": ["clear_screen", "note_on-D#3"],
+        "payload": [
+            {"deviceid": "main", "func": "trigger.empty"}
+        ]
+    },
+    {
         "name": "lights_on",
         "events": ["!", "note_on-B3"],
         "payload": [
@@ -20,10 +27,7 @@
             {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
         ]
     },
-    
-    
-    
-    
+        
     
     
     {
