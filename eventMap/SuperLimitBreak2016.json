@@ -275,7 +275,8 @@
         "events": ["note_on-E0"],
         "payload": [
             {"deviceid": "lights", "func": "LightTiming.start", "sequence": "kiri", "bpm": 182.0, "time_offset": 0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.mp3", "target_selector": "#screen", "currentTime": 0}
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.mp3", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0}
         ]
     },
     {
@@ -292,6 +293,44 @@
             {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0}
         ]
     },
+    {
+        "name": "kiri_logo",
+        "events": ["note_on-G#0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_logo.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_pan",
+        "events": ["note_on-A1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_pan.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_gate1",
+        "events": ["note_on-A#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate1.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_gate2",
+        "events": ["note_on-B1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate2.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_gate3",
+        "events": ["note_on-C1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate3.mp4", "volume": 0.0}
+        ]
+    },
+
+    
+    
     
     {
         "name": "go",
