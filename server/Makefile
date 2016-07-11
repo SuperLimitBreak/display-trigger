@@ -65,6 +65,7 @@ has-python:
 	which python3
 	which virtualenv
 
+.PRECIOUS: $(ENV)
 $(ENV):
 	# Reference - http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/install.html
 	# system-site-packages used as we require python3-dbus, this isn't can't be installed from venvs!
@@ -73,6 +74,7 @@ $(ENV):
 	$(PIP) install --upgrade pip setuptools
 	$(ENV)/bin/easy_install pyramid
 
+.PRECIOUS: $(PROJECT).egg-info
 $(PROJECT).egg-info: $(ENV)
 	$(PYTHON) setup.py develop
 
@@ -155,6 +157,9 @@ ini_test: development.ini libs
 	$(PYTHON) libs/make_ini.py test
 ini_production: production.inidiff libs
 	$(PYTHON) libs/make_ini.py production
+
+
+# Run --------------------------------------------------------------------------
 
 run: install
 	$(PSERVE) --reload $(INI_DEV)

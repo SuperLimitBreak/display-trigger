@@ -275,7 +275,7 @@
         "events": ["note_on-E0"],
         "payload": [
             {"deviceid": "lights", "func": "LightTiming.start", "sequence": "kiri", "bpm": 182.0, "time_offset": 0},
-            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.mp3", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.ogg", "target_selector": "#screen", "currentTime": 0},
             {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0}
         ]
     },
@@ -493,17 +493,17 @@
         ]
     },
     {
-        "name": "test4",
-        "events": ["r"],
+        "name": "SuperLimitBreak_background",
+        "events": ["note_on-E1"],
         "payload": [
-            {"func": "image.start", "src": "/assets/test4.jpg"}
+            {"deviceid": "main", "func": "image.start", "src": "/assets/SuperLimitBreak_background.svg"}
         ]
     },
     {
-        "name": "test5",
-        "events": [],
+        "name": "SuperLimitBreak_character",
+        "events": ["note_on-D1"],
         "payload": [
-            {"func": "image.start", "src": "/assets/test5.jpg"}
+            {"deviceid": "main", "func": "image.start", "src": "/assets/SuperLimitBreak_character.svg"}
         ]
     }
 ]
