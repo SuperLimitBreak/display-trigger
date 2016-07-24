@@ -45,6 +45,7 @@ var displaytrigger = window.displaytrigger || {
 			$('body').addClass(options.disconnected_class);
 		},
 		onmessage: function(data){
+			//console.log(data);
 			if (!is_data_for_this_deviceid(data)) {
 				data = {};
 			}

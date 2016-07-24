@@ -14,11 +14,18 @@ def event(request):
     Take GET/POST application/x-form or application/json
     Normalize the input
     push to websocket
+    Commandline example:
+        curl -XGET http://localhost:6543/event/screen_size.set -d '{"deviceid": "main", "top":"100px", "left":"100px", "width": "400px", "height":"300px"}'
     """
     cmd = {}
     cmd.update(request.matchdict)
     cmd.update(request.params)
+    try:
+        cmd.update(json.loads(request.text))
+    except json.decoder.JSONDecodeError:
+        pass
     if cmd:
+        cmd = {'action': 'message', 'data': [cmd]}
         log.debug("remote command - {0}".format(cmd))
         request.registry['socket_manager'].recv(json.dumps(cmd).encode('utf8'))
     return Response()
