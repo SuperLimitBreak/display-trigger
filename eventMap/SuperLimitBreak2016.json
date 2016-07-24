@@ -487,10 +487,10 @@
         ]
     },
     {
-        "name": "SuperLimitBreak_loading_7sec",
+        "name": "SuperLimitBreak_loading_12sec",
         "events": ["note_on-E1"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_7sec.mp4"}
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_12sec.mp4"}
         ]
     },
     {
