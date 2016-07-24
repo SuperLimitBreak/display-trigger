@@ -282,9 +282,9 @@
     },
     {
         "name": "kiri_overlay",
-        "events": ["note_on-E#0"],
+        "events": ["note_on-B1"],
         "payload": [
-            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Ergo Proxy</h1><p>Kiri</p><p>???</p>"}
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Ergo Proxy</h1><p>Kiri</p><p>MONORAL</p>"}
         ]
     },    
     {
@@ -313,13 +313,6 @@
         "events": ["note_on-A#1"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate1.mp4", "volume": 0.0}
-        ]
-    },
-    {
-        "name": "kiri_gate2",
-        "events": ["note_on-B1"],
-        "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate2.mp4", "volume": 0.0}
         ]
     },
     {
