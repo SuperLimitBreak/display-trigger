@@ -487,17 +487,31 @@
         ]
     },
     {
-        "name": "SuperLimitBreak_loading_short",
+        "name": "SuperLimitBreak_loading_7sec",
         "events": ["note_on-E1"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading.mp4"}
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_7sec.mp4"}
         ]
     },
     {
-        "name": "SuperLimitBreak_loading_long",
+        "name": "SuperLimitBreak_loading_17sec",
         "events": ["note_on-F1"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_long.mp4"}
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_17sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_20sec",
+        "events": ["note_on-G#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_20sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_29sec",
+        "events": ["note_on-F#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_29sec.mp4"}
         ]
     },
     {
@@ -509,7 +523,7 @@
     },
     {
         "name": "SuperLimitBreak_end",
-        "events": ["note_on-E#1"],
+        "events": ["note_on-G1"],
         "payload": [
             {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_end.mp4"}
         ]
