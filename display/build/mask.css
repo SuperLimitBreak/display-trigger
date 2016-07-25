@@ -6,6 +6,7 @@
     right: 0;
 }
 
-.reignite_mask #mask {
-    background-image: url("/assets/reignite_mask.png");
+#mask img {
+    width: 100%;
+    height: 100%;
 }
