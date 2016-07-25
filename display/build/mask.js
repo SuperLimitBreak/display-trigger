@@ -23,7 +23,7 @@ var mask = {};
     function empty() {
         //$(options.element_selector_top_level).removeClass("reignite_mask");
 		var $mask_container = $(options.element_selector);
-		$mask_container.clear();
+		$mask_container.empty();
     }
     
     $.subscribe('trigger.stop', empty);
