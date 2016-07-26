@@ -30,9 +30,10 @@
     border-radius: 2vh;
 }
 #overlay h1 {
-    font-size: 6vh;
+    /*font-size: 6vh; NOW SET WITH JS */
     font-weight: bold;
 }
 #overlay p {
-    font-size: 4vh;
+    /*font-size: 4vh; NOW SET WITH JS */
+    font-size: 75%;
 }

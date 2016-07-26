@@ -9,7 +9,9 @@ var overlay = {};
 	}, options);
 
 	function show_overlay(element_selector, html, classname_active) {
-		$(element_selector || options.element_selector).html(html || '');
+		var $overlay = $(element_selector || options.element_selector);
+		$overlay.css({'font-size': ($overlay.width()*0.04)+'px'});  // Scale the font size based on width of container
+		$overlay.html(html || '');
 		$(options.element_selector_top_level).addClass(classname_active || options.overlay_classname_active);
 	}
 	function hide_overlay(classname_active) {
