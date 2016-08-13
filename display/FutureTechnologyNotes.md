@@ -1,3 +1,10 @@
+TODO
+====
+
+* Assert asserts folder setup correctly and display error if needed
+* Calibration image or mode
+
+
 Links
 =====
 
