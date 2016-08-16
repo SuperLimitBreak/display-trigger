@@ -22,7 +22,7 @@
 
     "eslint": "^2.2.0",
     "eslint-loader": "^1.0.0",
-    "eslint-plugin-you-dont-need-lodash-underscore": "^0.0.0",
+    "eslint-plugin-native-over-lodash": "^1.0.0",
     
     "karma": "^0.13.22",
     "karma-webpack": "^1.7.0",
