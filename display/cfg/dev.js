@@ -17,6 +17,7 @@ let config = Object.assign({}, baseConfig, {
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
+    //'you-dont-need-lodash-underscore'   // Activate the plugin?
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new BowerWebpackPlugin({
@@ -31,7 +32,7 @@ config.module.loaders.push({
   test: /\.(js|jsx)$/,
   loader: 'babel-loader',
   include: [].concat(
-    config.additionalPaths,
+    //config.additionalPaths,
     [ path.join(__dirname, '/../src') ]
   ),
   query: {

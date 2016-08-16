@@ -10,8 +10,8 @@ let defaultSettings = require('./defaults');
 let additionalPaths = [];
 
 module.exports = {
-  additionalPaths: additionalPaths,
-  port: defaultSettings.port,
+  //additionalPaths: additionalPaths,
+  //port: defaultSettings.port,
   debug: true,
   devtool: 'eval',
   stats: {
