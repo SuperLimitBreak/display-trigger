@@ -42,13 +42,13 @@
     "open": "0.0.5",
     "glob": "^7.0.0",
     "copyfiles": "^0.2.1",
+    "rimraf": "^2.4.3",
+    "npm-run-all": "^2.3.0",
     
     "node-sass": "^3.4.2",
     "minimist": "^1.2.0",
     "phantomjs-prebuilt": "^2.0.0",
-    "rimraf": "^2.4.3",
-    "bower-webpack-plugin": "^0.1.9",
-    "npm-run-all": "^2.3.0"
+    "bower-webpack-plugin": "^0.1.9"
   },
   "config": {
     "ghooks": {

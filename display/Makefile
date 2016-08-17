@@ -21,7 +21,7 @@ run: install
 
 # Test -------------------------------------------------------------------------
 
-test:
+test: install
 	npm run validate
 
 
