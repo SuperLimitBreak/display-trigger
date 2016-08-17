@@ -8,7 +8,7 @@ module.exports = function(config) {
     basePath: '',
     browsers: [ 'PhantomJS' ],
     files: [
-      'test/loadtests.js'
+      'tests/loadtests.js'
     ],
     port: 8107,
     captureTimeout: 10000,
@@ -19,7 +19,7 @@ module.exports = function(config) {
     singleRun: true,
     reporters: [ 'coverage' ],
     preprocessors: {
-      'test/loadtests.js': [ 'webpack', 'sourcemap' ]
+      'tests/loadtests.js': [ 'webpack', 'sourcemap' ]
     },
     webpack: webpackCfg,
     webpackServer: {
