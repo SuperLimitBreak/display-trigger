@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+$test-height: 100px;
+
+@mixin test_style {
+    height: $test-height;
+    border: 1px dashed red;
+}
+
+.item {
+    @include test_style;
+}
