@@ -1,77 +1,80 @@
 import 'core-js/fn/object/assign';
 
-
-class SocketReconnect {
+export default class SocketReconnect {
 
     constructor(kwargs) {
-        assign(this, {
+        Object.assign(this, {
             WebSocket: WebSocket,
             hostname: location.hostname,
             port: 9873,
-            disconnected_retry_interval: 5,
+            disconnected_retry_interval_seconds: 5,
+            console: console
         }, kwargs);
+        this._connect();
     }
-    
+
     _connect() {
-        let socket = new this.WebSocket("ws://"+this.hostname+":"+this.port+"/");
+        const socket = new this.WebSocket('ws://'+this.hostname+':'+this.port+'/');
         let retry_interval = null;
-        
+
         this._send = (msg) => {
             return socket.send(this.encodeMessage(msg));
         };
-        
-		socket.onopen = function() {
-			//console.debug(options.title+": onopen");
-			if (retry_interval) {
-				clearInterval(retry_interval);
-				retry_interval = null;
-			}
-			this.onConnected();
-		};
-		socket.onclose  = function() {
-			//console.debug(options.title+": onclose");
-			socket = null;
-			this._send = this.send_while_disconnected;
-			if (!retry_interval) {
-				retry_interval = setInterval(this._connect(), this.disconnected_retry_interval * 1000);
-			}
-			this.onDisconnected();
-		};
-		socket.onmessage = this.onMessage;    
+
+        socket.onopen = () => {
+            if (retry_interval) {
+                clearInterval(retry_interval);
+                retry_interval = null;
+            }
+            this.onConnected();
+        };
+        socket.onclose = () => {
+            this._send = this.send_while_disconnected;
+            if (!retry_interval) {
+                retry_interval = setInterval(this._connect(), this.disconnected_retry_interval_seconds * 1000);
+            }
+            this.onDisconnected();
+        };
+        socket.onmessage = this.onMessage;
     }
-    
+
     send(msg) {
         this._send(msg);
     }
-    
-    _send_while_disconnected(msg) {
-        console.warn('Failed to send message: Currently disconnected', msg);
+    _send(msg) {
+        this.console.error('Socket has not been initalised', msg);
     }
-        
+    _send_while_disconnected(msg) {
+        this.console.warn('Failed to send message: Currently disconnected', msg);
+    }
+
     encodeMessage(msg) {
         return msg+'\n';
     }
-    
     decodeMessage(msg) {
-        //return _.filter(msg.data.split('\n'), function(element){return element;}), function(element, index, list)))
-        return [];
+        return msg.data.split('\n').filter((value)=>{value});
     }
-    
+
     onMessage(msg) {
         for (let m of this.decodeMessage(msg)) {
-            super.onMessgae(msg);
+            super.onMessgae(m);
         }
     }
-    
+
     onConnected() {
-        super.onConnected();
+        //super.onConnected();
+        this.console.log('onConnected');
     }
-    
     onDisconnected() {
-        super.onDisconnected();
+        //super.onDisconnected();
+        this.console.log('onDisconected');
     }
 }
 
 //JsonSocketReconnect
 
 //SubscriptionSocketReconnect
+
+//export default {
+//    SocketReconnect
+//};
