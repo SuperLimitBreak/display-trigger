@@ -1,6 +1,6 @@
 import 'core-js/fn/object/assign';
 
-export default class SocketReconnect {
+export default class AbstractSocketReconnect {
 
     constructor(kwargs) {
         Object.assign(this, {
@@ -35,7 +35,7 @@ export default class SocketReconnect {
             }
             this.onDisconnected();
         };
-        socket.onmessage = this.onMessage;
+        socket.onmessage = (msg) => {this.onMessage(msg.data);};
     }
 
     send(msg) {
@@ -52,7 +52,7 @@ export default class SocketReconnect {
         return msg+'\n';
     }
     decodeMessage(msg) {
-        return msg.data.split('\n').filter((value)=>{value});
+        return msg.split('\n').filter((x)=>{return x});
     }
 
     onMessage(msg) {
@@ -62,12 +62,12 @@ export default class SocketReconnect {
     }
 
     onConnected() {
-        //super.onConnected();
-        this.console.log('onConnected');
+        super.onConnected();
     }
     onDisconnected() {
-        //super.onDisconnected();
-        this.console.log('onDisconected');
+        super.onDisconnected();
+        //this.console.log('onConnected');
+        //this.console.log('onDisconected');
     }
 }
 
