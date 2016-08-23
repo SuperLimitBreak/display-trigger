@@ -1,7 +1,9 @@
 import 'core-js/fn/object/assign';
 
 
-export default class AbstractSocketReconnect {
+// Text Websocket + Auto-Reconnect ---------------------------------------------
+
+export class SocketReconnect {
 
     constructor(kwargs) {
         Object.assign(this, {
@@ -23,8 +25,8 @@ export default class AbstractSocketReconnect {
                 clearInterval(retry_interval);
                 retry_interval = null;
             }
-            this._send = (msg) => {
-                return socket.send(this.encodeMessage(msg));
+            this._send = (msgs) => {
+                return socket.send(this.encodeMessages(msgs));
             };
             this.onConnected();
         };
@@ -36,7 +38,10 @@ export default class AbstractSocketReconnect {
             this.onDisconnected();
         };
         socket.onmessage = (msg) => {
-            this.onMessage(msg.data);
+            //AbstractSocketReconnect.prototype.onMessage.call(this, msg.data);
+            for (let m of this.decodeMessages(msg.data)) {
+                this.onMessage(m);
+            }
         };
     }
 
@@ -50,34 +55,34 @@ export default class AbstractSocketReconnect {
         this.console.warn('Send Failed: Currently disconnected', msg);
     }
 
-    encodeMessage(msg) {
-        return msg+'\n';
+    encodeMessages(msgs) {
+        return msgs.map((msg)=>{return msg+'\n'});
     }
-    decodeMessage(msg) {
-        return msg.split('\n').filter((x)=>{return x});
+    decodeMessages(msgs) {
+        return msgs.split('\n').filter((x)=>{return x});
     }
 
-    // Abstract Methods -------
-    onMessage(msg) {
-        for (let m of this.decodeMessage(msg)) {
-            this.onMessage(m);
-        }
-    }
+    // Overrideable Methods -------
+    onMessage(msg) {this.console.log('onMessage', msg);}
     onConnected() {this.console.log('onConnected');}
-    onDisconnected() {this.console.log('OnDisconnected');}
+    onDisconnected() {this.console.log('onDisconnected');}
 }
 
-export default class AbstractJsonSocketReconnect extends AbstractSocketReconnect {
-    send(msg) {
-        this.send(JSON.stringify(msg));
+
+// Json ------------------------------------------------------------------------
+
+export class JsonSocketReconnect extends SocketReconnect {
+    encodeMessages(msgs) {
+        return super.encodeMessages(msgs).map(JSON.stringify);
     }
-    onMessage(msg) {
-        this.onMessage(JSON.parse(msg));
+    decodeMessages(msgs) {
+        return super.decodeMessages(msgs).map(JSON.parse);
     }
 }
 
-//SubscriptionSocketReconnect
 
-//export default {
-//    SocketReconnect
-//};
+// trigger Subscription system -------------------------------------------------
+
+ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
+    
+}
