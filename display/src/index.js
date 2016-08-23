@@ -1,21 +1,13 @@
 import 'core-js/fn/object/assign';
 
 //import ScreenManager from './screen/ScreenManager';
-import AbstractSocketReconnect from './socket/websocket';
+import AbstractJsonSocketReconnect from './socket/websocket';
 
-class SocketReconnect extends AbstractSocketReconnect {
+class SocketTest extends AbstractJsonSocketReconnect {
     onMessage(msg) {
-        this.console.log('onMessage', msg);
+        this.console.log('JSON onMessage', msg);
     }
-    onConnected() {
-        this.console.log('onConnected');
-    }
-    onDisconnected() {
-        this.console.log('onDisconected');
-    }
+    onConnected() {this.console.log('JSON onConnected');}
+    onDisconnected() {this.console.log('JSON OnDisconnected');}
 }
-new SocketReconnect();
-
-//console.log(App);
-//console.log("poo");
-
+new SocketTest();
