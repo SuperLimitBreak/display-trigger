@@ -4,4 +4,4 @@ import 'core-js/fn/object/assign';
 import {SocketReconnect, JsonSocketReconnect, SubscriptionSocketReconnect} from './socket/websocket';
 
 
-new SubscriptionSocketReconnect({subscriptions:['main']});
+new SubscriptionSocketReconnect({subscriptions:['main', 'all']});

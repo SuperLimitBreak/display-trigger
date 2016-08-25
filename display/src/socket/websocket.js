@@ -73,10 +73,7 @@ export class SocketReconnect {
 
 export class JsonSocketReconnect extends SocketReconnect {
     encodeMessages(msgs) {
-        const ee = super.encodeMessages(msgs).map(JSON.stringify);
-        console.log('JSON encodeMessages', msgs, ee);
-        return ee;
-        //super.encodeMessages(msgs).map(JSON.stringify);
+        return super.encodeMessages(msgs.map(JSON.stringify));
     }
     decodeMessages(msgs) {
         return super.decodeMessages(msgs).map(JSON.parse);
@@ -93,16 +90,12 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
     }
 
     decodeMessages(msgs) {
-        msgs = super.decodeMessages(msgs);
-        return function*() {
-            for (let msg of msgs) {
-                if (msg && msg.action === 'message' && msg.data.length > 0) {
-                    for (let m of msg.data) {
-                        yield m;
-                    }
-                }
+        return super.decodeMessages(msgs).reduce((accumulator, msg) => {
+            if (msg && msg.action == 'message' && msg.data.length > 0) {
+                accumulator = accumulator.concat(msg.data);
             }
-        };
+            return accumulator;
+        }, []);
     }
 
     onConnected() {
