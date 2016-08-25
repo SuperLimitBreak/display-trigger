@@ -73,7 +73,10 @@ export class SocketReconnect {
 
 export class JsonSocketReconnect extends SocketReconnect {
     encodeMessages(msgs) {
-        return super.encodeMessages(msgs).map(JSON.stringify);
+        const ee = super.encodeMessages(msgs).map(JSON.stringify);
+        console.log('JSON encodeMessages', msgs, ee);
+        return ee;
+        //super.encodeMessages(msgs).map(JSON.stringify);
     }
     decodeMessages(msgs) {
         return super.decodeMessages(msgs).map(JSON.parse);
@@ -83,6 +86,48 @@ export class JsonSocketReconnect extends SocketReconnect {
 
 // trigger Subscription system -------------------------------------------------
 
- export class SubscriptionSocketReconnect extends JsonSocketReconnect {
+export class SubscriptionSocketReconnect extends JsonSocketReconnect {
+    constructor(kwargs) {
+        super(kwargs);
+        this.subscriptions = kwargs.subscriptions || [];
+    }
+
+    decodeMessages(msgs) {
+        msgs = super.decodeMessages(msgs);
+        return function*() {
+            for (let msg of msgs) {
+                if (msg && msg.action === 'message' && msg.data.length > 0) {
+                    for (let m of msg.data) {
+                        yield m;
+                    }
+                }
+            }
+        };
+    }
+
+    onConnected() {
+        if (this.subscriptions.length > 0) {
+            this.sendSubscriptions();
+        }
+    }
+
+    _sendPayload(action, data) {
+        if (!Array.isArray(data)) {data = [data];}
+        this.send([{action: action, data: data}]);
+    }
     
+    sendSubscriptions() {
+        this._sendPayload('subscribe', this.subscriptions);
+    }
+
+    sendMessages(msgs) {
+        this._sendPayload('message', msgs);
+    }
+
+    updateSubscriptions() {
+        // TODO? This is broken!
+        // Update existing array rather than replace?  _.union(options.subscriptions,
+        this.subscriptions = Array.from(arguments);
+        this.sendSubscriptions();
+    }
 }
