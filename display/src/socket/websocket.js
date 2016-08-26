@@ -109,18 +109,15 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
         this.send([{action: action, data: data}]);
     }
     
-    sendSubscriptions() {
-        this._sendPayload('subscribe', this.subscriptions);
+    sendSubscriptions(subscriptions) {
+        if (subscriptions != undefined) {
+            this.subscriptions = subscriptions;
+        }
+        this._sendPayload('subscribe', Array.from(this.subscriptions));
     }
 
     sendMessages(msgs) {
         this._sendPayload('message', msgs);
     }
 
-    updateSubscriptions() {
-        // TODO? This is broken!
-        // Update existing array rather than replace?  _.union(options.subscriptions,
-        this.subscriptions = Array.from(arguments);
-        this.sendSubscriptions();
-    }
 }
