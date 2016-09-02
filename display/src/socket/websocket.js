@@ -102,7 +102,7 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
     }
 
     onConnected() {
-        if (this.subscriptions.length > 0) {
+        if (this.subscriptions.size || this.subscriptions.length) {
             this.sendSubscriptions();
         }
     }

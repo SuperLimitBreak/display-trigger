@@ -9,6 +9,6 @@ const screenManager = new ScreenManager(
 );
 
 screenManager.bindScreen('main', null);
-screenManager.bindScreen('test', null);
+//screenManager.bindScreen('test', null);
 
   //{subscriptions:['main', 'all']}

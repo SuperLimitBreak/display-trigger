@@ -5,6 +5,7 @@ import {Screen} from './screen';
 export class ScreenManager {
     /*
     Reference/Create/Manage all screens and route incoming messages to the correct screens.
+    Screens should have no knowlge of their subscriptions or network routing
     */
     
     constructor(subscription_socket) {
@@ -16,7 +17,6 @@ export class ScreenManager {
     }
     
     bindScreen(id, element, subscriptions=[]) {
-        this.console.log('bindScreen');
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
         this.screens.set(id, new Screen(element));
         for (let subscription of new Set([...subscriptions, ...[id]])) {
@@ -26,19 +26,18 @@ export class ScreenManager {
     }
     
     get allSubscriptions() {
-        this.console.log('allSub');
+        const screenManager = this;
         function* allSubscriptionsGenerator(){
-            this.console.log('inside generator', this);
-            yield* this.subscription_screen_id_lookup.values();
+            for (let lookup_set of screenManager.subscription_screen_id_lookup.values()) {
+                yield* lookup_set;
+            }
         }
         return new Set(allSubscriptionsGenerator());
     }
     
-    // Route a layload to the various screens
+    // Route message to the subscribed screens
     onMessage(msg) {
-        this.console.log('ScreenManager.onMessage', msg, this.subscription_screen_id_lookup.keys());
         for (let id of this.subscription_screen_id_lookup.get(msg.deviceid, [])) {
-            this.console.log('Screen.onMessage', id, this.screens.get(id));
             this.screens.get(id).onMessage(msg);
         }
     }
