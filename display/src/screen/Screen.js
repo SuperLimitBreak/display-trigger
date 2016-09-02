@@ -4,6 +4,7 @@ export class Screen {
         this.element = element;
     }
     
-    onMessage(message) {
+    onMessage(msg) {
+        console.log('screen', msg);
     }
 }

@@ -86,7 +86,10 @@ export class JsonSocketReconnect extends SocketReconnect {
 export class SubscriptionSocketReconnect extends JsonSocketReconnect {
     constructor(kwargs) {
         super(kwargs);
-        this.subscriptions = kwargs.subscriptions || [];
+        Object.assign(this, {
+            subscriptions: [],
+            console: console
+        }, kwargs);
     }
 
     decodeMessages(msgs) {

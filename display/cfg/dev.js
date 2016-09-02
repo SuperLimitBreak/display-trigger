@@ -35,7 +35,7 @@ config.module.loaders.push({
     [ path.join(__dirname, '/../src') ]
   ),
   query: {
-    presets: ['es2015-webpack',],
+    //presets: ['es2015-webpack',],
     cacheDirectory: true,
   },
 });
