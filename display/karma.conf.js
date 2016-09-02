@@ -16,7 +16,7 @@ module.exports = function(config) {
     client: {
     },
     singleRun: true,
-    reporters: [ 'coverage', 'spec' ],
+    reporters: [ 'spec' ],  //'coverage',
     preprocessors: {
       'tests/loadtests.js': [ 'webpack', 'sourcemap' ],
       //'tests/**/*.js': ['babel']

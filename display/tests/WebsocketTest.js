@@ -1,6 +1,5 @@
 import {SocketReconnect, JsonSocketReconnect, SubscriptionSocketReconnect} from 'src/socket/websocket';
 
-
 class MockWebSocket {
     constructor() {}
 }

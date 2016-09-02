@@ -41,12 +41,8 @@ module.exports = {
   resolve: {
     extensions: [ '', '.js', '.jsx' ],
     alias: {
-      actions: srcPath + 'actions/',
-      helpers: path.join(__dirname, '/../test/helpers'),
-      components: srcPath + 'components/',
-      sources: srcPath + 'sources/',
-      stores: srcPath + 'stores/',
-      styles: srcPath + 'styles/',
+      src: srcPath,
+      //helpers: path.join(__dirname, '/../test/helpers'),
       config: srcPath + 'config/' + process.env.WEBPACK_ENV
     }
   },
