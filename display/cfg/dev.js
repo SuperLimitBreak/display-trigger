@@ -36,6 +36,7 @@ config.module.loaders.push({
   ),
   query: {
     //presets: ['es2015-webpack',],
+    presets: ['modern/webpack2',],
     cacheDirectory: true,
   },
 });

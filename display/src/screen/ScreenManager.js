@@ -7,7 +7,7 @@ export class ScreenManager {
     Reference/Create/Manage all screens and route incoming messages to the correct screens.
     */
     
-    constructor(subscription_socket, console=console) {
+    constructor(subscription_socket) {
         this.console = console;
         this.screens = new Map();
         this.subscription_screen_id_lookup = new DefaultDict(()=>new Set());
@@ -16,15 +16,17 @@ export class ScreenManager {
     }
     
     bindScreen(id, element, subscriptions=[]) {
+        this.console.log('bindScreen');
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
         this.screens.set(id, new Screen(element));
         for (let subscription of new Set([...subscriptions, ...[id]])) {
-            this.subscription_screen_id_lookup[subscription].add(id);
+            this.subscription_screen_id_lookup.get(subscription).add(id);
         }
         this.subscription_socket.sendSubscriptions(this.allSubscriptions);
     }
     
     get allSubscriptions() {
+        this.console.log('allSub');
         function* allSubscriptionsGenerator(){
             this.console.log('inside generator', this);
             yield* this.subscription_screen_id_lookup.values();

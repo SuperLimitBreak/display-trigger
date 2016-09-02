@@ -34,11 +34,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      actions: `${defaultSettings.srcPath}/actions/`,
-      components: `${defaultSettings.srcPath}/components/`,
-      sources: `${defaultSettings.srcPath}/sources/`,
-      stores: `${defaultSettings.srcPath}/stores/`,
-      styles: `${defaultSettings.srcPath}/styles/`,
+      src: `${defaultSettings.srcPath}/`,
       config: `${defaultSettings.srcPath}/config/` + process.env.WEBPACK_ENV
     }
   },

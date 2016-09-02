@@ -17,7 +17,7 @@ export class SocketReconnect {
     }
 
     _connect() {
-        const socket = new this.WebSocket('ws://'+this.hostname+':'+this.port+'/');
+        const socket = new this.WebSocket(`ws://${this.hostname}:${this.port}/`);
         let retry_interval = null;
 
         socket.onopen = () => {

@@ -14,12 +14,12 @@ module.exports = function(config) {
     captureTimeout: 10000,
     frameworks: [ 'jasmine' ],
     client: {
-      mocha: {}
     },
     singleRun: true,
-    reporters: [ 'coverage' ],
+    reporters: [ 'coverage', 'spec' ],
     preprocessors: {
-      'tests/loadtests.js': [ 'webpack', 'sourcemap' ]
+      'tests/loadtests.js': [ 'webpack', 'sourcemap' ],
+      //'tests/**/*.js': ['babel']
     },
     webpack: webpackCfg,
     webpackServer: {
