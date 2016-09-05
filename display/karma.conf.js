@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 module.exports = function(config) {
   config.set({
     basePath: '',
-    browsers: [ 'PhantomJS' ],
+    browsers: [ 'Chrome' ],
     files: [
       'tests/loadtests.js'
     ],
@@ -24,13 +24,13 @@ module.exports = function(config) {
     webpack: webpackCfg,
     webpackServer: {
       noInfo: true
-    },
-    coverageReporter: {
-      dir: 'coverage/',
-      reporters: [
-        { type: 'html' },
-        { type: 'text' }
-      ]
     }
+    //coverageReporter: {
+    //  dir: 'coverage/',
+    //  reporters: [
+    //    { type: 'html' },
+    //    { type: 'text' }
+    //  ]
+    //}
   });
 };
