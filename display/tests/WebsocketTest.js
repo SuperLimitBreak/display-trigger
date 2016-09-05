@@ -1,20 +1,29 @@
 import {SocketReconnect, JsonSocketReconnect, SubscriptionSocketReconnect} from 'src/socket/websocket';
 
-class MockWebSocket {
-    constructor() {}
-}
 
 describe('SocketReconnect', function() {
 
-    //let MockWebSocket;
+    let mockSocket;
+    class MockWebSocket {
+        constructor() {
+            mockSocket = jasmine.createSpyObj('WebSocket', ['send', 'onopen', 'onclose', 'onmessage']);
+            return mockSocket;
+        }
+    }
 
     beforeEach(function() {
-      //MockWebSocket = jasmine.createSpyObj('WebSocket', ['play', 'pause', 'stop', 'rewind']);
+        //mockWebSocket = jasmine.createSpyObj('WebSocket', ['send', 'onopen', 'onclose', 'onmessage']);
     });
     
     it('should connect on creation',()=>{
-        //socket = SocketReconnect({
-        //    WebSocket: MockWebSocket,
-        //});
+        let socket = new SocketReconnect({
+            WebSocket: MockWebSocket,
+        });
+        expect(mockSocket).not.toBe(undefined);
+        spyOn(socket, 'onConnected').and.callThrough();
+        spyOn(socket, 'onDisconnected').and.callThrough();
+        expect(socket.onConnected).not.toHaveBeenCalled();
+        mockSocket.onopen();
+        expect(socket.onConnected).toHaveBeenCalled();
     });
 });
