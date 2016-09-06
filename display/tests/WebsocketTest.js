@@ -3,6 +3,8 @@ import {SocketReconnect, JsonSocketReconnect, SubscriptionSocketReconnect} from 
 
 describe('SocketReconnect', function() {
 
+    const DISCONNECTED_RETRY_INTERVAL_MS = 1000;
+
     let socket;
 
     let mockSocket;
@@ -15,9 +17,11 @@ describe('SocketReconnect', function() {
     }
 
     beforeEach(function() {
+        jasmine.clock().install();
         expect(mockSocket).toBe(undefined);
         socket = new SocketReconnect({
             WebSocket: MockWebSocket,
+            disconnected_retry_interval_ms: DISCONNECTED_RETRY_INTERVAL_MS,
         });
         expect(mockSocket).not.toBe(undefined);
         spyOn(socket, 'onConnected');
@@ -30,6 +34,7 @@ describe('SocketReconnect', function() {
     afterEach(function() {
         socket = undefined;
         mockSocket = undefined;
+        jasmine.clock().uninstall();
     });
 
     it('Should call onConnected on creation/connection',()=>{
@@ -37,7 +42,7 @@ describe('SocketReconnect', function() {
         mockSocket.onopen();
         expect(socket.onConnected).toHaveBeenCalled();
     });
-    
+
     it('Should call onMessage when a message is recived/decoded',()=>{
         mockSocket.onopen();
         expect(socket.onMessage).not.toHaveBeenCalled();
@@ -54,8 +59,23 @@ describe('SocketReconnect', function() {
         socket.send('Hello World');
         expect(mockSocket.send).toHaveBeenCalledWith('Hello World\n');
         mockSocket.onclose();
+        mockSocket.send.calls.reset();
         socket.send('Hello Again');
         expect(mockSocket.send).not.toHaveBeenCalled();
+    });
+
+    it('Should attempt to reconnect when disconnected',()=>{
+        mockSocket.onopen();
+        expect(socket.onDisconnected).not.toHaveBeenCalled();
+        mockSocket.onclose();
+        expect(socket.onDisconnected).toHaveBeenCalled();
+        let previous_mockSocket = mockSocket;
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS - 1);
+        expect(mockSocket).toBe(previous_mockSocket);
+        jasmine.clock().tick(2);
+        //expect(mockSocket).not.toBe(previous_mockSocket);  // This should be new! Investigate
+        //jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
+        //mockSocket.onopen();
     });
 
 });

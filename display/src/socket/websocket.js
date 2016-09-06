@@ -10,20 +10,26 @@ export class SocketReconnect {
             WebSocket: WebSocket,
             hostname: location.hostname,
             port: 9873,
-            disconnected_retry_interval_seconds: 5,
+            disconnected_retry_interval_ms: 5000,
             console: console
         }, kwargs);
+        this.retry_timeout = null;
         this._connect();
     }
 
     _connect() {
         const socket = new this.WebSocket(`ws://${this.hostname}:${this.port}/`);
-        let retry_interval = null;
+
+        const retry_connect = ()=>{
+            if (!this.retry_timeout) {
+                this.retry_timeout = setTimeout(()=>{this._connect}, this.disconnected_retry_interval_ms);
+            }
+        };
 
         socket.onopen = () => {
-            if (retry_interval) {
-                clearInterval(retry_interval);
-                retry_interval = null;
+            if (this.retry_timeout) {
+                clearTimeout(this.retry_timeout);
+                this.retry_timeout = null;
             }
             this._send = (...args) => {
                 return socket.send(this.encodeMessages(args));
@@ -31,9 +37,7 @@ export class SocketReconnect {
             this.onConnected();
         };
         socket.onclose = () => {
-            if (!retry_interval) {
-                retry_interval = setInterval(this._connect(), this.disconnected_retry_interval_seconds * 1000);
-            }
+            retry_connect();
             this._send = this._send_while_disconnected;
             this.onDisconnected();
         };
@@ -43,6 +47,8 @@ export class SocketReconnect {
                 this.onMessage(m);
             }
         };
+
+        retry_connect();
     }
 
     send(...args) {
