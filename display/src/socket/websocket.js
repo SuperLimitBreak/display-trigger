@@ -25,8 +25,8 @@ export class SocketReconnect {
                 clearInterval(retry_interval);
                 retry_interval = null;
             }
-            this._send = (msgs) => {
-                return socket.send(this.encodeMessages(msgs));
+            this._send = (...args) => {
+                return socket.send(this.encodeMessages(args));
             };
             this.onConnected();
         };
@@ -34,7 +34,7 @@ export class SocketReconnect {
             if (!retry_interval) {
                 retry_interval = setInterval(this._connect(), this.disconnected_retry_interval_seconds * 1000);
             }
-            this._send = this.send_while_disconnected;
+            this._send = this._send_while_disconnected;
             this.onDisconnected();
         };
         socket.onmessage = (msg) => {
@@ -45,18 +45,18 @@ export class SocketReconnect {
         };
     }
 
-    send(msg) {
-        this._send(msg);
+    send(...args) {
+        return this._send(...args);
     }
-    _send(msg) {
-        this.console.error('Send Failed: Socket has not been initalised', msg);
+    _send(...args) {
+        this.console.error('Send Failed: Socket has not been initalised', args);
     }
-    _send_while_disconnected(msg) {
-        this.console.warn('Send Failed: Currently disconnected', msg);
+    _send_while_disconnected(...args) {
+        this.console.warn('Send Failed: Currently disconnected', args);
     }
 
     encodeMessages(msgs) {
-        return msgs.map((msg)=>{return msg+'\n'});
+        return msgs.join('\n')+'\n';
     }
     decodeMessages(msgs) {
         return msgs.split('\n').filter((x)=>{return x});
