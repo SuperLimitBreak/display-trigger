@@ -8,15 +8,18 @@ describe('SocketReconnect', function() {
     let socket;
 
     let mockSocket;
+    let mockSocket_callCount;
     class MockWebSocket {
         constructor() {
             //expect(mockSocket).toBe(undefined);  // We only ever want one socket connected under test conditions
             mockSocket = jasmine.createSpyObj('WebSocket', ['send', 'onopen', 'onclose', 'onmessage']);
+            mockSocket_callCount++;
             return mockSocket;
         }
     }
 
     beforeEach(function() {
+        mockSocket_callCount = 0;
         jasmine.clock().install();
         expect(mockSocket).toBe(undefined);
         socket = new SocketReconnect({
@@ -72,7 +75,9 @@ describe('SocketReconnect', function() {
         let previous_mockSocket = mockSocket;
         jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS - 1);
         expect(mockSocket).toBe(previous_mockSocket);
+        expect(mockSocket_callCount).toBe(1);
         jasmine.clock().tick(2);
+        expect(mockSocket_callCount).toBe(2);
         //expect(mockSocket).not.toBe(previous_mockSocket);  // This should be new! Investigate
         //jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
         //mockSocket.onopen();

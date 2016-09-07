@@ -18,16 +18,20 @@ export class SocketReconnect {
     }
 
     _connect() {
+        console.log('_connect');
         const socket = new this.WebSocket(`ws://${this.hostname}:${this.port}/`);
 
         const retry_connect = ()=>{
+            console.log('retry_connect', this.retry_timeout, this.disconnected_retry_interval_ms);
             if (!this.retry_timeout) {
-                this.retry_timeout = setTimeout(()=>{this._connect}, this.disconnected_retry_interval_ms);
+                this.retry_timeout = setTimeout(()=>{this._connect()}, this.disconnected_retry_interval_ms);
+                console.log('retry_connect is set', this.retry_timeout);
             }
         };
 
         socket.onopen = () => {
             if (this.retry_timeout) {
+                console.log('clear retry_timeout');
                 clearTimeout(this.retry_timeout);
                 this.retry_timeout = null;
             }
@@ -37,9 +41,9 @@ export class SocketReconnect {
             this.onConnected();
         };
         socket.onclose = () => {
-            retry_connect();
             this._send = this._send_while_disconnected;
             this.onDisconnected();
+            retry_connect();
         };
         socket.onmessage = (msg) => {
             //AbstractSocketReconnect.prototype.onMessage.call(this, msg.data);
@@ -115,7 +119,7 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
 
     _sendPayload(action, data) {
         if (!Array.isArray(data)) {data = [data];}
-        this.send([{action: action, data: data}]);
+        this.send({action: action, data: data});
     }
     
     sendSubscriptions(subscriptions) {
