@@ -78,9 +78,27 @@ describe('SocketReconnect', function() {
         expect(mockSocket_callCount).toBe(1);
         jasmine.clock().tick(2);
         expect(mockSocket_callCount).toBe(2);
-        //expect(mockSocket).not.toBe(previous_mockSocket);  // This should be new! Investigate
-        //jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
-        //mockSocket.onopen();
+        expect(mockSocket).not.toBe(previous_mockSocket);
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
+        expect(mockSocket_callCount).toBe(3);
+        mockSocket.onopen();
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
+        expect(mockSocket_callCount).toBe(3);
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS);
+        expect(mockSocket_callCount).toBe(3);
+    });
+
+    it('Should attempt to reconnect even if first connection fails',()=>{
+        expect(socket.onConnected).not.toHaveBeenCalled();
+        expect(mockSocket_callCount).toBe(1);
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS + 1);
+        expect(mockSocket_callCount).toBe(2);
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS + 1);
+        expect(mockSocket_callCount).toBe(3);
+        mockSocket.onopen();
+        expect(socket.onConnected).toHaveBeenCalled();
+        jasmine.clock().tick(DISCONNECTED_RETRY_INTERVAL_MS + 1);
+        expect(mockSocket_callCount).toBe(3);
     });
 
 });

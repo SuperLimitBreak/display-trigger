@@ -13,27 +13,23 @@ export class SocketReconnect {
             disconnected_retry_interval_ms: 5000,
             console: console
         }, kwargs);
-        this.retry_timeout = null;
+        this.retry_interval = null;
         this._connect();
     }
 
     _connect() {
-        console.log('_connect');
         const socket = new this.WebSocket(`ws://${this.hostname}:${this.port}/`);
 
         const retry_connect = ()=>{
-            console.log('retry_connect', this.retry_timeout, this.disconnected_retry_interval_ms);
-            if (!this.retry_timeout) {
-                this.retry_timeout = setTimeout(()=>{this._connect()}, this.disconnected_retry_interval_ms);
-                console.log('retry_connect is set', this.retry_timeout);
+            if (!this.retry_interval) {
+                this.retry_interval = setInterval(()=>{this._connect()}, this.disconnected_retry_interval_ms);
             }
         };
 
         socket.onopen = () => {
-            if (this.retry_timeout) {
-                console.log('clear retry_timeout');
-                clearTimeout(this.retry_timeout);
-                this.retry_timeout = null;
+            if (this.retry_interval) {
+                clearInterval(this.retry_interval);
+                this.retry_interval = null;
             }
             this._send = (...args) => {
                 return socket.send(this.encodeMessages(args));
