@@ -44,7 +44,8 @@ const MockWebSocketManager = ()=>{
         getMockSocket: ()=>mockSocket,
         getMockSocket_callCount: ()=>mockSocket_callCount,
     };
-}
+};
+
 
 describe('SocketReconnect', function() {
     const mockSocketManager = MockWebSocketManager();
@@ -128,7 +129,39 @@ describe('SocketReconnect', function() {
 
 
 describe('JsonSocketReconnect', function() {
+    const mockSocketManager = MockWebSocketManager();
+    const mockSocket = ()=>mockSocketManager.getMockSocket();
+    const expectMockSocketCallCount = (count)=>expect(mockSocketManager.getMockSocket_callCount()).toBe(count);
 
-    it('Should test something',()=>{
+    let socket;
+
+    beforeEach(function() {
+        socket = mockSocketManager.setup(JsonSocketReconnect, {});
     });
+
+    afterEach(function() {
+        mockSocketManager.teardown();
+        socket = undefined;
+    });
+
+
+    it('Should send json',()=>{
+        mockSocket().onopen();
+        socket.send({'Hello Json World': 1});
+        expect(mockSocket().send).toHaveBeenCalledWith('{"Hello Json World":1}\n');
+    });
+    
+    it('Should recieve json',()=>{
+        mockSocket().onopen();
+        mockSocket().onmessage({data: '{"Hello Json World":2}\n'});
+        expect(socket.onMessage).toHaveBeenCalledWith({'Hello Json World': 2});
+    });
+
+    it('Should split mutiple messages and call onMessage mutiple times', ()=>{
+        mockSocket().onopen();
+        mockSocket().onmessage({data: '{"a":1}\n{"b":2}\n'});
+        expect(socket.onMessage.calls.argsFor(0)).toEqual([{a:1}]);
+        expect(socket.onMessage.calls.argsFor(1)).toEqual([{b:2}]);
+    });
+
 });
