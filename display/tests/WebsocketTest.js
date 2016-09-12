@@ -187,25 +187,40 @@ describe('SubscriptionSocketReconnect', function() {
         expect(mockSocket().send).not.toHaveBeenCalled();
         mockSocket().onopen();
         expect(mockSocket().send).toHaveBeenCalledWith(JSON.stringify({
-            action: 'subscribe',
-            data: ['subscription1', 'subscription2'],
+            action: 'subscribe', data: ['subscription1', 'subscription2'],
         })+'\n');
         mockSocket().onclose();
         mockSocket().send.calls.reset();
         mockSocket().onopen();
-        expect(mockSocket().send).toHaveBeenCalled();
+        expect(mockSocket().send).toHaveBeenCalledWith(JSON.stringify({
+            action: 'subscribe', data: ['subscription1', 'subscription2'],
+        })+'\n');
     });
 
     it('Should split message payloads and call onMessage',()=>{
         mockSocket().onopen();
         mockSocket().onmessage({data: JSON.stringify({
-            action: 'message',
-            data: [{a:1},{b:2}]
-        })+'\n'+JSON.stringify({
-            action: 'message',
-            data: [{c:3}]
+            action: 'message', data: [{a:1},{b:2}],
         })+'\n'});
-        // TODO: Finish
+        expect(socket.onMessage.calls.argsFor(0)).toEqual([{a:1}]);
+        expect(socket.onMessage.calls.argsFor(1)).toEqual([{b:2}]);
     });
 
+    it('Should encode message payloads',()=>{
+        mockSocket().onopen();
+        mockSocket().send.calls.reset();
+        socket.sendMessages({a:1},{b:2});
+        expect(mockSocket().send).toHaveBeenCalledWith(JSON.stringify({
+            action: 'message', data: [{a:1}, {b:2}],
+        })+'\n');
+    });
+
+    it('Should update subscriptions',()=>{
+        mockSocket().onopen();
+        mockSocket().send.calls.reset();
+        socket.sendSubscriptions(new Set(['a']));
+        expect(mockSocket().send).toHaveBeenCalledWith(JSON.stringify({
+            action: 'subscribe', data: ['a'],
+        })+'\n');
+    });
 });

@@ -122,8 +122,8 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
         this._sendPayload('subscribe', Array.from(this.subscriptions));
     }
 
-    sendMessages(msgs) {
-        this._sendPayload('message', msgs);
+    sendMessages(...msgs) {
+        this._sendPayload('message', Array.from(msgs));
     }
 
 }
