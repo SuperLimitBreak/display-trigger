@@ -8,17 +8,17 @@ export class ScreenManager {
     Screens should have no knowlge of their subscriptions or network routing
     */
     
-    constructor(subscription_socket) {
+    constructor(subscription_socket, ScreenClass=Screen) {
         this.console = console;
         this.screens = new Map();
         this.subscription_screen_id_lookup = new DefaultDict(()=>new Set());
         this.subscription_socket = subscription_socket;
-        this.subscription_socket.onMessage = (msgs) => this.onMessage(msgs);
+        this.subscription_socket.onMessage = (msg) => this.onMessage(msg);
     }
     
     bindScreen(id, element, subscriptions=[]) {
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
-        this.screens.set(id, new Screen(element));
+        this.screens.set(id, new ScreenClass(element));
         for (let subscription of new Set([...subscriptions, ...[id]])) {
             this.subscription_screen_id_lookup.get(subscription).add(id);
         }
