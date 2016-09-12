@@ -25,8 +25,8 @@ const MockWebSocketManager = ()=>{
             disconnected_retry_interval_ms: DISCONNECTED_RETRY_INTERVAL_MS,
         }, kwargs));
         expect(mockSocket).not.toBe(undefined);
-        spyOn(socket, 'onConnected');
-        spyOn(socket, 'onDisconnected');
+        spyOn(socket, 'onConnected').and.callThrough();
+        spyOn(socket, 'onDisconnected').and.callThrough();
         spyOn(socket, 'onMessage');
         spyOn(socket, 'decodeMessages').and.callThrough();
         spyOn(socket, 'encodeMessages').and.callThrough();
@@ -144,7 +144,6 @@ describe('JsonSocketReconnect', function() {
         socket = undefined;
     });
 
-
     it('Should send json',()=>{
         mockSocket().onopen();
         socket.send({'Hello Json World': 1});
@@ -162,6 +161,51 @@ describe('JsonSocketReconnect', function() {
         mockSocket().onmessage({data: '{"a":1}\n{"b":2}\n'});
         expect(socket.onMessage.calls.argsFor(0)).toEqual([{a:1}]);
         expect(socket.onMessage.calls.argsFor(1)).toEqual([{b:2}]);
+    });
+
+});
+
+
+describe('SubscriptionSocketReconnect', function() {
+    const mockSocketManager = MockWebSocketManager();
+    const mockSocket = ()=>mockSocketManager.getMockSocket();
+
+    let socket;
+
+    beforeEach(function() {
+        socket = mockSocketManager.setup(SubscriptionSocketReconnect, {
+            subscriptions: ['subscription1', 'subscription2'],
+        });
+    });
+
+    afterEach(function() {
+        mockSocketManager.teardown();
+        socket = undefined;
+    });
+
+    it('Should subscribe on connect/reconnect',()=>{
+        expect(mockSocket().send).not.toHaveBeenCalled();
+        mockSocket().onopen();
+        expect(mockSocket().send).toHaveBeenCalledWith(JSON.stringify({
+            action: 'subscribe',
+            data: ['subscription1', 'subscription2'],
+        })+'\n');
+        mockSocket().onclose();
+        mockSocket().send.calls.reset();
+        mockSocket().onopen();
+        expect(mockSocket().send).toHaveBeenCalled();
+    });
+
+    it('Should split message payloads and call onMessage',()=>{
+        mockSocket().onopen();
+        mockSocket().onmessage({data: JSON.stringify({
+            action: 'message',
+            data: [{a:1},{b:2}]
+        })+'\n'+JSON.stringify({
+            action: 'message',
+            data: [{c:3}]
+        })+'\n'});
+        // TODO: Finish
     });
 
 });

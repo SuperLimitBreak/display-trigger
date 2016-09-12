@@ -31,9 +31,7 @@ export class SocketReconnect {
                 clearInterval(this.retry_interval);
                 this.retry_interval = null;
             }
-            this._send = (...args) => {
-                return socket.send(this.encodeMessages(args));
-            };
+            this._send = (...args) => socket.send(this.encodeMessages(args));
             this.onConnected();
         };
         socket.onclose = () => {
@@ -70,8 +68,8 @@ export class SocketReconnect {
 
     // Overrideable Methods -------
     onMessage(msg) {this.console.log('onMessage', msg);}
-    onConnected() {this.console.log('onConnected');}
-    onDisconnected() {this.console.log('onDisconnected');}
+    onConnected() {}  //this.console.log('onConnected');
+    onDisconnected() {}  //this.console.log('onDisconnected');
 }
 
 
@@ -94,7 +92,6 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
         super(kwargs);
         Object.assign(this, {
             subscriptions: [],
-            console: console
         }, kwargs);
     }
 
