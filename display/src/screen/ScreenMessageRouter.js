@@ -2,14 +2,17 @@ import {DefaultDict} from 'pycollections';
 import {Screen} from './screen';
 
 
-export class ScreenManager {
+export class ScreenMessageRouter {
     /*
     Reference/Create/Manage all screens and route incoming messages to the correct screens.
     Screens should have no knowlge of their subscriptions or network routing
     */
     
-    constructor(subscription_socket, ScreenClass=Screen) {
-        this.console = console;
+    constructor(subscription_socket, kwargs) {
+        Object.assign(this, {
+            ScreenClass: Screen,
+            console: console,
+        }, kwargs);
         this.screens = new Map();
         this.subscription_screen_id_lookup = new DefaultDict(()=>new Set());
         this.subscription_socket = subscription_socket;
