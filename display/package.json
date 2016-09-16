@@ -25,6 +25,7 @@
     "jsx-loader": "latest",
     "karma": "latest",
     "karma-chrome-launcher": "latest",
+    "karma-firefox-launcher": "latest",
     "karma-jasmine": "latest",
     "karma-sourcemap-loader": "latest",
     "karma-spec-reporter": "latest",

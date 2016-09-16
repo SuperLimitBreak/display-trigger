@@ -1,6 +1,6 @@
-import {ScreenManager} from 'src/screen/ScreenManager';
+import {ScreenMessageRouter} from 'src/screen/ScreenMessageRouter';
 
-const MockScreenManager = ()=>{
+const MockScreenMessageRouter = ()=>{
     let screens = [];
     
     class MockScreen {
@@ -18,14 +18,14 @@ const MockScreenManager = ()=>{
 };
 
 describe('ScreenMessageRouter', function() {
-    const screens = ()=>MockScreenManager.screens;
+    const screens = ()=>MockScreenMessageRouter.screens;
     
     let mockSubscriptionSocket;
     let screenMessageRouter;
     
     beforeEach(function() {
         mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'sendSubscriptions']);
-        screenMessageRouter = new ScreenManager(mockSubscriptionSocket, {ScreenClass: MockScreenManager.mockScreenClass});
+        screenMessageRouter = new ScreenMessageRouter(mockSubscriptionSocket, {ScreenClass: MockScreenMessageRouter.mockScreenClass});
     });
 
     afterEach(function() {
@@ -35,7 +35,7 @@ describe('ScreenMessageRouter', function() {
     });
 
     it('Should update subscriptions when binding screens',()=>{
-        const element = jasmine.createSpyObj('HTMLElement', []);
+        const element = jasmine.createSpyObj('HTMLElement', ['methodName_ooo']);
         screenMessageRouter.bindScreen('testid1', element);
         expect(mockSubscriptionSocket.sendSubscriptions).toHaveBeenCalledWith(new Set(['testid1']));
         expect(screens().length).toBe(1);

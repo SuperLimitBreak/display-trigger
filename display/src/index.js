@@ -1,14 +1,14 @@
 import 'core-js/fn/object/assign';
 
-import {ScreenManager} from './screen/ScreenManager';
+import {ScreenMessageRouter} from './screen/ScreenMessageRouter';
 import {SubscriptionSocketReconnect} from './socket/websocket';
 
 
-const screenManager = new ScreenManager(
+const screenMessageRouter = new ScreenMessageRouter(
     new SubscriptionSocketReconnect()
 );
 
-screenManager.bindScreen('main', null);
+screenMessageRouter.bindScreen('main', null);
 //screenManager.bindScreen('test', null);
 
   //{subscriptions:['main', 'all']}
