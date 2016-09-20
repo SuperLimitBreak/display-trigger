@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 module.exports = function(config) {
   config.set({
     basePath: '',
-    browsers: [ 'Firefox' ],  //'Chrome'
+    browsers: [ 'Chrome' ],  // 'Firefox'
     files: [
       'tests/loadtests.js'
     ],
