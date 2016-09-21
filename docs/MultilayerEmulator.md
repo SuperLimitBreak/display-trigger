@@ -14,6 +14,7 @@ Live Music Concept
 * The audience will play the game live while the band are effectivly performing in the middle of the retrogame scene.
 * The could potentially be done with shooters or '1 on 1' fighting games
 
+
 Requirements
 ------------
 
@@ -22,6 +23,8 @@ Requirements
     * This may entail sending automated keypress's to toggle the relevent layers on/off.
 * The sound output from the emulator will also need thought. It would be ideal to disable the music chip but still have the sound effects.
     * Sound is secondary to the visuals but still should be considered.
+* Controlers
+    * We need a way of proxying the controler input to disable or press puttons based on network triggers.
 
 
 Current Investigation Notes
@@ -87,6 +90,31 @@ http://superuser.com/questions/411897/using-desktop-as-fake-webcam-on-linux
     modprobe v4l2loopback
     # read from x11, write into virtual webcam
     ffmpeg -f x11grab -r 15 -i :1.0+0,0 -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
+
+
+Sound
+-----
+
+We also need to toggle the sound of the original games off.
+The Megadrive has 2 sound chips. Yamaha FM chip for synth and a Sampled sound chip.
+If we can turn the YM chip off we should be left with just the sound effects.
+
+
+Controls
+--------
+
+Because we will be playing these games to a clicktrack we want events to be timed.
+In the use case of Street Fighter 2 we want to proxy the controlers.
+We want the directions to operate to allow the plays to select a character
+but we do not want them to be able to use any buttons.
+When a trigger happens we want to press the fire button on both controlers to select the character and start the stage.
+
+The ultimate evolution of this would be to detect the state of the game in some way
+to ensure the game is faded out after a condition is met.
+Eg. If we could detect the 4 pixels in the corners are the right colors for the character
+select screen we can fade the display out.
+This will allow the players to play one round and automaticaly fade out.
+
 
 Help
 ----
