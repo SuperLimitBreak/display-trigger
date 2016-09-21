@@ -1,3 +1,4 @@
+import {layers} from './layers/__init__';
 
 export class Screen {
     constructor(element) {
