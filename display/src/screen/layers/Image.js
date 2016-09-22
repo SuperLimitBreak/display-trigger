@@ -1,3 +1,3 @@
-export class Image {
+export class image {
     constructor() {}
 }

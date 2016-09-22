@@ -1,9 +1,15 @@
-import {Video} from './Video';
-import {Image} from './Image';
+import {video} from './video';
+import {image} from './image';
+import {audio} from './audio';
+import {iframe} from './iframe';
+import {overlay} from './overlay';
 
 export default {
-    layers: [
-        Video,
-        Image,
+    layerClasss: [
+        video,
+        image,
+        audio,
+        iframe,
+        overlay,
     ]
 };
