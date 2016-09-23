@@ -20,6 +20,8 @@ export class ScreenMessageRouter {
     }
     
     bindScreen(id, element, subscriptions=[]) {
+        this.console.assert(id, 'Screen id should be provided');
+        this.console.assert(element, 'Element should be provided to bind a Screen');
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
         this.screens.set(id, new this.ScreenClass(element));
         for (let subscription of new Set([...subscriptions, ...[id]])) {
