@@ -20,6 +20,7 @@
     "eslint-loader": "latest",
     "eslint-plugin-native-over-lodash": "latest",
     "file-loader": "latest",
+    "gsap": "latest",
     "glob": "latest",
     "jasmine-core": "latest",
     "jsx-loader": "latest",
