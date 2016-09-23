@@ -1,4 +1,8 @@
-import {layerClasss} from './layers/__init__';
+import * as layers from './layers/__init__';
+const layerClasss = layers['default']['layerClasss'];
+
+console.log(layerClasss);
+
 require('../styles/screen.scss');
 
 export class Screen {
