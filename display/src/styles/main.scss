@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+body {
+    background-color: black;
+    font-family: sans-serif;
+    cursor: none;  /* !important */
+    overflow: hidden;
+}
+
+
+/* -------------------------------------------------------------------------- */
 $test-height: 100px;
 
 @mixin test_style {

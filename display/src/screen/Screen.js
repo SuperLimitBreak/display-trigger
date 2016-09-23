@@ -4,23 +4,27 @@ export class Screen {
     constructor(element, kwargs) {
         this.element = element;
         Object.assign(this, {
-            document: document,
+            documentCreateElement: ()=>document.createElement('div'),
+            elementAppendChild: (child)=>this.element.appendChild(child),
             console: console,
             layerClasss: layerClasss,
-            className: 'screen',
+            screenClassName: 'screen',
         }, kwargs);
         this.layers = new Map();
         
-        element.classList.add(this.className);
+        element.classList.add(this.screenClassName);
         
         for (let layerClass of this.layerClasss) {
-            const div = this.document.createElement('div');
-            this.element.appendChild(div);
-            this.layers.set(layerClass.name, new layerClass(div));
+            const div = this.documentCreateElement();
+            this.elementAppendChild(div);
+            this.layers.set(layerClass.constructor.name, new layerClass(div));
         }
     }
     
     onMessage(msg) {
-        console.log('screen', msg);
+        if (!msg.func) {return;}
+        const [layerName, funcName] = msg.func.split('.');
+        if (!this.layers.has(layerName)) {return;}
+        this.layers.get(layerName)[funcName](msg);
     }
 }
