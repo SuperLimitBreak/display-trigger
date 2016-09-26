@@ -1,8 +1,6 @@
 import * as layers from './layers/__init__';
 const layerClasss = layers['default']['layerClasss'];
 
-console.log(layerClasss);
-
 require('../styles/screen.scss');
 
 export class Screen {
@@ -21,7 +19,7 @@ export class Screen {
         for (let layerClass of this.layerClasss) {
             const div = this.documentCreateElement();
             this.element.appendChild(div);
-            this.layers.set(layerClass.constructor.name, new layerClass(div));
+            this.layers.set(layerClass.className, new layerClass(div));
         }
     }
     
