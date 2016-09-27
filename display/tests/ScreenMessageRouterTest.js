@@ -74,4 +74,11 @@ describe('ScreenMessageRouter', function() {
         expect(screens()[2].onMessage).toHaveBeenCalledWith(msg3);
     });
 
+    it('Should route messages for "all" to all screens', ()=>{
+        const msg4 = {deviceid: 'all', d: 4};
+        mockSubscriptionSocket.onMessage(msg4);
+        expect(screens()[0].onMessage).toHaveBeenCalledWith(msg4);
+        expect(screens()[1].onMessage).toHaveBeenCalledWith(msg4);
+    });
+
 });

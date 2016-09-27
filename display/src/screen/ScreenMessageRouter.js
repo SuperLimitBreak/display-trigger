@@ -27,7 +27,9 @@ export class ScreenMessageRouter {
         for (let subscription of new Set([...subscriptions, ...[id]])) {
             this.subscription_screen_id_lookup.get(subscription).add(id);
         }
-        this.subscription_socket.sendSubscriptions(this.allSubscriptions);
+        const allSubscriptions = this.allSubscriptions;
+        this.subscription_socket.sendSubscriptions(allSubscriptions);
+        this.subscription_screen_id_lookup.set('all', allSubscriptions);
     }
     
     get allSubscriptions() {
