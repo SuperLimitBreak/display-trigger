@@ -46,4 +46,14 @@ describe('Screen', function() {
         expect(mockLayer2).toBeDefined();
     });
 
+    it('Should route messages to correct layer',()=>{
+        const msg = {func:'MockLayer1.thing1', 'src':'test_url'};
+        screen,onMessage({});
+        console.log(screen.testMe);
+        console.log(screen.onMessage);
+        screen,onMessage(msg);
+        expect(mockLayer1.thing1).toHaveBeenCalledWith(msg);
+    });
+
+    
 });

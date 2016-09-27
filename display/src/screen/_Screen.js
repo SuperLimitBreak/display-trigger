@@ -23,6 +23,8 @@ export class Screen {
         }
     }
     
+    testMe() {}
+    
     onMessage(msg) {
         if (!msg.func) {return;}
         const [layerName, funcName] = msg.func.split('.');

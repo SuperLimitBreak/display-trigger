@@ -32,6 +32,7 @@
     "karma-spec-reporter": "latest",
     "karma-webpack": "latest",
     "minimist": "latest",
+    "mocktail": "latest",
     "node-sass": "latest",
     "npm-run-all": "latest",
     "null-loader": "latest",
