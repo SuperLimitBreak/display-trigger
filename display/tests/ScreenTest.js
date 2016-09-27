@@ -46,13 +46,26 @@ describe('Screen', function() {
         expect(mockLayer2).toBeDefined();
     });
 
+    
     it('Should route messages to correct layer',()=>{
         const msg = {func:'MockLayer1.thing1', 'src':'test_url'};
-        screen,onMessage({});
-        console.log(screen.testMe);
-        console.log(screen.onMessage);
-        screen,onMessage(msg);
+        screen.onMessage(msg);
         expect(mockLayer1.thing1).toHaveBeenCalledWith(msg);
+        expect(mockLayer2.thing2).not.toHaveBeenCalled();
+    });
+
+    it('Should silently fail invalid layer',()=>{
+        const msg = {func:'MockLayer3.thing3', 'src':'test_url'};
+        screen.onMessage(msg);
+        expect(mockLayer1.thing1).not.toHaveBeenCalled();
+        expect(mockLayer2.thing2).not.toHaveBeenCalled();
+    });
+
+    it('Should silently fail invalid func',()=>{
+        const msg = {func:'MockLayer1.thing3', 'src':'test_url'};
+        screen.onMessage(msg);
+        expect(mockLayer1.thing1).not.toHaveBeenCalled();
+        expect(mockLayer2.thing2).not.toHaveBeenCalled();
     });
 
     

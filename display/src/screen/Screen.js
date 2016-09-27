@@ -23,12 +23,12 @@ export class Screen {
         }
     }
     
-    testMe() {}
-    
     onMessage(msg) {
         if (!msg.func) {return;}
         const [layerName, funcName] = msg.func.split('.');
         if (!this.layers.has(layerName)) {return;}
-        this.layers.get(layerName)[funcName](msg);
+        const func = this.layers.get(layerName)[funcName];
+        if (!func) {return;}
+        func(msg);
     }
 }
