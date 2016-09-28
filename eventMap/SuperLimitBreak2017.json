@@ -1,0 +1,31 @@
+[
+    {
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"}
+        ]
+    },
+    {
+        "name": "smoke",
+        "events": ["smoke", "note_on-D3"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
+        ]
+    },
+    
+    {
+        "name": "test_video_precache",
+        "events": ["-", "note_on-D0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
+        ]
+    },
+    {
+        "name": "test_video_start",
+        "events": ["=", "note_on-D#0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
+        ]
+    }
+]
