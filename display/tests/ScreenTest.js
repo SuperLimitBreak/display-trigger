@@ -68,5 +68,12 @@ describe('Screen', function() {
         expect(mockLayer2.thing2).not.toHaveBeenCalled();
     });
 
+    it('Should route "all" alias to all layers',()=>{
+        const msg = {func:'all.thing2', 'src':'test_url'};
+        screen.onMessage(msg);
+        expect(mockLayer1.thing1).not.toHaveBeenCalled();
+        expect(mockLayer2.thing2).toHaveBeenCalled();
+    });
+    
     
 });

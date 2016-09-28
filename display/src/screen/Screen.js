@@ -11,7 +11,7 @@ export class Screen {
             console: console,
             layerClasss: layerClasss,
             screenClassName: 'screen',
-            allLayersAlias: ['all', 'trigger'],
+            allLayersAlias: new Set(['all', 'trigger']),
         }, kwargs);
         this.layers = new Map();
         
@@ -27,7 +27,7 @@ export class Screen {
     onMessage(msg) {
         if (!msg.func) {return;}
         let [layerName, funcName] = msg.func.split('.');
-        if (layerName in this.allLayersAlias) {
+        if (this.allLayersAlias.has(layerName)) {
             for (layerName of this.layers.keys()) {
                 this._callLayerFunc(layerName, funcName, msg);
             }
