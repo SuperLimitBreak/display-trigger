@@ -3,6 +3,7 @@ export class video {
         this.element = element;
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('video'),
+            console: console,
         }, kwargs);
         this._video_element_element = undefined;
     }
