@@ -1,3 +1,6 @@
+import {static_url} from '../../utils/utils';
+
+
 export class video {
     constructor(element, kwargs) {
         this.element = element;
@@ -45,6 +48,7 @@ export class video {
 
     onMessage(src, options, event_listeners) {
         if (!src) {this.empty(); return;}
+        src = static_url(src);
         const video = this.video;
         options = Object.assign({
 			'play': true,

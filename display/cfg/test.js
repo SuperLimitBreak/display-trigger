@@ -1,5 +1,7 @@
 'use strict';
 
+let webpack = require('webpack');
+
 let path = require('path');
 let srcPath = path.join(__dirname, '/../src/');
 
@@ -47,6 +49,9 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.DefinePlugin({
+        HOST_STATIC_PORT: JSON.stringify('0000'),
+    }),
     //new BowerWebpackPlugin({
     //  searchResolveModulesDirectories: false
     //})
