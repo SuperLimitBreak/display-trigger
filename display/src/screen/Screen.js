@@ -38,9 +38,10 @@ export class Screen {
     }
     
     _callLayerFunc(layerName, funcName, msg) {
-        if (!this.layers.has(layerName)) {return;}
-        const func = this.layers.get(layerName)[funcName];
+        const layer = this.layers.get(layerName)
+        if (!layer) {return;}
+        const func = layer[funcName];
         if (!func) {return;}
-        func(msg);
+        func.bind(layer)(msg);
     }
 }

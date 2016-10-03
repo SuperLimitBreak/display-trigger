@@ -56,7 +56,7 @@ export class video {
         video.loop = options.loop;
 		video.volume = options.volume;
 		video.controls = false;
-		video.preload = "auto";
+		video.preload = 'auto';
 		video.autoplay = options.play;
 		if (video.currentSrc.indexOf(src) > -1) {
 			this.console.log('video already loaded');
