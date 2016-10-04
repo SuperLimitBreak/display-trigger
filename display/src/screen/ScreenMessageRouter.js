@@ -24,12 +24,11 @@ export class ScreenMessageRouter {
         this.console.assert(element, 'Element should be provided to bind a Screen');
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
         this.screens.set(id, new this.ScreenClass(element));
-        for (let subscription of new Set([...subscriptions, ...[id]])) {
+        for (let subscription of new Set([...subscriptions, ...[id, 'all']])) {
             this.subscription_screen_id_lookup.get(subscription).add(id);
         }
         const allSubscriptions = this.allSubscriptions;
         this.subscription_socket.sendSubscriptions(allSubscriptions);
-        this.subscription_screen_id_lookup.set('all', allSubscriptions);
     }
     
     get allSubscriptions() {
@@ -39,7 +38,9 @@ export class ScreenMessageRouter {
                 yield* lookup_set;
             }
         }
-        return new Set(allSubscriptionsGenerator());
+        const allSubscriptions = new Set(allSubscriptionsGenerator());
+        allSubscriptions.add('all');
+        return allSubscriptions;
     }
     
     // Route message to the subscribed screens

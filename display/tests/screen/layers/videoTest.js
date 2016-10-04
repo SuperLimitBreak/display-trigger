@@ -55,6 +55,7 @@ describe('Screen - Video Layer', function() {
         expect(videoLayer.video).toBeDefined();
         videoLayer.clear();
         expect(mockVideoElement).not.toBeDefined();
+        expect(videoLayer._video_lement).not.toBeDefined();
     });
 
 });

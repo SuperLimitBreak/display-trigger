@@ -41,6 +41,7 @@ export class video {
     empty(msg) {
         if (this._video_element) {
             this._video_element.remove();
+            this._video_element = undefined;
         }
     }
 
