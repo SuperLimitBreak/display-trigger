@@ -1,3 +1,4 @@
+/* global HOST_STATIC_PORT */
 
 export function static_url(path) {
     if (path && path.indexOf('://')>=0) {return path;}
