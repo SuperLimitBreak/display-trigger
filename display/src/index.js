@@ -12,13 +12,13 @@ require('./styles/main.scss');
 
 const body = document.getElementsByTagName('body').item(0);
 
-const DEFAULT_SCREEN_CONFIG = new Immutable.Map({
-    'main': new Immutable.Map({
+const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({
+    'main': {
         'id': 'default_screen',
         'classList': undefined,
         'style': undefined,
         'subscriptions': [],
-    }),
+    },
 });
 
 const screenMessageRouter = new ScreenMessageRouter(
@@ -42,7 +42,7 @@ function initScreens(config) {
   
 const config_url = static_url(`/config/${getUrlParameter('config') || 'default'}.json`);
 fetch(config_url).then(response => {
-    initScreens(Immutable.Map(response.data));
+    initScreens(Immutable.fromJS(response.data));
 }).catch(error => {
     initScreens(DEFAULT_SCREEN_CONFIG);
 });
