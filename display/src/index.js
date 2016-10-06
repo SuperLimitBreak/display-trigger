@@ -40,10 +40,13 @@ function initScreens(config) {
     }
 }
   
-const config_url = static_url(`/config/${getUrlParameter('config') || 'default'}.json`);
+const config_url = static_url(`/display_configs/${getUrlParameter('display_config') || 'single'}.json`);
 fetch(config_url).then(response => {
-    initScreens(Immutable.fromJS(response.data));
+    return response.json();
+}).then(data => {
+    initScreens(Immutable.fromJS(data));
 }).catch(error => {
+    console.error(`Unable to load ${config_url} for display_config. Falling back to default`);
     initScreens(DEFAULT_SCREEN_CONFIG);
 });
 

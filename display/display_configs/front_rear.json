@@ -1,0 +1,14 @@
+{
+    "front": {
+        "id": "screenFront",
+        "classList": null,
+        "style": "position:absolute; left:0; right:50%; top:0; bottom:0;",
+        "subscriptions": ["main", "front"]
+    },
+    "rear": {
+        "id": "screenRear",
+        "classList": null,
+        "style": "position:absolute; left:50%; right:0; top:0; bottom:0;",
+        "subscriptions": ["rear"]
+    }
+}

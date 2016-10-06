@@ -80,6 +80,11 @@ def main(global_config, **settings):
     config.add_route('index', '/')
     config.add_route('event', '/event/{func:.*}')
     config.add_route('event_map', '/event_map/{event_map:.*}')
+    config.add_route('display_config', '/display_configs/{display_config:.*}')
+
+    #def append_cross_origin_header_to_response(event):
+    #    event.response.headerlist.append(('Access-Control-Allow-Origin', '*'))
+    #config.add_subscriber(append_cross_origin_header_to_response, 'pyramid.events.NewResponse')
 
     config.scan()
     return config.make_wsgi_app()

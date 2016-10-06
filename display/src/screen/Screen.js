@@ -19,6 +19,7 @@ export class Screen {
         
         for (let layerClass of this.layerClasss) {
             const div = this.documentCreateElement();
+            div.classList.add(layerClass.className);
             this.element.appendChild(div);
             this.layers.set(layerClass.className, new layerClass(div));
         }

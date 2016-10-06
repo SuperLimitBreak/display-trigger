@@ -34,8 +34,9 @@ def event(request):
 @view_config(route_name='event_map')
 def event_map(request):
     path = request.registry.settings.get('path.eventmap')
-    if request.matchdict['event_map']:
-        with open(os.path.join(path, request.matchdict['event_map']), 'r') as f:
+    event_map = request.matchdict['event_map']
+    if event_map:
+        with open(os.path.join(path, event_map), 'r') as f:
             data = json.load(f)
     else:
         data = [ff for ff in os.listdir(path) if ff.endswith('.json')]

@@ -1,5 +1,6 @@
 import {static_url} from '../../utils/utils';
 
+require('../../styles/layers/video.scss');
 
 export class video {
     constructor(element, kwargs) {
