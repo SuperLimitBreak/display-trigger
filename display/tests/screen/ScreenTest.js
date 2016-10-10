@@ -7,6 +7,13 @@ describe('Screen', function() {
     let mockLayer1;
     let mockLayer2;
     
+    function createMockElement() {
+        let mockElement;
+        mockElement = jasmine.createSpyObj('HTMLElement', ['appendChild', 'classList']);
+        mockElement.classList = jasmine.createSpyObj('HTMLElement', ['add']);
+        return mockElement;
+    }
+    
     beforeEach(function() {
         class mockLayer1Class {
             constructor() {
@@ -25,10 +32,9 @@ describe('Screen', function() {
         }
         mockLayer2Class.className = 'MockLayer2';
         
-        mockElement = jasmine.createSpyObj('HTMLElement', ['appendChild', 'classList']);
-        mockElement.classList = jasmine.createSpyObj('HTMLElement', ['add']);
+        mockElement = createMockElement();
         screen = new Screen(mockElement, {
-            documentCreateElement: ()=>{},
+            documentCreateElement: ()=>{return createMockElement();},
             screenClassName: 'screen_test',
             layerClasss: [mockLayer1Class, mockLayer2Class],
         });

@@ -66,11 +66,11 @@ describe('ScreenMessageRouter', function() {
     });
 
     it('Should route single message to multiple subscribed screens',()=>{
-        const msg3 = {deviceid: 'test_me_too', c: 3};
-        screenMessageRouter.bindScreen('testid3', element, ['test_me_too']);
+        const msg3 = {deviceid: 'test_me_three', c: 3};
+        screenMessageRouter.bindScreen('testid3', element, ['test_me_three']);
         mockSubscriptionSocket.onMessage(msg3);
         expect(screens()[0].onMessage).not.toHaveBeenCalledWith(msg3);
-        expect(screens()[1].onMessage).toHaveBeenCalledWith(msg3);
+        expect(screens()[1].onMessage).not.toHaveBeenCalledWith(msg3);
         expect(screens()[2].onMessage).toHaveBeenCalledWith(msg3);
     });
 

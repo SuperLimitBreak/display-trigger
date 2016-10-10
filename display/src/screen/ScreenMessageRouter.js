@@ -32,13 +32,7 @@ export class ScreenMessageRouter {
     }
     
     get allSubscriptions() {
-        const screenManager = this;
-        function* allSubscriptionsGenerator(){
-            for (let lookup_set of screenManager.subscription_screen_id_lookup.values()) {
-                yield* lookup_set;
-            }
-        }
-        const allSubscriptions = new Set(allSubscriptionsGenerator());
+        const allSubscriptions = new Set(this.subscription_screen_id_lookup.keys());
         allSubscriptions.add('all');
         return allSubscriptions;
     }

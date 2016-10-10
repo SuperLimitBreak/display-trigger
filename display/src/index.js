@@ -36,7 +36,7 @@ function initScreens(config) {
         }
         //element.classList.concat(screen_data.get('classList'));
         element.style = screen_data.get('style');
-        screenMessageRouter.bindScreen(screen_name, element, screen_data.get('subscritpions'));
+        screenMessageRouter.bindScreen(screen_name, element, Array.from(screen_data.get('subscriptions')));
     }
 }
   
