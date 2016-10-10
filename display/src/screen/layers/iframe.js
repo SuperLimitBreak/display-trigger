@@ -24,8 +24,8 @@ export class iframe {
         return this._iframe_element;
     }
 
-    clear(msg) {return this.empty(msg);}  // TODO: remove alias?
-    empty(msg) {
+    clear() {return this.empty();}  // TODO: remove alias?
+    empty() {
         if (this._iframe_element) {
             this._iframe_element.remove();
             this._iframe_element = undefined;
@@ -46,12 +46,12 @@ export class iframe {
             get_func(data.func_iframe, iframe_window)(data);
         }
         catch (error) {
-            if (error.name == "SecurityError") {
+            if (error.name == 'SecurityError') {
                 // Fallback to html5 postMessage()
-                iframe_window.postMessage(JSON.stringify(data), data.target_domain || "*"); //iframe_element.src  //window.location.origin
+                iframe_window.postMessage(JSON.stringify(data), data.target_domain || '*'); //iframe_element.src  //window.location.origin
             }
             else {
-                console.error(error);
+                this.console.error(error);
             }
         }
     }

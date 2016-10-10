@@ -46,7 +46,7 @@ fetch(config_url).then(response => {
 }).then(data => {
     initScreens(Immutable.fromJS(data));
 }).catch(error => {
-    console.error(`Unable to load ${config_url} for display_config. Falling back to default`);
+    console.error(`Unable to load ${config_url} for display_config. Falling back to default`, error);
     initScreens(DEFAULT_SCREEN_CONFIG);
 });
 

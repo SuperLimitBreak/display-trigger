@@ -2,11 +2,15 @@ import { TimelineMax } from 'gsap';
 
 export class text {
     constructor(element, kwargs) {
-        console.log('Greensock is ', TimelineMax);
+        this.element = element;
+        Object.assign(this, {
+            console: console,
+        }, kwargs);
+
+        this.console.log('Greensock is ', TimelineMax, kwargs, element);
     }
     
-    text(msg) {
-        
+    text() {
     }
 }
 text.className = 'text';

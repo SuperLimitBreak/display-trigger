@@ -38,8 +38,8 @@ export class video {
         );
     }
 
-    clear(msg) {return this.empty(msg);}  // TODO: remove alias?
-    empty(msg) {
+    clear() {return this.empty();}  // TODO: remove alias?
+    empty() {
         if (this._video_element) {
             this._video_element.remove();
             this._video_element = undefined;
@@ -48,7 +48,7 @@ export class video {
 
     // Private ------------------------------------------------------
 
-    onMessage(src, options, event_listeners) {
+    onMessage(src, options) {
         if (!src) {this.empty(); return;}
         src = static_url(src);
         const video = this.video;
