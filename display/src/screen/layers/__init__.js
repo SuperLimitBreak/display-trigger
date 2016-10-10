@@ -3,6 +3,7 @@ import {image} from './image';
 import {audio} from './audio';
 import {iframe} from './iframe';
 import {overlay} from './overlay';
+import {text} from './text';
 
 export default {
     layerClasss: [
@@ -11,5 +12,6 @@ export default {
         audio,
         iframe,
         overlay,
+        text,
     ]
 };

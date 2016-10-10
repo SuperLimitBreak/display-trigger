@@ -6,11 +6,16 @@ help:
 
 # Install ----------------------------------------------------------------------
 
+#node_modules/gsap/src/uncompressed/plugins/SplitTextPlugin.js: node_modules
+#    curl https://raw.githubusercontent.com/netgfx/SplitText/master/js/SplitTextPlugin.js -o $@
+
 node_modules:
 	npm install
 
+
 .PHONY: install
 install: node_modules
+    # node_modules/gsap/src/uncompressed/plugins/SplitTextPlugin.js
 	# todo
 
 
