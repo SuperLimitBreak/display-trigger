@@ -1,0 +1,15 @@
+.screen {
+    .text {
+        .html_bubble {
+            position: absolute;
+            top: 5%;
+            width: 90%;
+            opacity: 1;
+        
+            color: white;
+            background-color: rgba(0,0,0,.50);
+            -webkit-box-shadow:0 0 6em 6em rgba(0,0,0,.50);
+            border-radius: 2em;
+        }
+    }
+}

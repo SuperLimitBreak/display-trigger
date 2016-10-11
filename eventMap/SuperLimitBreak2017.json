@@ -36,5 +36,15 @@
             {"deviceid": "front", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
             {"deviceid": "rear", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0}
         ]
-    }    
+    },
+    
+    {
+        "name": "test_html_bubble",
+        "events": ["note_on-D0"],
+        "payload": [
+            {"func": "text.html_bubble", "deviceid": "front", "html": "<h1>Title</h1><p>Subtitle</p><p>Some description bollox</p>"}
+        ]
+    }
+
+    
 ]
