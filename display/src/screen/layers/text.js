@@ -21,16 +21,18 @@ export class text {
     }
     
     html_bubble(msg) {
+        this.empty();
         const text = this.text;
         text.innerHTML = msg.html;
         text.classList.add('html_bubble');
         text.style = `font-size: ${this.element.clientWidth * 0.04}px;`;  // Scale the font size based on width of container
-        const tl = new TimelineMax({onComplete:this.empty});
+        const tl = new TimelineMax({onComplete:()=>this.empty()});
         
         tl
-            .from(this.element, 1.5, {opacity: 0, left:  '0%', filter: 'blur(1em)'})
-            .to  (this.element, 5.0, {opacity: 1, left:  '5%', filter: 'blur(0em)'})
-            .to  (this.element, 3.0, {opacity: 0, left: '30%', filter: 'blur(1em)'})
+            .fromTo(this.element, 1.5, {opacity: 0, left:  '0%', filter: 'blur(1em)'},
+                                       {opacity: 1, left:  '5%', filter: 'blur(0em)'})
+            .to    (this.element, 5.0, {})
+            .to    (this.element, 3.0, {opacity: 0, left: '30%', filter: 'blur(1em)'})
         ;
     }
     
