@@ -1,6 +1,11 @@
+import { TimelineMax } from 'gsap';
+
 export class overlay {
-    constructor(element) {
+    constructor(element, kwargs) {
         this.element = element;
+        Object.assign(this, {
+            console: console,
+        }, kwargs);
         this.timeline = undefined;
     }
     

@@ -40,8 +40,8 @@ export class text {
             border-radius: ${2*font_size}px;
         `;  
 
-        this.timeline = new TimelineMax({onComplete:()=>this.empty()});
-        this.timeline
+        this._timeline = new TimelineMax({onComplete:()=>this.empty()});
+        this._timeline
             .fromTo(text, 1.5, {opacity: 0, left:  '0%', filter: 'blur(1em)'},
                                {opacity: 1, left:  '5%', filter: 'blur(0em)'})
             .to    (text, 5.0, {})
@@ -50,8 +50,8 @@ export class text {
     }
     
     empty() {
-        if (this.timeline) {
-            this.timeline.stop();
+        if (this._timeline) {
+            this._timeline.stop();
         }
         if (this._text_element) {
             this._text_element.remove();

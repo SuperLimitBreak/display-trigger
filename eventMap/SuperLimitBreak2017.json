@@ -52,6 +52,14 @@
         "payload": [
             {"func": "overlay.fade", "deviceid": "front"}
         ]
+    },
+
+    {
+        "name": "test_image",
+        "events": ["q"],
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+        ]
     }
 
     

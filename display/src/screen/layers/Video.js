@@ -9,7 +9,7 @@ export class video {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
         }, kwargs);
-        this._video_element_element = undefined;
+        this._video_element = undefined;
     }
     
     get video() {
