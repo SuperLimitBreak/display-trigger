@@ -44,6 +44,14 @@
         "payload": [
             {"func": "text.html_bubble", "deviceid": "front", "html": "<h1>Title</h1><p>Subtitle</p><p>Some description bollox</p>"}
         ]
+    },
+
+    {
+        "name": "test_fade",
+        "events": ["note_on-E0"],
+        "payload": [
+            {"func": "overlay.fade", "deviceid": "front"}
+        ]
     }
 
     
