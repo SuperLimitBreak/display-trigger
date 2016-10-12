@@ -58,7 +58,10 @@
         "name": "test_image",
         "events": ["q"],
         "payload": [
-            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg", "gasp_animation": [
+                ["to", 0, {"x":200, "y":200, "ease":"linear"}],
+                ["to", 3, {"x":100, "y":100, "ease":"linear"}]
+            ]}
         ]
     }
 

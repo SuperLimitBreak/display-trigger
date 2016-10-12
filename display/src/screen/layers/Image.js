@@ -1,4 +1,5 @@
 import { TimelineMax } from 'gsap';
+import {static_url} from '../../utils/utils';
 
 export class image {
     constructor(element, kwargs) {
@@ -24,10 +25,16 @@ export class image {
     show(msg) {
         this.empty();
         
-        this.image.src = msg.src;
-        if (msg.from && msg.to && msg.duration) {
-            this._timeline = new TimelineMax({onComplete:()=>this.empty()});
-            this._timeline.fromTo(this.image, msg.duration, msg.from, msg.to);
+        this.image.src = static_url(msg.src);
+        const px = (value)=> value ? `${value}px` : '100%';
+        this.image.style = `width: ${px(msg.width)}; height: ${px(msg.height)}`;
+        
+        if (msg.gasp_animation) {
+            this._timeline = new TimelineMax();
+            let animation_state = this._timeline;
+            for (let [gasp_method, duration, animation_object] of msg.gasp_animation) {
+                animation_state = animation_state[gasp_method](this.image, duration, animation_object);
+            }
         }
     }
     
