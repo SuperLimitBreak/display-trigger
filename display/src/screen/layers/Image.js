@@ -27,10 +27,30 @@ export class image {
     show(msg) {
         this.empty();
         
+        // Calcualte scale factor for simulated screen height
+        if (msg.source_screen_height) {
+            msg.scale = this.element.clientHeight / msg.source_screen_height;
+        }
+        // Update x,y,width,height values with scale factor
+        if (msg.scale) {
+            msg.width *= msg.scale;
+            msg.height *= msg.scale;
+            for (let animation_object of msg.gasp_animation.map((item)=>item[2])) {
+                for (let prop of ['x', 'y', 'width', 'height']) {
+                    if (animation_object.hasOwnProperty(prop)) {
+                        animation_object[prop] *= msg.scale;
+                    }
+                }
+            }
+        }
+        
         this.image.src = static_url(msg.src);
         this.image.className += msg.className;
         const px = (value)=> value ? `${value}px` : '100%';
-        this.image.style = `width: ${px(msg.width)}; height: ${px(msg.height)}`;
+        this.image.style = `
+            width: ${px(msg.width)};
+            height: ${px(msg.height)};
+        `;
         
         if (msg.gasp_animation) {
             this._timeline = new TimelineMax();
