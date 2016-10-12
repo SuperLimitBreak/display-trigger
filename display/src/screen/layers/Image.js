@@ -1,6 +1,8 @@
 import { TimelineMax } from 'gsap';
 import {static_url} from '../../utils/utils';
 
+require('../../styles/layers/image.scss');
+
 export class image {
     constructor(element, kwargs) {
         this.element = element;
@@ -26,6 +28,7 @@ export class image {
         this.empty();
         
         this.image.src = static_url(msg.src);
+        this.image.className += msg.className;
         const px = (value)=> value ? `${value}px` : '100%';
         this.image.style = `width: ${px(msg.width)}; height: ${px(msg.height)}`;
         

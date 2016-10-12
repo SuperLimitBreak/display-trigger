@@ -58,9 +58,17 @@
         "name": "test_image",
         "events": ["q"],
         "payload": [
-            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg", "gasp_animation": [
-                ["to", 0, {"x":200, "y":200, "ease":"linear"}],
-                ["to", 3, {"x":100, "y":100, "ease":"linear"}]
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+        ]
+    },
+
+    {
+        "name": "test_image_castelvania",
+        "events": ["q"],
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "/assets/castlevaniafullgamemapempty.png", "width": 9928, "height": 1908, "className": "pixelated", "gasp_animation": [
+                ["to", 0, {"x":0, "y":-1563, "scale": 1, "ease":"linear"}],
+                ["to", 5, {"x":-752, "scale": 1, "ease":"linear"}]
             ]}
         ]
     }
