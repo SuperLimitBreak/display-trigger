@@ -21,7 +21,18 @@ export class image {
         }
         return this._image_element;
     }
-    
+
+    load(msg) {return this.cache(msg);}  // TODO: remove alias?
+    precache(msg) {return this.cache(msg);}  // TODO: remove alias?
+    cache(msg) {
+        if (typeof(msg.src) == 'string') {msg.src = [msg.src];}
+        if (Array.isArray(msg.src)) {
+            for (let src of msg.src) {
+                const i = new Image();
+                i.src = src;
+            }
+        }
+    }
     
     start(msg) {return this.show(msg);}  // TODO: remove alias?
     show(msg) {

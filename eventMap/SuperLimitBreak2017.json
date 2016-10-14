@@ -58,7 +58,7 @@
         "name": "test_image",
         "events": ["q"],
         "payload": [
-            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg", "className": "pixelated"}
         ]
     },
 
@@ -75,12 +75,12 @@
                 "source_screen_height": 168,
                 "className": "pixelated",
                 "gasp_animation": [
-                    ["to",   0, {"x":     0, "y": -1563, "ease":"linear"}],
-                    ["to",  10, {"x":  -752            , "ease":"linear"}],
+                    ["to",   0, {"x":     0, "y": -1563, "ease":"linear","force3D":false}],
+                    ["to",  60, {"x":  -752            , "ease":"linear"}],
                     ["to",   0 ,{"x":  -767, "y": -1550, "ease":"linear"}],
-                    ["to",  10 ,{"x": -2304            , "ease":"linear"}],
+                    ["to",  60 ,{"x": -2304            , "ease":"linear"}],
                     ["to",   0 ,{"x": -2096, "y":  -590, "ease":"linear"}],
-                    ["to",  10 ,{"x": -4510            , "ease":"linear"}]
+                    ["to",  60 ,{"x": -4510            , "ease":"linear"}]
                 ]
             }
         ]
