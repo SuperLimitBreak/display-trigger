@@ -1,5 +1,5 @@
-import { TimelineMax } from 'gsap';
 import {static_url} from '../../utils/utils';
+import {timeline_from_json} from '../../utils/gasp';
 
 require('../../styles/layers/image.scss');
 
@@ -64,11 +64,7 @@ export class image {
         `;
         
         if (msg.gasp_animation) {
-            this._timeline = new TimelineMax();
-            let animation_state = this._timeline;
-            for (let [gasp_method, duration, animation_object] of msg.gasp_animation) {
-                animation_state = animation_state[gasp_method](this.image, duration, animation_object);
-            }
+            this._timeline = timeline_from_json(this.image, msg.gasp_animation);
         }
     }
     
