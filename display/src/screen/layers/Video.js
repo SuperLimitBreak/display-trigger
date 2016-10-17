@@ -1,3 +1,6 @@
+import * as PubSub from 'pubsub-js';
+const Immutable = require('immutable');
+
 import {static_url} from '../../utils/utils';
 import {timeline_from_json} from '../../utils/gasp';
 
@@ -9,7 +12,14 @@ export class video {
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
+            parentSubscriptionName: 'UNDEFINED_VIDEO',
+            eventHandlers: {
+                ended: ()=>{PubSub.publish(this.parentSubscriptionName, {
+                    func: 'fade.fade',
+                })},
+            }
         }, kwargs);
+        this.eventHandlers = Immutable.fromJS(this.eventHandlers);
         this._video_element = undefined;
         this._timeline = undefined;
     }
@@ -17,6 +27,9 @@ export class video {
     get video() {
         if (!this._video_element) {
             this._video_element = this.documentCreateElement();
+            for (let [eventName, eventHandler] of this.eventHandlers.entries()) {
+                this._video_element.addEventListener(eventName, eventHandler);
+            }
             this.element.appendChild(this._video_element);
         }
         return this._video_element;

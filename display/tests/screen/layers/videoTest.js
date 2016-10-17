@@ -8,7 +8,7 @@ describe('Screen - Video Layer', function() {
     
     beforeEach(function() {
         mockParentElement = jasmine.createSpyObj('HTMLElement', ['appendChild']);
-        mockVideoElement = jasmine.createSpyObj('HTMLVideoElement', ['remove', 'loop', 'volume', 'controls', 'preload', 'autoplay', 'currentSrc', 'src', 'pause', 'play', 'load']);
+        mockVideoElement = jasmine.createSpyObj('HTMLVideoElement', ['remove', 'loop', 'volume', 'controls', 'preload', 'autoplay', 'currentSrc', 'src', 'pause', 'play', 'load', 'addEventListener']);
         mockVideoElement.remove = ()=>{mockVideoElement = undefined;};
         mockVideoElement.currentSrc = '';
         videoLayer = new video(mockParentElement, {
