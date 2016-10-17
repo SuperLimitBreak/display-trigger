@@ -4,7 +4,10 @@ const MockScreenMessageRouter = ()=>{
     let screens = [];
     
     class MockScreen {
-        constructor() {
+        constructor(id, element, kwargs) {
+            expect(typeof(id)).toBe('string')
+            //expect(element.).toBe('string')  // TODO: assert html element
+            //expect(typeof(kwargs)).toBe('object')  // unused
             const mockScreen = jasmine.createSpyObj('Screen', ['onMessage']);
             screens.push(mockScreen);
             return mockScreen;

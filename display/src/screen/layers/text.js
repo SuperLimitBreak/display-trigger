@@ -38,7 +38,7 @@ export class text {
             background-color: rgba(0,0,0,.50);
             box-shadow:0 0 ${2*font_size}px ${2*font_size}px rgba(0,0,0,.50);
             border-radius: ${2*font_size}px;
-        `;  
+        `;
 
         this._timeline = new TimelineMax({onComplete:()=>this.empty()});
         this._timeline

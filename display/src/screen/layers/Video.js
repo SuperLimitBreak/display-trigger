@@ -37,10 +37,13 @@ export class video {
     play(msg) {return this.start(msg);}  // TODO: remove alias?
     start(msg) {
         this._video(
-			msg.src,
+			static_url(msg.src),
 			Object.assign(msg, {play: true}),
         );
-        this.video.style = msg.style;
+        this.video.style = msg.style || `
+            width: 100%;
+            height: 100%;
+        `;
         if (msg.gasp_animation) {
             this._timeline = timeline_from_json(this.image, msg.gasp_animation);
         }
@@ -61,7 +64,6 @@ export class video {
 
     _video(src, options) {
         if (!src) {this.empty(); return;}
-        src = static_url(src);
         const video = this.video;
         options = Object.assign({
 			'play': true,

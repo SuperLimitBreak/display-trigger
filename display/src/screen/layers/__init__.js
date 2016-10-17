@@ -2,7 +2,7 @@ import {video} from './video';
 import {image} from './image';
 import {audio} from './audio';
 import {iframe} from './iframe';
-import {overlay} from './overlay';
+import {fade} from './fade';
 import {text} from './text';
 
 export default {
@@ -11,7 +11,7 @@ export default {
         image,
         audio,
         iframe,
-        overlay,
+        fade,
         text,
     ]
 };

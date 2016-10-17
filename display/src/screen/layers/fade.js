@@ -1,6 +1,6 @@
 import { TimelineMax } from 'gsap';
 
-export class overlay {
+export class fade {
     constructor(element, kwargs) {
         this.element = element;
         Object.assign(this, {
@@ -25,4 +25,4 @@ export class overlay {
         this.element.style = '';
     }
 }
-overlay.className = 'overlay';
+fade.className = 'fade';

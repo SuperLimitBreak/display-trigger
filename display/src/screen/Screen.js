@@ -4,7 +4,8 @@ const layerClasss = layers['default']['layerClasss'];
 require('../styles/screen.scss');
 
 export class Screen {
-    constructor(element, kwargs) {
+    constructor(id, element, kwargs) {
+        this.id = id;
         this.element = element;
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('div'),

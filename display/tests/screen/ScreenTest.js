@@ -33,7 +33,7 @@ describe('Screen', function() {
         mockLayer2Class.className = 'MockLayer2';
         
         mockElement = createMockElement();
-        screen = new Screen(mockElement, {
+        screen = new Screen('TEST_ID', mockElement, {
             documentCreateElement: ()=>{return createMockElement();},
             screenClassName: 'screen_test',
             layerClasss: [mockLayer1Class, mockLayer2Class],
