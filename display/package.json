@@ -12,7 +12,7 @@
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "babel-polyfill": "latest",
-    "babel-preset-modern": "latest",
+    "babel-preset-modern-browsers": "latest",
     "babelify": "latest",
     "copyfiles": "latest",
     "css-loader": "latest",

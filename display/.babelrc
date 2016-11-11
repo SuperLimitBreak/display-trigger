@@ -1,7 +1,5 @@
 {
   "presets": [
-        "modern",
-        "modern/safari9",
-        "modern/stage1",
+        "modern-browsers",
   ]
 }
