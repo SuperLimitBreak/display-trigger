@@ -13,7 +13,14 @@
             {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
         ]
     },
-    
+    {
+        "name": "light_test",
+        "events": [],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "test"}
+        ]
+    },
+
     {
         "name": "test_video_precache",
         "events": ["-", "note_on-D0"],

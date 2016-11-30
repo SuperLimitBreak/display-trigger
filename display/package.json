@@ -2,7 +2,7 @@
   "name": "displayTrigger",
   "version": "0.0.1",
   "description": "Display video/etc from 'trigger events' from a remote system",
-  "main": "app.js",
+  "main": "index.js",
   "dependencies": {
     "core-js": "^2.0.0",
     "normalize.css": "^4.0.0"
