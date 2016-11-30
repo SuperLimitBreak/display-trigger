@@ -36,7 +36,10 @@ module.exports = {
     alias: {
       src: `${defaultSettings.srcPath}/`,
       config: `${defaultSettings.srcPath}/config/` + process.env.WEBPACK_ENV
-    }
+    },
+    root: [
+      path.resolve('../src')
+    ]
   },
   module: {}
 };

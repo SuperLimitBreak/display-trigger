@@ -9,6 +9,7 @@ const Immutable = require('immutable');
 require('normalize.css/normalize.css');
 require('./styles/main.scss');
 
+console.log('Hello');
 
 const body = document.getElementsByTagName('body').item(0);
 
@@ -39,7 +40,7 @@ function initScreens(config) {
         screenMessageRouter.bindScreen(screen_name, element, Array.from(screen_data.get('subscriptions')));
     }
 }
-  
+
 const config_url = static_url(`/display_configs/${getUrlParameter('display_config') || 'single'}.json`);
 fetch(config_url).then(response => {
     return response.json();

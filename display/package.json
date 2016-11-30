@@ -43,9 +43,8 @@
     "rimraf": "latest",
     "sass-loader": "latest",
     "style-loader": "latest",
-    "webpack": "latest",
-    "webpack-dev-server": "latest",
-    "webpack-validator": "latest"
+    "webpack": "^2.1.0-beta.27",
+    "webpack-dev-server": "^2.1.0-beta.10"
   },
   "config": {
     "ghooks": {
@@ -58,9 +57,7 @@
     "serve:dist": "node server.js --env=dist",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
-    "validate": "npm-run-all --parallel validate-webpack:* lint test",
-    "validate-webpack:dev": "webpack-validator webpack.config.js --env.dev",
-    "validate-webpack:dist": "webpack-validator webpack.config.js --env.dist",
+    "validate": "npm-run-all --parallel lint test",
     "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src",
     "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./dist",
