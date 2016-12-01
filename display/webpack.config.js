@@ -14,27 +14,26 @@ const exclude_paths = [
 
 const plugins = [
     //new webpack.optimize.CommonsChunkPlugin({
-    //  name: 'vendor',
-    //  minChunks: Infinity,
-    //  filename: 'vendor.bundle.js'
+    //    name: 'vendor',
+    //    minChunks: Infinity,
+    //    filename: 'vendor.bundle.js'
     //}),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
       'HOST_STATIC_PORT': JSON.stringify('6543'),
     }),
     new webpack.NamedModulesPlugin(),
-    //new webpack.HotModuleReplacementPlugin(),
-    //new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+        minimize: isProd,
+        debug: !isProd,
+    }),
 ];
 
 if (isProd) {
     plugins.push(
         //new webpack.optimize.DedupePlugin(),
         //new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: !isProd,
-        }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
@@ -56,13 +55,12 @@ if (isProd) {
 }
 
 module.exports = {
-    //debug: true,
     cache: isProd,
     devtool: isProd ? 'source-map' : 'eval',
     context: sourcePath,
     entry: {
-        js: './index.js',
-        //vendor: ['react']
+        js: 'index.js',
+        //vendor: [],
     },
     output: {
         path: staticsPath,
@@ -74,11 +72,14 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: exclude_paths,
                 use: [
-                    'babel-loader'
-                    //'eslint-loader',
+                    'babel-loader',
+                    'eslint-loader',
                 ],
                 query: {
-                    presets: ['modern-browsers'],  //, { "modules": false }
+                    presets: [
+                        'modern-browsers',
+                        //{ "modules": false }
+                    ],
                     cacheDirectory: true,
                 }
             },
@@ -132,10 +133,10 @@ module.exports = {
         hot: !isProd,
         stats: {
             assets: true,
-            children: false,
-            chunks: false,
+            children: true,
+            chunks: true,
             hash: false,
-            modules: false,
+            modules: true,
             publicPath: false,
             timings: true,
             version: false,
