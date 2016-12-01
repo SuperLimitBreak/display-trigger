@@ -8,9 +8,17 @@ const isProd = nodeEnv === 'production';
 
 const sourcePath = path.join(__dirname, './src');
 const staticsPath = path.join(__dirname, './static');
+const testPath = path.join(__dirname, './tests');
+const include_paths = [
+    sourcePath,
+];
 const exclude_paths = [
     '/node_modules/',
 ];
+
+if (nodeEnv == 'test') {
+    include_paths.push(testPath);
+}
 
 const plugins = [
     //new webpack.optimize.CommonsChunkPlugin({
@@ -30,6 +38,8 @@ const plugins = [
     }),
     new webpack.HotModuleReplacementPlugin(),
 ];
+
+
 
 if (isProd) {
     plugins.push(
@@ -55,7 +65,7 @@ if (isProd) {
     );
 }
 
-module.exports = {
+const webpackCfg = {
     cache: isProd,
     devtool: 'eval-source-map', //isProd ? 'source-map' : 'eval',
     context: sourcePath,
@@ -73,6 +83,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
+                include: include_paths,
                 exclude: exclude_paths,
                 use: [
                     'babel-loader',
@@ -125,7 +136,10 @@ module.exports = {
         modules: [
             path.resolve(__dirname, 'node_modules'),
             sourcePath,
-        ]
+        ],
+        alias: {
+            src: sourcePath,
+        },
     },
     plugins,
     devServer: {
@@ -152,3 +166,4 @@ module.exports = {
     }
 };
 
+module.exports = webpackCfg;

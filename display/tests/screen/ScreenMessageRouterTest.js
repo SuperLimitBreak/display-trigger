@@ -2,7 +2,7 @@ import {ScreenMessageRouter} from 'src/screen/ScreenMessageRouter';
 
 const MockScreenMessageRouter = ()=>{
     let screens = [];
-    
+
     class MockScreen {
         constructor(id, element, kwargs) {
             expect(typeof(id)).toBe('string')
@@ -13,7 +13,7 @@ const MockScreenMessageRouter = ()=>{
             return mockScreen;
         }
     }
-    
+
     return {
         mockScreenClass: MockScreen,
         screens: screens,
@@ -23,7 +23,7 @@ const MockScreenMessageRouter = ()=>{
 describe('ScreenMessageRouter', function() {
     const mockScreenMessageRouter = MockScreenMessageRouter();
     const screens = ()=>mockScreenMessageRouter.screens;
-    
+
     let mockSubscriptionSocket;
     let screenMessageRouter;
     let element;
@@ -36,7 +36,7 @@ describe('ScreenMessageRouter', function() {
         expect(mockSubscriptionSocket.sendSubscriptions).toHaveBeenCalledWith(new Set(['testid1', 'testid2', 'test_me_too']));
         expect(screens().length).toBe(2);
     };
-    
+
     beforeEach(function() {
         element = jasmine.createSpyObj('HTMLElement', ['methodName_ooo']);
         mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'sendSubscriptions']);
@@ -50,7 +50,7 @@ describe('ScreenMessageRouter', function() {
         mockSubscriptionSocket = undefined;
         screens().splice(0, screens().length);  // es6 dosnt have a .clear() or .empty() method.
     });
-    
+
     it('Should update subscriptions when binding screens',()=>{
     });
 
@@ -60,7 +60,7 @@ describe('ScreenMessageRouter', function() {
         expect(screens()[0].onMessage).toHaveBeenCalledWith(msg1);
         expect(screens()[1].onMessage).not.toHaveBeenCalledWith(msg1);
     });
-    
+
     it('Should route single message to a single screen scubscription',()=>{
         const msg2 = {deviceid: 'test_me_too', b: 2};
         mockSubscriptionSocket.onMessage(msg2);
