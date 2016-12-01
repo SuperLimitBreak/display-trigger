@@ -3,7 +3,8 @@ trigger
 
 is the _trigger_ in displayTrigger.
 
-TODO
+Note: This is currently using old web frontend technology.
+We need to migrate this to webpack/es6/jasmine to be in line with the rest of the web frontend projects.
 
 
 Message Format

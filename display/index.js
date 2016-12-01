@@ -1,4 +1,4 @@
-import {ScreenMessageRouter} from 'src/screen/ScreenMessageRouter';
+//import {ScreenMessageRouter} from 'src/screen/ScreenMessageRouter';
 
 console.log('Hello2');
 
