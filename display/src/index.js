@@ -11,8 +11,6 @@ require('./styles/main.scss');
 
 import 'index.html';
 
-console.log('Hello');
-
 const body = document.getElementsByTagName('body').item(0);
 
 const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({

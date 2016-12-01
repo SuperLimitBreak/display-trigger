@@ -68,5 +68,5 @@
   ],
   "author": "superlimitbreak.uk",
   "license": "GPL3",
-  "private": true
+  "private": false
 }

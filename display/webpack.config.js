@@ -28,6 +28,7 @@ const plugins = [
         minimize: isProd,
         debug: !isProd,
     }),
+    new webpack.HotModuleReplacementPlugin(),
 ];
 
 if (isProd) {
@@ -56,11 +57,13 @@ if (isProd) {
 
 module.exports = {
     cache: isProd,
-    devtool: isProd ? 'source-map' : 'eval',
+    devtool: 'eval-source-map', //isProd ? 'source-map' : 'eval',
     context: sourcePath,
     entry: {
         js: 'index.js',
         //vendor: [],
+        //"app": "./client/app/app.js",
+        //"devserver": 'webpack-dev-server/client?http://localhost:3000'
     },
     output: {
         path: staticsPath,
@@ -78,6 +81,7 @@ module.exports = {
                 query: {
                     presets: [
                         'modern-browsers',
+                        //'es2015',
                         //{ "modules": false }
                     ],
                     cacheDirectory: true,
