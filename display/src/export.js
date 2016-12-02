@@ -2,6 +2,10 @@
 
 console.log('Hello2');
 
+const moose = 'test';
+
+//export moose;
+
 module.exports = {
-    ScreenMessageRouter: {test: 'hello'}
+    ScreenMessageRouter: {test: 'hello'},
 };

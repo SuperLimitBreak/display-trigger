@@ -25,6 +25,8 @@ run: install
 	#webpack --progress --colors --watch
 	npm run start
 
+#static: install
+#	npm run build
 
 # Test -------------------------------------------------------------------------
 

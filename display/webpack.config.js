@@ -70,14 +70,15 @@ const webpackCfg = {
     devtool: 'eval-source-map', //isProd ? 'source-map' : 'eval',
     context: sourcePath,
     entry: {
-        js: 'index.js',
+        index: 'index.js',
+        export: 'export.js',
         //vendor: [],
         //"app": "./client/app/app.js",
         //"devserver": 'webpack-dev-server/client?http://localhost:3000'
     },
     output: {
         path: staticsPath,
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
     },
     module: {
         rules: [
@@ -151,10 +152,10 @@ const webpackCfg = {
         hot: !isProd,
         stats: {
             assets: true,
-            children: true,
-            chunks: true,
+            children: !isProd,
+            chunks: !isProd,
             hash: false,
-            modules: true,
+            modules: !isProd,
             publicPath: false,
             timings: true,
             version: false,
