@@ -23,7 +23,7 @@ export class video {
         this._video_element = undefined;
         this._timeline = undefined;
     }
-    
+
     get video() {
         if (!this._video_element) {
             this._video_element = this.documentCreateElement();
@@ -42,7 +42,7 @@ export class video {
     load(msg) {
         this._video(
 			msg.src,
-			Object.assign(msg, {play: false}),
+			Object.assign(msg, {play: false})
         );
     }
 
@@ -51,7 +51,7 @@ export class video {
     start(msg) {
         this._video(
 			static_url(msg.src),
-			Object.assign(msg, {play: true}),
+			Object.assign(msg, {play: true})
         );
         this.video.style = msg.style || `
             width: 100%;

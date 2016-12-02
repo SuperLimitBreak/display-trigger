@@ -3,68 +3,19 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const serverPort = process.env.SERVER_PORT || 8001;
+
 const nodeEnv = process.env.NODE_ENV || 'development';
+const isDev = nodeEnv === 'development';
 const isProd = nodeEnv === 'production';
 
 const sourcePath = path.join(__dirname, './src');
-const staticsPath = path.join(__dirname, './static');
-const testPath = path.join(__dirname, './tests');
 const include_paths = [
     sourcePath,
 ];
 const exclude_paths = [
     '/node_modules/',
 ];
-
-if (nodeEnv == 'test') {
-    include_paths.push(testPath);
-}
-
-const plugins = [
-    //new webpack.optimize.CommonsChunkPlugin({
-    //    name: 'vendor',
-    //    minChunks: Infinity,
-    //    filename: 'vendor.bundle.js'
-    //}),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
-      'HOST_STATIC_PORT': JSON.stringify('6543'),
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.LoaderOptionsPlugin({
-        minimize: isProd,
-        debug: !isProd,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-];
-
-
-
-if (isProd) {
-    plugins.push(
-        //new webpack.optimize.DedupePlugin(),
-        //new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                screw_ie8: true,
-                conditionals: true,
-                unused: true,
-                comparisons: true,
-                sequences: true,
-                dead_code: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true,
-            },
-            output: {
-                comments: false
-            },
-        })
-    );
-}
-
 const webpackCfg = {
     cache: isProd,
     devtool: 'eval-source-map', //isProd ? 'source-map' : 'eval',
@@ -77,7 +28,7 @@ const webpackCfg = {
         //"devserver": 'webpack-dev-server/client?http://localhost:3000'
     },
     output: {
-        path: staticsPath,
+        path: path.join(__dirname, './static'),
         filename: '[name].bundle.js',
     },
     module: {
@@ -101,6 +52,7 @@ const webpackCfg = {
             },
             {
                 test: /\.html$/,
+                include: include_paths,
                 exclude: exclude_paths,
                 use: 'file-loader',
                 query: {
@@ -142,20 +94,37 @@ const webpackCfg = {
             src: sourcePath,
         },
     },
-    plugins,
+    plugins: [
+        //new webpack.optimize.CommonsChunkPlugin({
+        //    name: 'vendor',
+        //    minChunks: Infinity,
+        //    filename: 'vendor.bundle.js'
+        //}),
+        new webpack.DefinePlugin({
+        'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
+        'HOST_STATIC_PORT': JSON.stringify('6543'),
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.NoErrorsPlugin(),
+        new webpack.LoaderOptionsPlugin({
+            minimize: isProd,
+            debug: !isProd,
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
     devServer: {
         contentBase: sourcePath,
         historyApiFallback: true,
-        port: 8001,
+        port: serverPort,
         compress: isProd,
         inline: !isProd,
         hot: !isProd,
         stats: {
             assets: true,
-            children: !isProd,
-            chunks: !isProd,
+            children: isDev,
+            chunks: isDev,
             hash: false,
-            modules: !isProd,
+            modules: isDev,
             publicPath: false,
             timings: true,
             version: false,
@@ -166,5 +135,40 @@ const webpackCfg = {
         },
     }
 };
+
+if (nodeEnv == 'test') {
+    include_paths.push(
+        path.join(__dirname, './tests')
+    );
+}
+if (nodeEnv == 'export') {
+    Object.assign(webpackCfg.output, {
+        library: 'displayTrigger',
+        libraryTarget: 'umd',
+    });
+}
+if (isProd) {
+    webpackCfg.plugins.push(
+        //new webpack.optimize.DedupePlugin(),
+        //new webpack.optimize.AggressiveMergingPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true,
+            },
+            output: {
+                comments: false
+            },
+        })
+    );
+}
 
 module.exports = webpackCfg;

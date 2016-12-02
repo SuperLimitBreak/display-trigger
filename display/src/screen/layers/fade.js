@@ -10,21 +10,21 @@ export class fade {
         }, kwargs);
         this.timeline = undefined;
     }
-    
+
     fade() {
         this.timeline = new TimelineMax({onComplete:()=>this.onComplete()});
         this.timeline.fromTo(this.element, 1,
             {opacity:0, backgroundColor: 'black'},
-            {opacity:1, backgroundColor: 'black'},
+            {opacity:1, backgroundColor: 'black'}
         );
     }
-    
+
     onComplete() {
         PubSub.publish(this.parentSubscriptionName, {
             func: 'all.empty',
         })
     }
-    
+
     empty() {
         if (this.timeline) {
             this.timeline.stop();
