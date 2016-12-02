@@ -30,6 +30,7 @@ const webpackCfg = {
     output: {
         path: path.join(__dirname, './static'),
         filename: '[name].bundle.js',
+        libraryTarget: 'umd',
     },
     module: {
         rules: [
@@ -141,10 +142,9 @@ if (nodeEnv == 'test') {
         path.join(__dirname, './tests')
     );
 }
-if (nodeEnv == 'export') {
+if (process.env.LIBRARY_NAME) {
     Object.assign(webpackCfg.output, {
-        library: 'displayTrigger',
-        libraryTarget: 'umd',
+        library: process.env.LIBRARY_NAME,
     });
 }
 if (isProd) {

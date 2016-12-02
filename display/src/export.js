@@ -1,11 +1,7 @@
-//import {ScreenMessageRouter} from 'src/screen/ScreenMessageRouter';
-
-console.log('Hello2');
-
-export const moose = 'test';
-//export moose;
+import {ScreenMessageRouter} from './screen/ScreenMessageRouter';
+import {SubscriptionSocketReconnect} from './socket/websocket';
 
 module.exports = {
-    ScreenMessageRouter: {test: 'hello'},
-    moose,
+    ScreenMessageRouter,
+    SubscriptionSocketReconnect,
 };
