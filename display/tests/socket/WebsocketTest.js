@@ -27,9 +27,11 @@ const MockWebSocketManager = ()=>{
         expect(mockSocket).not.toBe(undefined);
         spyOn(socket, 'onConnected').and.callThrough();
         spyOn(socket, 'onDisconnected').and.callThrough();
-        spyOn(socket, 'onMessage');
+        spyOn(socket, 'onMessage'); // TODO: and.callThrough(); to allow testing of onMessage routing to listeners
         spyOn(socket, 'decodeMessages').and.callThrough();
         spyOn(socket, 'encodeMessages').and.callThrough();
+        spyOn(socket, 'addOnMessageListener').and.callThrough();
+        spyOn(socket, 'removeOnMessageListener').and.callThrough();
         return socket;
     };
 
@@ -37,7 +39,7 @@ const MockWebSocketManager = ()=>{
         mockSocket = undefined;
         jasmine.clock().uninstall();
     };
-    
+
     return {
         setup: setup,
         teardown: teardown,
@@ -124,6 +126,7 @@ describe('SocketReconnect', function() {
         expectMockSocketCallCount(3);
     });
 
+    // TODO: Test addOnMessageListener/removeOnMessageListener
 });
 
 
@@ -149,7 +152,7 @@ describe('JsonSocketReconnect', function() {
         socket.send({'Hello Json World': 1});
         expect(mockSocket().send).toHaveBeenCalledWith('{"Hello Json World":1}\n');
     });
-    
+
     it('Should recieve json',()=>{
         mockSocket().onopen();
         mockSocket().onmessage({data: '{"Hello Json World":2}\n'});

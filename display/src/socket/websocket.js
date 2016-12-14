@@ -13,6 +13,7 @@ export class SocketReconnect {
             disconnected_retry_interval_ms: 5000,
             console: console
         }, kwargs);
+        this.onMessageListeners = new Set();
         this.retry_interval = null;
         this._connect();
     }
@@ -67,9 +68,20 @@ export class SocketReconnect {
     }
 
     // Overrideable Methods -------
-    onMessage(msg) {this.console.log('onMessage', msg);}
+    onMessage(msg) {
+        for (let listener of this.onMessageListeners) {
+            listener(msg);
+        }
+    }
     onConnected() {}  //this.console.log('onConnected');
     onDisconnected() {}  //this.console.log('onDisconnected');
+
+    addOnMessageListener(listener) {
+        this.onMessageListeners.add(listener);
+    }
+    removeOnMessageListener(listener) {
+        this.onMessageListeners.delete(listener);
+    }
 }
 
 
@@ -114,7 +126,7 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
         if (!Array.isArray(data)) {data = [data];}
         this.send({action: action, data: data});
     }
-    
+
     sendSubscriptions(subscriptions) {
         if (subscriptions != undefined) {
             this.subscriptions = subscriptions;

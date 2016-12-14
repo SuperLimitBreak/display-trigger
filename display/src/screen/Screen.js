@@ -17,10 +17,10 @@ export class Screen {
             screenClassName: 'screen',
             allLayersAlias: new Set(['all', 'trigger']),
         }, kwargs);
-        
+
         this.element.classList.add(this.screenClassName);
         const subscriptionName = [SCREEN_SUBSCRIPTION, this.id].join('.');
-        
+
         // Create Layers
         this.layers = new Map();
         for (let layerClass of this.layerClasss) {
@@ -29,13 +29,13 @@ export class Screen {
             this.element.appendChild(div);
             this.layers.set(layerClass.className, new layerClass(div, {parentSubscriptionName: subscriptionName}));
         }
-        
+
         // Listen to PubSub for this screen
         PubSub.subscribe(subscriptionName, (msg, data)=>{
             this.onMessage(data);
         });
     }
-    
+
     onMessage(msg) {
         if (!msg.func) {return;}
         let [layerName, funcName] = msg.func.split('.');
@@ -48,7 +48,7 @@ export class Screen {
             this._callLayerFunc(layerName, funcName, msg);
         }
     }
-    
+
     _callLayerFunc(layerName, funcName, msg) {
         const layer = this.layers.get(layerName)
         if (!layer) {return;}

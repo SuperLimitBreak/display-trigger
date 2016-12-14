@@ -39,7 +39,9 @@ describe('ScreenMessageRouter', function() {
 
     beforeEach(function() {
         element = jasmine.createSpyObj('HTMLElement', ['methodName_ooo']);
-        mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'sendSubscriptions']);
+        mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'sendSubscriptions', 'addOnMessageListener']);
+        mockSubscriptionSocket.addOnMessageListener = (listener)=>{mockSubscriptionSocket._test_listener = listener;}
+        mockSubscriptionSocket.onMessage = (msg)=>{mockSubscriptionSocket._test_listener(msg);}
         screenMessageRouter = new ScreenMessageRouter(mockSubscriptionSocket, {ScreenClass: mockScreenMessageRouter.mockScreenClass});
         setupBaseScreens();
     });
