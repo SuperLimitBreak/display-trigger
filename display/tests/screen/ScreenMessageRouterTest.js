@@ -30,16 +30,16 @@ describe('ScreenMessageRouter', function() {
 
     function setupBaseScreens() {
         screenMessageRouter.bindScreen('testid1', element);
-        expect(mockSubscriptionSocket.sendSubscriptions).toHaveBeenCalledWith(new Set(['testid1']));
+        expect(mockSubscriptionSocket.addSubscriptions).toHaveBeenCalledWith(new Set(['testid1']));
         expect(screens().length).toBe(1);
         screenMessageRouter.bindScreen('testid2', element, ['test_me_too']);
-        expect(mockSubscriptionSocket.sendSubscriptions).toHaveBeenCalledWith(new Set(['testid1', 'testid2', 'test_me_too']));
+        expect(mockSubscriptionSocket.addSubscriptions).toHaveBeenCalledWith(new Set(['testid1', 'testid2', 'test_me_too']));
         expect(screens().length).toBe(2);
     };
 
     beforeEach(function() {
         element = jasmine.createSpyObj('HTMLElement', ['methodName_ooo']);
-        mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'sendSubscriptions', 'addOnMessageListener']);
+        mockSubscriptionSocket = jasmine.createSpyObj('SubscriptionSocketReconnect', ['onMessage', 'addSubscriptions', 'sendSubscriptions', 'addOnMessageListener']);
         mockSubscriptionSocket.addOnMessageListener = (listener)=>{mockSubscriptionSocket._test_listener = listener;}
         mockSubscriptionSocket.onMessage = (msg)=>{mockSubscriptionSocket._test_listener(msg);}
         screenMessageRouter = new ScreenMessageRouter(mockSubscriptionSocket, {ScreenClass: mockScreenMessageRouter.mockScreenClass});

@@ -103,7 +103,7 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
     constructor(kwargs) {
         super(kwargs);
         Object.assign(this, {
-            subscriptions: [],
+            subscriptions: new Set(),
         }, kwargs);
     }
 
@@ -127,9 +127,17 @@ export class SubscriptionSocketReconnect extends JsonSocketReconnect {
         this.send({action: action, data: data});
     }
 
+    addSubscriptions(subscriptions) {
+        // TODO: use set intersection
+        for (let subscription of subscriptions) {
+            this.subscriptions.add(subscription);
+        }
+        this.sendSubscriptions();
+    }
+
     sendSubscriptions(subscriptions) {
         if (subscriptions != undefined) {
-            this.subscriptions = subscriptions;
+            this.subscriptions = new Set(subscriptions);
         }
         this._sendPayload('subscribe', Array.from(this.subscriptions));
     }
