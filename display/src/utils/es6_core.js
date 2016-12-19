@@ -18,3 +18,7 @@ export function* zip(a, b) {
         yield [an.value, bn.value];
     }
 }
+
+export default {
+    range, zip,
+}

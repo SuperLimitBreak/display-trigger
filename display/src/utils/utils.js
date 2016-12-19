@@ -37,3 +37,8 @@ export function get_attr(cmd, obj, fallback_return) {
 }
 export function get_func(cmd, obj) {return get_attr(cmd, obj, function(){})}
 export function get_obj(cmd, obj) {return get_attr(cmd, obj, {})}
+
+export default {
+    static_url,
+    getUrlParameter,
+}
