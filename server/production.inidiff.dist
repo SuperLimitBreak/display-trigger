@@ -1,3 +1,3 @@
 [app:main]
 
-systemd.dbus.notification=true
+systemd.dbus.notification=false
