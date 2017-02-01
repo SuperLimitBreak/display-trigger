@@ -154,9 +154,9 @@ production.inidiff:
 	cp production.inidiff.dist production.inidiff
 
 ini_test: development.ini libs
-	$(PYTHON) libs/make_ini.py test
+	$(PYTHON) libs/make_ini.py $(INI_DEV) test.inidiff $(INI_TEST)
 ini_production: production.inidiff libs
-	$(PYTHON) libs/make_ini.py production
+	$(PYTHON) libs/make_ini.py $(INI_DEV) production.inidiff $(INI_PROD)
 
 
 # Run --------------------------------------------------------------------------
