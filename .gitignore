@@ -3,3 +3,8 @@ __pycache__
 .vagrant
 .DS_Store
 *.log
+
+*.zip
+*.7z
+*.rar
+*.gz

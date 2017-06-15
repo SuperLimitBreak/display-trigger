@@ -42,8 +42,8 @@
     "rimraf": "latest",
     "sass-loader": "latest",
     "style-loader": "latest",
-    "webpack": "^2.1.0-beta.27",
-    "webpack-dev-server": "^2.1.0-beta.10"
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
   },
   "config": {
     "ghooks": {

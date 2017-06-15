@@ -41,42 +41,33 @@ function buildWebpackCfg(dirname, options) {
                     include: include_paths,
                     exclude: exclude_paths,
                     use: [
-                        'babel-loader',
-                        'eslint-loader',
+                        {loader: 'babel-loader', options: {presets: ['modern-browsers'], cacheDirectory: true}},
+                        {loader: 'eslint-loader'},
                     ],
-                    query: {
-                        presets: [
-                            'modern-browsers',
-                            //'es2015',
-                            //{ "modules": false }
-                        ],
-                        cacheDirectory: true,
-                    }
                 },
                 {
                     test: /\.html$/,
                     include: include_paths,
                     exclude: exclude_paths,
-                    use: 'file-loader',
-                    query: {
-                        name: '[name].[ext]'
-                    }
+                    use: [
+                        {loader: 'file-loader', options: {name: '[name].[ext]'}},
+                    ]
                 },
                 {
                     test: /\.css$/,
                     exclude: exclude_paths,
                     use: [
-                        'style-loader',
-                        'css-loader',
+                        {loader: 'style-loader'},
+                        {loader: 'css-loader'}
                     ]
                 },
                 {
                     test: /\.scss$/,
                     exclude: exclude_paths,
                     use: [
-                        'style-loader',
-                        'css-loader',
-                        'sass-loader', //outputStyle=expanded'
+                        {loader: 'style-loader'},
+                        {loader: 'css-loader'},
+                        {loader: 'sass-loader'}, //outputStyle=expanded'
                     ]
                 },
             ],
