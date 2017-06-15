@@ -99,7 +99,7 @@ function buildWebpackCfg(dirname, options) {
                 'HOST_STATIC_PORT': JSON.stringify('6543'),
             }),
             new webpack.NamedModulesPlugin(),
-            new webpack.NoErrorsPlugin(),
+            new webpack.NoEmitOnErrorsPlugin(),
             new webpack.LoaderOptionsPlugin({
                 minimize: isProd,
                 debug: !isProd,
