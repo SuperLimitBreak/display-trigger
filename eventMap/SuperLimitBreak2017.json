@@ -3,7 +3,8 @@
         "name": "empty",
         "events": [" ", "note_on-A3"],
         "payload": [
-            {"deviceid": "all", "func": "trigger.empty"}
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "lights", "func": "lights.clear"}
         ]
     },
     {
@@ -35,7 +36,7 @@
             {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0}
         ]
     },
-    
+
     {
         "name": "test_video_multilayer",
         "events": ["m", "note_on-C0"],
@@ -44,7 +45,7 @@
             {"deviceid": "rear", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0}
         ]
     },
-    
+
     {
         "name": "test_html_bubble",
         "events": ["note_on-D0"],
