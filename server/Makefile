@@ -29,7 +29,8 @@ help:
 # Installation -----------------------------------------------------------------
 
 .PHONY: install
-install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/lightingRemoteControl.html externals/static/webMidiMultiplexer.html externals/static/websocket.js
+install: development.ini production.inidiff $(PROJECT).egg-info dependencys_installed.json externals/static/pentatonic_hero_visulisation.js externals/static/webMidiMultiplexer.html externals/static/websocket.js
+	#externals/static/lightingRemoteControl.html
 
 
 # Dependencys ------------------------------------------------------------------
@@ -105,14 +106,14 @@ externals/static/websocket.js:
 		curl https://raw.githubusercontent.com/calaldees/libs/master/js/utils.js      --compressed -O ;\
 	fi
 
-externals/static/lightingRemoteControl.html:
-	mkdir -p externals/static/
-	cd externals/static/ && \
-	if [ -d ../../../../lightingAutomation/ ] ; then \
-		ln -s ../../../../lightingAutomation/webRemoteControl.html              lightingRemoteControl.html ;\
-	else \
-		echo "lightingAutomation.html not linked" > lightingRemoteControl.html ;\
-	fi
+#externals/static/lightingRemoteControl.html:
+#	mkdir -p externals/static/
+#	cd externals/static/ && \
+#	if [ -d ../../../../stageOrchestration/ ] ; then \
+#		ln -s ../../../../stageOrchestration/webRemoteControl.html              lightingRemoteControl.html ;\
+#	else \
+#		echo "webRemoteControl.html not linked" > lightingRemoteControl.html ;\
+#	fi
 
 externals/static/webMidiMultiplexer.html:
 	mkdir -p externals/static/
