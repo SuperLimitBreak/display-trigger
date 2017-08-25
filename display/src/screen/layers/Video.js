@@ -13,6 +13,7 @@ export class video {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
             parentSubscriptionName: 'UNDEFINED_VIDEO',
+            currentTimeSyncThreshold: 0.1,
             eventHandlers: {
                 ended: ()=>{PubSub.publish(this.parentSubscriptionName, {
                     func: 'fade.fade',
@@ -41,8 +42,8 @@ export class video {
     cache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
     load(msg) {
         this._video(
-			msg.src,
-			Object.assign(msg, {play: false})
+            msg.src,
+            Object.assign(msg, {play: false})
         );
     }
 
@@ -50,8 +51,8 @@ export class video {
     play(msg) {return this.start(msg);}  // TODO: remove alias?
     start(msg) {
         this._video(
-			static_url(msg.src),
-			Object.assign(msg, {play: true})
+            static_url(msg.src),
+            Object.assign(msg, {play: true})
         );
         this.video.style = msg.style || `
             width: 100%;
@@ -79,30 +80,41 @@ export class video {
         if (!src) {this.empty(); return;}
         const video = this.video;
         options = Object.assign({
-			'play': true,
-			'volume': 1.0,
-			'loop': false,
+            'play': true,
+            'volume': 1.0,
+            'loop': false,
             'currentTime': 0,
         }, options);
+        options.currentTime = options.position || options.currentTime;  // normalize input from multiple fieldnames
 
         video.loop = options.loop;
-		video.volume = options.volume;
-		video.controls = false;
-		video.preload = 'auto';
-		video.autoplay = options.play;
-		if (video.currentSrc.indexOf(src) > -1) {
-			this.console.log('video already loaded');
-			video.pause();
-		}
-		else {
-			this.console.log('video loading');
-			video.src = src;
-			video.load();
-		}
-		video.currentTime = options.currentTime;
-		if (options.play) {
-			video.play();
-		}
+        video.volume = options.volume;
+        video.controls = false;
+        video.preload = 'auto';
+        video.autoplay = options.play;
+
+        // src
+        if (video.currentSrc.indexOf(src) > -1) {
+            if (!options.play) {  // if pre-cacheing/loading, ensure video is stopped
+                video.pause();
+            }
+        }
+        else {
+            this.console.log('video loading', src);
+            video.src = src;
+            video.load();
+        }
+
+        // currentTime sync
+        const currentTimeDifference = Math.abs(video.currentTime - options.currentTime);
+        if (currentTimeDifference > this.currentTimeSyncThreshold) {
+            this.console.info('video catchup seek', options.currentTime);
+            video.currentTime = options.currentTime;
+        }
+
+        if (options.play) {
+            video.play();
+        }
     }
 }
 video.className = 'video';
