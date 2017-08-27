@@ -1,8 +1,8 @@
 import * as PubSub from 'pubsub-js';
 const Immutable = require('immutable');
 
-import {static_url} from '../../utils/utils';
-import {timeline_from_json} from '../../utils/gasp';
+import {staticUrl} from '../../utils/utils';
+import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/video.scss');
 
@@ -13,27 +13,29 @@ export class video {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
             parentSubscriptionName: 'UNDEFINED_VIDEO',
-            currentTimeSyncThreshold: 0.1,
+            currentTimeSyncThreshold: 0.2,
             eventHandlers: {
-                ended: ()=>{PubSub.publish(this.parentSubscriptionName, {
-                    func: 'fade.fade',
-                })},
-            }
+                ended: () => {
+                    PubSub.publish(this.parentSubscriptionName, {
+                        func: 'fade.fade',
+                    });
+                },
+            },
         }, kwargs);
         this.eventHandlers = Immutable.fromJS(this.eventHandlers);
-        this._video_element = undefined;
+        this._videoElement = undefined;
         this._timeline = undefined;
     }
 
     get video() {
-        if (!this._video_element) {
-            this._video_element = this.documentCreateElement();
-            for (let [eventName, eventHandler] of this.eventHandlers.entries()) {
-                this._video_element.addEventListener(eventName, eventHandler);
+        if (!this._videoElement) {
+            this._videoElement = this.documentCreateElement();
+            for (const [eventName, eventHandler] of this.eventHandlers.entries()) {
+                this._videoElement.addEventListener(eventName, eventHandler);
             }
-            this.element.appendChild(this._video_element);
+            this.element.appendChild(this._videoElement);
         }
-        return this._video_element;
+        return this._videoElement;
     }
 
     // Public ----------------------------------------------------
@@ -51,7 +53,7 @@ export class video {
     play(msg) {return this.start(msg);}  // TODO: remove alias?
     start(msg) {
         this._video(
-            static_url(msg.src),
+            staticUrl(msg.src),
             Object.assign(msg, {play: true})
         );
         this.video.style = msg.style || `
@@ -59,7 +61,7 @@ export class video {
             height: 100%;
         `;
         if (msg.gasp_animation) {
-            this._timeline = timeline_from_json(this.image, msg.gasp_animation);
+            this._timeline = timelineFromJson(this.image, msg.gasp_animation);
         }
     }
 
@@ -68,9 +70,9 @@ export class video {
         if (this._timeline) {
             this._timeline.stop();
         }
-        if (this._video_element) {
-            this._video_element.remove();
-            this._video_element = undefined;
+        if (this._videoElement) {
+            this._videoElement.remove();
+            this._videoElement = undefined;
         }
     }
 
@@ -108,7 +110,7 @@ export class video {
         // currentTime sync
         const currentTimeDifference = Math.abs(video.currentTime - options.currentTime);
         if (currentTimeDifference > this.currentTimeSyncThreshold) {
-            this.console.info('video catchup seek', options.currentTime);
+            this.console.info('video catchup seek', video.currentTime, options.currentTime, currentTimeDifference);
             video.currentTime = options.currentTime;
         }
 

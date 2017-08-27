@@ -1,6 +1,6 @@
 /* global HOST_STATIC_PORT */
 
-export function static_url(path) {
+export function staticUrl(path) {
     if (path && path.indexOf('://')>=0) {return path;}
     return `http://${window.location.hostname}:${HOST_STATIC_PORT}${path}`;
 }
@@ -39,6 +39,6 @@ export function get_func(cmd, obj) {return get_attr(cmd, obj, function(){})}
 export function get_obj(cmd, obj) {return get_attr(cmd, obj, {})}
 
 export default {
-    static_url,
+    staticUrl,
     getUrlParameter,
 }

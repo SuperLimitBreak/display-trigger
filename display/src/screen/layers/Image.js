@@ -1,5 +1,5 @@
-import {static_url} from '../../utils/utils';
-import {timeline_from_json} from '../../utils/gasp';
+import {staticUrl} from '../../utils/utils';
+import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/image.scss');
 
@@ -13,7 +13,7 @@ export class image {
         this._image_element = undefined;
         this._timeline = undefined;
     }
-    
+
     get image() {
         if (!this._image_element) {
             this._image_element = this.documentCreateElement();
@@ -33,11 +33,11 @@ export class image {
             }
         }
     }
-    
+
     start(msg) {return this.show(msg);}  // TODO: remove alias?
     show(msg) {
         this.empty();
-        
+
         // Calcualte scale factor for simulated screen height
         if (msg.source_screen_height) {
             msg.scale = this.element.clientHeight / msg.source_screen_height;
@@ -54,20 +54,20 @@ export class image {
                 }
             }
         }
-        
-        this.image.src = static_url(msg.src);
+
+        this.image.src = staticUrl(msg.src);
         this.image.className += msg.className;
         const px = (value)=> value ? `${value}px` : '100%';
         this.image.style = `
             width: ${px(msg.width)};
             height: ${px(msg.height)};
         `;
-        
+
         if (msg.gasp_animation) {
-            this._timeline = timeline_from_json(this.image, msg.gasp_animation);
+            this._timeline = timelineFromJson(this.image, msg.gasp_animation);
         }
     }
-    
+
     clear() {return this.empty();}  // TODO: remove alias?
     empty() {
         if (this._timeline) {

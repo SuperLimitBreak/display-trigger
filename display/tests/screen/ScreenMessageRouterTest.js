@@ -22,7 +22,7 @@ const MockScreenMessageRouter = ()=>{
 
 describe('ScreenMessageRouter', function() {
     const mockScreenMessageRouter = MockScreenMessageRouter();
-    const screens = ()=>mockScreenMessageRouter.screens;
+    const getScreens = () => mockScreenMessageRouter.screens;
 
     let mockSubscriptionSocket;
     let screenMessageRouter;
@@ -31,10 +31,10 @@ describe('ScreenMessageRouter', function() {
     function setupBaseScreens() {
         screenMessageRouter.bindScreen('testid1', element);
         expect(mockSubscriptionSocket.addSubscriptions).toHaveBeenCalledWith(new Set(['testid1']));
-        expect(screens().length).toBe(1);
+        expect(getScreens().length).toBe(1);
         screenMessageRouter.bindScreen('testid2', element, ['test_me_too']);
         expect(mockSubscriptionSocket.addSubscriptions).toHaveBeenCalledWith(new Set(['testid1', 'testid2', 'test_me_too']));
-        expect(screens().length).toBe(2);
+        expect(getScreens().length).toBe(2);
     };
 
     beforeEach(function() {
@@ -50,7 +50,7 @@ describe('ScreenMessageRouter', function() {
         element = undefined;
         screenMessageRouter = undefined;
         mockSubscriptionSocket = undefined;
-        screens().splice(0, screens().length);  // es6 dosnt have a .clear() or .empty() method.
+        getScreens().splice(0, getScreens().length);  // es6 dosnt have a .clear() or .empty() method.
     });
 
     it('Should update subscriptions when binding screens',()=>{
@@ -59,31 +59,31 @@ describe('ScreenMessageRouter', function() {
     it('Should route a single message destined to a single screen id',()=>{
         const msg1 = {deviceid: 'testid1', a: 1};
         mockSubscriptionSocket.onMessage(msg1);
-        expect(screens()[0].onMessage).toHaveBeenCalledWith(msg1);
-        expect(screens()[1].onMessage).not.toHaveBeenCalledWith(msg1);
+        expect(getScreens()[0].onMessage).toHaveBeenCalledWith(msg1);
+        expect(getScreens()[1].onMessage).not.toHaveBeenCalledWith(msg1);
     });
 
     it('Should route single message to a single screen scubscription',()=>{
         const msg2 = {deviceid: 'test_me_too', b: 2};
         mockSubscriptionSocket.onMessage(msg2);
-        expect(screens()[0].onMessage).not.toHaveBeenCalledWith(msg2);
-        expect(screens()[1].onMessage).toHaveBeenCalledWith(msg2);
+        expect(getScreens()[0].onMessage).not.toHaveBeenCalledWith(msg2);
+        expect(getScreens()[1].onMessage).toHaveBeenCalledWith(msg2);
     });
 
     it('Should route single message to multiple subscribed screens',()=>{
         const msg3 = {deviceid: 'test_me_three', c: 3};
         screenMessageRouter.bindScreen('testid3', element, ['test_me_three']);
         mockSubscriptionSocket.onMessage(msg3);
-        expect(screens()[0].onMessage).not.toHaveBeenCalledWith(msg3);
-        expect(screens()[1].onMessage).not.toHaveBeenCalledWith(msg3);
-        expect(screens()[2].onMessage).toHaveBeenCalledWith(msg3);
+        expect(getScreens()[0].onMessage).not.toHaveBeenCalledWith(msg3);
+        expect(getScreens()[1].onMessage).not.toHaveBeenCalledWith(msg3);
+        expect(getScreens()[2].onMessage).toHaveBeenCalledWith(msg3);
     });
 
     it('Should route messages for "all" to all screens', ()=>{
         const msg4 = {deviceid: 'all', d: 4};
         mockSubscriptionSocket.onMessage(msg4);
-        expect(screens()[0].onMessage).toHaveBeenCalledWith(msg4);
-        expect(screens()[1].onMessage).toHaveBeenCalledWith(msg4);
+        expect(getScreens()[0].onMessage).toHaveBeenCalledWith(msg4);
+        expect(getScreens()[1].onMessage).toHaveBeenCalledWith(msg4);
     });
 
 });

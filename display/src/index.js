@@ -2,7 +2,7 @@ import 'core-js/fn/object/assign';
 
 import {ScreenMessageRouter} from './screen/ScreenMessageRouter';
 import {SubscriptionSocketReconnect} from './socket/websocket';
-import {getUrlParameter, static_url} from './utils/utils';
+import {getUrlParameter, staticUrl} from './utils/utils';
 
 const Immutable = require('immutable');
 
@@ -41,7 +41,7 @@ function initScreens(config) {
     }
 }
 
-const config_url = static_url(`/display_configs/${getUrlParameter('display_config') || 'single'}.json`);
+const config_url = staticUrl(`/display_configs/${getUrlParameter('display_config') || 'single'}.json`);
 fetch(config_url).then(response => {
     return response.json();
 }).then(data => {
