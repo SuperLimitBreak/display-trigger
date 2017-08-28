@@ -26,8 +26,10 @@ const screenMessageRouter = new ScreenMessageRouter(
     new SubscriptionSocketReconnect()
 );
 
-function initScreens(config) {
-    for (let [screen_name, screen_data] of config) {
+function initScreens(screenConfig) {
+    const config = screenConfig.get('_config', Immutable.fromJS({}));
+    for (const [screen_name, screen_data] of screenConfig) {
+        if (screen_name.startsWith('_')) {continue;}
         const id = screen_data.get('id');
         let element = document.getElementById(id);
         if (!element) {
@@ -37,7 +39,7 @@ function initScreens(config) {
         }
         //element.classList.concat(screen_data.get('classList'));
         element.style = screen_data.get('style');
-        screenMessageRouter.bindScreen(screen_name, element, Array.from(screen_data.get('subscriptions')));
+        screenMessageRouter.bindScreen(screen_name, element, Array.from(screen_data.get('subscriptions')), config);
     }
 }
 

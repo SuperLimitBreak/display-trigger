@@ -14,6 +14,7 @@ export class video {
             console: console,
             parentSubscriptionName: 'UNDEFINED_VIDEO',
             currentTimeSyncThreshold: 0.2,
+            currentTimeOffset: 0,
             eventHandlers: {
                 ended: () => {
                     PubSub.publish(this.parentSubscriptionName, {
@@ -111,7 +112,7 @@ export class video {
         const currentTimeDifference = Math.abs(video.currentTime - options.currentTime);
         if (currentTimeDifference > this.currentTimeSyncThreshold) {
             this.console.info('video catchup seek', video.currentTime, options.currentTime, currentTimeDifference);
-            video.currentTime = options.currentTime;
+            video.currentTime = options.currentTime + this.currentTimeOffset;
         }
 
         if (options.play) {

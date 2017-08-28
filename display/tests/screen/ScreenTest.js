@@ -6,14 +6,14 @@ describe('Screen', function() {
     let screen;
     let mockLayer1;
     let mockLayer2;
-    
+
     function createMockElement() {
         let mockElement;
         mockElement = jasmine.createSpyObj('HTMLElement', ['appendChild', 'classList']);
         mockElement.classList = jasmine.createSpyObj('HTMLElement', ['add']);
         return mockElement;
     }
-    
+
     beforeEach(function() {
         class mockLayer1Class {
             constructor() {
@@ -31,7 +31,7 @@ describe('Screen', function() {
             }
         }
         mockLayer2Class.className = 'MockLayer2';
-        
+
         mockElement = createMockElement();
         screen = new Screen('TEST_ID', mockElement, {
             documentCreateElement: ()=>{return createMockElement();},
@@ -46,13 +46,13 @@ describe('Screen', function() {
         mockLayer1 = undefined;
         mockLayer2 = undefined;
     });
-    
+
     it('Should have created layers on construction',()=>{
         expect(mockLayer1).toBeDefined();
         expect(mockLayer2).toBeDefined();
     });
 
-    
+
     it('Should route messages to correct layer',()=>{
         const msg = {func:'MockLayer1.thing1', 'src':'test_url'};
         screen.onMessage(msg);

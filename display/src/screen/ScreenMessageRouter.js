@@ -1,3 +1,4 @@
+const Immutable = require('immutable');
 import {DefaultDict} from 'pycollections';
 import {Screen} from './screen';
 
@@ -19,11 +20,11 @@ export class ScreenMessageRouter {
         this.subscription_socket.addOnMessageListener((msg) => this.onMessage(msg));
     }
 
-    bindScreen(id, element, subscriptions=[]) {
+    bindScreen(id, element, subscriptions=[], config=new Immutable.Map()) {
         this.console.assert(id, 'Screen id should be provided');
         this.console.assert(element, 'Element should be provided to bind a Screen');
         this.console.assert(!this.screens.hasOwnProperty(id), 'Screen id already exists');
-        this.screens.set(id, new this.ScreenClass(id, element));
+        this.screens.set(id, new this.ScreenClass(id, element));  // TODO: get `config` down to screen layers
         for (let subscription of new Set([...subscriptions, ...[id, 'all']])) {
             this.subscription_screen_id_lookup.get(subscription).add(id);
         }
