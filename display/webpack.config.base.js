@@ -19,6 +19,7 @@ function buildWebpackCfg(dirname, options) {
         '/node_modules/',
     ];
     const webpackCfg = {
+        mode: isProd ? 'production' : 'development',
         cache: isProd,
         devtool: 'eval-source-map', //isProd ? 'source-map' : 'eval',
         context: sourcePath,
@@ -78,7 +79,7 @@ function buildWebpackCfg(dirname, options) {
                 '.web-loader.js',
                 '.loader.js',
                 '.js',
-                '.jsx'
+                '.jsx',
             ],
             modules: [
                 path.resolve(dirname, 'node_modules'),

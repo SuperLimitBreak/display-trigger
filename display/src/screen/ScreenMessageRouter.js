@@ -1,6 +1,6 @@
 const Immutable = require('immutable');
 import {DefaultDict} from 'pycollections';
-import {Screen} from './screen';
+import {Screen} from './Screen.js';
 
 
 export class ScreenMessageRouter {
