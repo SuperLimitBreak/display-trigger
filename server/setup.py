@@ -6,6 +6,12 @@ requires = [
     'waitress',
     'pyramid_mako',
     'python-dateutil',
+    'calaldees',
+]
+
+dependency_links = [
+    'git+https://github.com/calaldees/libs.git/@master#egg=calaldees',
+    #'git+https://{github_token}@github.com/user/{package}.git/@{version}#egg={package}-0'.format(github_token=github_token, package=package, version=master)'
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -33,6 +39,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=requires,
+    dependency_links=dependency_links,
     tests_require=requires,
     test_suite="displaytrigger",
     entry_points="""\

@@ -5,22 +5,28 @@ is the 'display' in *display*Trigger
 
 A html5 client to drive multiple screens from triggers.
 This was designed to display videos and other dynamic content on multiple projected screens for live music performances.
-Videos can be triggred to play when a song starts.
-Although live music was it's initial usecase, the concept could be utilised in other domains.
+Videos can be triggered to play when a song starts.
+Although live music was it's initial usecase, the concept could be utilized in other domains.
 
 The concept of *display* has now moved way beyond just triggering videos.
-Below are some of the types of trigger plugins the system currenty supports.
+Below are some of the types of trigger plugins the system currently supports.
 
 * Video
 * Audio
 * Text Overlays
 * Fullscreen Fades
+
+Old V1.0 functionality that needs to be re-implemented
+
 * MaskOverlay (crop/feather display with an image mask)
 * iFrame
     * Currently used for voteBattle
 * Pentatonic Hero
 * Subtitle Prompts
-* Smooth Background Scroller
+* Smooth Background Scroller (replaced with GASP)
+
+Future ideas
+
 * Sprite renderer (unimplemented concept)
 * WebRTC video surfaces (unimplemented concept)
 * Screen Scrablers (unimplemented concept)
@@ -29,12 +35,9 @@ Below are some of the types of trigger plugins the system currenty supports.
 * Juggle Trigger (unimplemented concept)
 
 
-Next Step
----------
+Current State of Development
+-----------------------------
 
-_Multiple screens are not currently implemented; this is the next intended refactor._
+`display/build` is old depreciated v1.0 reference and is not in use.
 
-The current mvp of *display* needs to be reworked to support
-
-* es6/7 webpack karma
-* Multiple displays
+`display` has now been re-implemented in webpack/es6.

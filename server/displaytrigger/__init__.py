@@ -3,8 +3,8 @@ import threading
 import urllib.request
 from pyramid.config import Configurator
 
-from libs.misc import convert_str_with_type
-from libs.subscription_server import SubscriptionEchoServerManager
+from calaldees.misc import convert_str_with_type
+from calaldees.multisocket.subscription_server import SubscriptionEchoServerManager
 
 import logging
 log = logging.getLogger(__name__)

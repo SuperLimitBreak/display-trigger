@@ -1,6 +1,6 @@
 *.py[cod]
 __pycache__
-.vagrant
+.vscode
 .DS_Store
 *.log
 

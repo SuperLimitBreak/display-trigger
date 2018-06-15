@@ -124,26 +124,8 @@ externals/static/webMidiMultiplexer.html:
 		echo "webMidiMultiplexer.html not linked" > webMidiMultiplexer.html ;\
 	fi
 
-dependencys_installed.json: libs externals
-	$(PYTHON) libs/dependency_downloader.py --destination externals
-
-libs:
-	mkdir libs
-	touch libs/__init__.py
-	cd libs && \
-	if [ -d ../../../libs/ ] ; then \
-		ln -s ../../../libs/python3/lib/dependency_downloader.py           dependency_downloader.py ;\
-		ln -s ../../../libs/python3/lib/misc.py                            misc.py                  ;\
-		ln -s ../../../libs/python3/lib/make_ini.py                        make_ini.py              ;\
-		ln -s ../../../libs/python3/lib/multisocket/multisocket_server.py  multisocket_server.py    ;\
-		ln -s ../../../libs/python3/lib/multisocket/subscription_server.py subscription_server.py   ;\
-	else \
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/dependency_downloader.py           --compressed -O ;\
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/misc.py                            --compressed -O ;\
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/make_ini.py                        --compressed -O ;\
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/multisocket_server.py  --compressed -O ;\
-		curl https://raw.githubusercontent.com/calaldees/libs/master/python3/lib/multisocket/subscription_server.py --compressed -O ;\
-	fi
+dependencys_installed.json: externals
+	$(PYTHON) -m calaldees.apps.dependency_downloader --destination externals
 
 
 # Ini files --------------------------------------------------------------------
