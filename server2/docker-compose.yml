@@ -1,29 +1,43 @@
 version: '3.6'
 
-volumes:
+#volumes:
 
 services:
 
   multisocket_subscription_server:
+    build:
+      context: ${CALALDESS_LIBS_PATH}/multisocket/
+      dockerfile: subscription_server.dockerfile
+    ports:
+      - ${PORT_TCP}:${PORT_TCP}
+      - ${PORT_WEBSOCKET}:${PORT_WEBSOCKET}
 
   multisocket_url_to_subscription_bridge:
+    build:
+      context: ${CALALDESS_LIBS_PATH}/net/
+      dockerfile: falcon_url_to_subscription_bridge.dockerfile
+    ports:
+      - ${PORT_URL_WEBSOCKET_BRIDGE}:${PORT_URL_WEBSOCKET_BRIDGE}
+    links:
+      - multisocket_subscription_server
+    command: --port ${PORT_URL_WEBSOCKET_BRIDGE} --subscription_server_hostname multisocket_subscription_server:${PORT_TCP}
 
   nginx:
     image: nginx:mainline-alpine
-    environment:
-      - PORT_NGINX
-      - PORT_WEBSITE
+    #environment:
+    #  - PORT_NGINX
+    #  - PORT_WEBSITE
     env_file:
         - .env
     ports:
       - "${PORT_NGINX}:${PORT_NGINX}"
     volumes:
-      - ./docker/nginx.conf:/tmp/nginx.conf:ro
-      - ${PATH_HOST_MEDIA}:${PATH_HOST_MEDIA}:ro
-      - ./:${PATH_CONTAINER_REPO}:ro
-      - website_data_1:${PATH_CONTAINER_WEBSITE}/data:ro
+      - ./nginx.conf:/tmp/nginx.conf:ro
+      #- ${PATH_HOST_MEDIA}:${PATH_HOST_MEDIA}:ro
+      #- ./:${PATH_CONTAINER_REPO}:ro
+      #- website_data_1:${PATH_CONTAINER_WEBSITE}/data:ro
     links:
-      - website
+      - multisocket_url_to_subscription_bridge
     command: /bin/sh -c "DOLLAR='$$' envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
     #healthcheck:
     #  test: curl --fail -s http://localhost:5000/ || exit 1
