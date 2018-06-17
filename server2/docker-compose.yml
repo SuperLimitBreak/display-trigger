@@ -1,0 +1,32 @@
+version: '3.6'
+
+volumes:
+
+services:
+
+  multisocket_subscription_server:
+
+  multisocket_url_to_subscription_bridge:
+
+  nginx:
+    image: nginx:mainline-alpine
+    environment:
+      - PORT_NGINX
+      - PORT_WEBSITE
+    env_file:
+        - .env
+    ports:
+      - "${PORT_NGINX}:${PORT_NGINX}"
+    volumes:
+      - ./docker/nginx.conf:/tmp/nginx.conf:ro
+      - ${PATH_HOST_MEDIA}:${PATH_HOST_MEDIA}:ro
+      - ./:${PATH_CONTAINER_REPO}:ro
+      - website_data_1:${PATH_CONTAINER_WEBSITE}/data:ro
+    links:
+      - website
+    command: /bin/sh -c "DOLLAR='$$' envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    #healthcheck:
+    #  test: curl --fail -s http://localhost:5000/ || exit 1
+    #  interval: 1m30s
+    #  timeout: 10s
+    #  retries: 3
