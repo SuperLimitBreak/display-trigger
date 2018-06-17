@@ -111,6 +111,7 @@ function buildWebpackCfg(dirname, options) {
             contentBase: sourcePath,
             historyApiFallback: true,
             port: serverPort,
+            host: '0.0.0.0',  // https://github.com/webpack/webpack-dev-server/issues/147
             compress: isProd,
             inline: !isProd,
             hot: !isProd,
