@@ -6,7 +6,7 @@ services:
 
   multisocket_subscription_server:
     build:
-      context: ${CALALDESS_LIBS_PATH}/multisocket/
+      context: ${PATH_LIB_CALALDESS}/multisocket/
       dockerfile: subscription_server.dockerfile
     ports:
       - ${PORT_TCP}:${PORT_TCP}
@@ -14,7 +14,7 @@ services:
 
   multisocket_url_to_subscription_bridge:
     build:
-      context: ${CALALDESS_LIBS_PATH}/net/
+      context: ${PATH_LIB_CALALDESS}/net/
       dockerfile: falcon_url_to_subscription_bridge.dockerfile
     ports:
       - ${PORT_URL_WEBSOCKET_BRIDGE}:${PORT_URL_WEBSOCKET_BRIDGE}
