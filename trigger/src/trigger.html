@@ -22,10 +22,22 @@
 			SubscriptionSocketReconnect,
 		} from './websocket.js';
 
+		// Constants
+		const QUERY_STRING_KEY_path_eventmap = 'path_eventmap';
+
+		const urlParams = new URLSearchParams(window.location.search);
+
+
+
+		// SubscriptionSocketReconnect -----------------------------------------
+
+		const socket = new SubscriptionSocketReconnect();
+		socket.onConnected = () => {console.log('onConnected');};
+    	socket.onDisconnected = () => {console.log('onDisconnected');}
+
 
 		// System Midi Input ---------------------------------------------------
 
-		const notes = new Set();
 		function onMidiMessage(midiDevice, msg) {
 			const midiMsg = normalize_javascript_midi_msg(msg);
 			console.debug(midiDevice.name, midiMsg);
@@ -44,7 +56,28 @@
 		};
 		initMidi(bindMidiDevices);
 
-		// Main ----------------------------------------------------------------
+		// Eventmap Management -------------------------------------------------
+
+		const PATH_EVENTMAP = urlParams.get(QUERY_STRING_KEY_path_eventmap) || '/eventmap/';
+
+		if (!urlParams.has('eventmap')) {
+			function render_eventmaps(data) {
+				// data is JSON_INDEX from nginx file listing
+				const eventmaps = data.map(i => i.name).filter(i => i.indexOf('.json') >= 0);
+				for (let eventmap of eventmaps) {
+					const _urlParams = new URLSearchParams(urlParams);
+					_urlParams.append('eventmap', eventmap);
+					const html = `<li><a href="${window.location.pathname}?${_urlParams.toString()}">${eventmap}</a></li>`;
+					console.log(html);
+				}
+			}
+			console.log(`Loading eventmaps from ${PATH_EVENTMAP}. You can optionally override this path with querystring param ${QUERY_STRING_KEY_path_eventmap}`);
+			fetch(PATH_EVENTMAP)
+				.then(r => r.json())
+				.then(data => render_eventmaps(data))
+				.catch(e => console.error("Failed to list eventmap", e))
+			;
+		}
 
 	</script>
 </body>
