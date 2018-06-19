@@ -1,0 +1,532 @@
+[
+    {
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"}
+        ]
+    },
+    {
+        "name": "clear_screen",
+        "events": ["clear_screen", "note_on-D#3"],
+        "payload": [
+            {"deviceid": "main", "func": "trigger.empty"}
+        ]
+    },
+    {
+        "name": "lights_on",
+        "events": ["!", "note_on-B3"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "plain_lights"}
+        ]
+    },    
+    {
+        "name": "smoke",
+        "events": ["smoke", "note_on-D3"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
+        ]
+    },
+        
+    
+    
+    {
+        "name": "gurren_intro",
+        "events": ["-", "note_on-D0"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 4.22},
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "gurren_intro_piano", "bpm": 110.0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": false}
+        ]
+    },
+    {
+        "name": "gurren",
+        "events": ["=", "note_on-D#0"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_gurren.ogg", "target_selector": "#screen", "currentTime": 37.57},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "gurren", "bpm": 175.0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/gurren.srt", "play_on_load": true, "seek_to_time": 37000}
+        ]
+    },
+    {
+        "name": "gurren_lagan_overlay",
+        "events": ["p", "note_on-C#0"],
+        "payload": [
+            {"func": "overlay.html_bubble", "deviceid": "main", "html": "<h1>Gurren Lagann</h1><p>Sorairo Days</p><p>Gainax - Iwasaki Taku (岩崎 琢)</p>"}
+        ]
+    },
+
+    
+    
+    
+    {
+        "name": "god_knows_preache",
+        "events": ["h", "note_on-D#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/god_knows.mp4", "volume": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "none"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": false}
+        ]
+    },
+    {
+        "name": "god_knows",
+        "events": ["y", "note_on-C#1"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>The Melancholy of Haruhi Suzumiya</h1><p>God Knows</p><p>Satoru Kosaki - Aya Hirano - Aki Hata</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_god.ogg", "target_selector": "#screen", "currentTime": 3.1},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "god", "bpm": 150.0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/god_knows.srt", "play_on_load": true, "seek_to_time": 4600}
+        ]
+    },
+    
+    
+    
+
+    {
+        "name": "silent_hill_precache",
+        "events": ["note_on-C2"],
+        "payload": [
+            {"func": "video.precache", "deviceid": "main", "src": "/assets/silent_hill.mp4"}
+        ]
+    },
+    {
+        "name": "silent_hill_1_promise",
+        "events": ["n", "note_on-C#2"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/silent_hill.mp4", "volume": 0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Promise</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 5.44},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "silent_hill_promise", "bpm": 87.0, "time_offset": 0}
+        ]
+    },
+    {
+        "name": "silent_hill_2_lauras_theme",
+        "events": ["m", "note_on-D#2"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Silent Hill 2</h1><p>Theme of Laura</p><p>Akira Yamaoka</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_silent.ogg", "target_selector": "#screen", "currentTime": 110},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "silent_hill_lauras_theme", "bpm": 115.0, "time_offset": 0}
+        ]
+    },
+    
+    
+    
+
+
+
+    {
+        "name": "ff7_iframe_radical_dreamers",
+        "events": ["a", "note_on-C3"],
+        "payload": [
+            {"deviceid": "main", "func": "iframe.init", "src": "http://localhost:8808/static/projector/battlescape.html"},
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "radical_dreamers", "bpm": 150.0, "time_offset": 0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Chrono Cross</h1><p>Radical Dreamers</p><p>Yasunori Mitsuda (arrangement by archard of gametabs.net)</p>"}
+        ]
+    },
+    {
+        "name": "ff7_iframe_start",
+        "events": ["s", "note_on-C#3"],
+        "payload": [
+            {"deviceid": "main", "func": "iframe.function_call", "func_iframe": "preroll"},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Final Fantasy VII</h1><p>Still More Fighting</p><p>Nobuo Uematsu</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_ff7.ogg", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "ff7", "bpm": 162.0, "time_offset": 0}
+        ]
+    },
+    
+    
+
+
+    
+    {
+        "name": "remilla",
+        "events": ["v", "note_on-C4"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/remilla_scarlet.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Touhou 6: The Embodiment of Scarlet Devil</h1><p>Septette for the Dead Princess: Remilia Scarlet (Rock Remix)</p><p>S.S.H. (Saitama Saisyu/Saishuu Heiki)</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_remilla.ogg", "target_selector": "#screen"},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "remilla", "bpm": 152.0, "time_offset": 0}
+        ]
+    },
+
+    
+
+ 
+    {
+        "name": "miku_precache",
+        "events": ["note_on-C5"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/miku.mp4"}
+        ]
+    },
+    {
+        "name": "miku1",
+        "events": ["j", "note_on-C#5"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/miku.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Hatsune Miku</h1><p>World is Mine</p><p>Ryo (Supercell)</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 2.91},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "miku_1", "bpm": 164.0, "time_offset": 0}
+        ]
+    },
+    {
+        "name": "miku2",
+        "events": ["k", "note_on-D5"],
+        "payload": [
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_miku.ogg", "target_selector": "#screen", "currentTime": 20.7},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "miku_2", "bpm": 165.0, "time_offset": 0}
+        ]
+    },
+    
+
+
+
+
+    {
+        "name": "saikano_precache",
+        "events": ["note_on-C6"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "none"},
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/saikano.mp4"}
+        ]
+    },
+    {
+        "name": "saikano_video",
+        "events": ["d", "note_on-C#6"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "saikano",
+        "events": ["f", "note_on-D6"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Saikano (She the Ultimate Weapon)</h1><p>Hoshi no Hate</p><p>Takeo Miratsu (見良津 健雄)</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_saikano.ogg", "target_selector": "#screen", "currentTime": 2.45},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "saikano", "bpm": 96.0, "time_offset": 0}
+        ]
+    },
+
+
+    
+    
+    
+    
+    {
+        "name": "reignite_precache",
+        "events": ["note_on-C7"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache","src": "/assets/reignite.mp4"},
+            {"deviceid": "main", "func": "mask.mask","src": "/assets/reignite_mask.png", "css_class": "reignite_mask"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": false}
+        ]
+    },
+    {
+        "name": "reignite",
+        "events": ["t", "note_on-C#7"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start","src": "/assets/reignite.mp4", "volume": 0.0, "css":{"width":"auto", "margin-left":"-350px"}},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Mass Effect</h1><p>Reignite (Shepard Tribute Song)</p><p>Malukah</p>"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_reignite.mp3", "target_selector": "#screen", "currentTime": 3.42},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "reignite", "bpm": 70.0, "timesigniture": "4:8", "time_offset": 0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/reignite.srt", "play_on_load": true, "seek_to_time": 3420}
+        ]
+    },
+    
+
+    {
+        "name": "alchemy_precache",
+        "events": ["note_on-C8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/alchemy_title.mp4"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": false}
+        ]
+    },
+    {
+        "name": "alchemy",
+        "events": ["z", "note_on-C#8"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "alchemy", "bpm": 165.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_alchemy.ogg", "target_selector": "#screen", "currentTime": 2.7},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Angel Beats</h1><p>Alchemy</p><p>Girls Dead Monster</p>"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/alchemy.srt", "play_on_load": true, "seek_to_time": 2700}
+        ]
+    },
+    {
+        "name": "alchemy_title",
+        "events": ["x", "note_on-D8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/alchemy_title.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "alchemy_blip",
+        "events": ["c", "note_on-D#8"],
+        "payload": [
+            {"deviceid": "main", "func": "video.random_position", "src": "/assets/alchemy_blip.mp4", "volume": 0.0, "min_x":-50, "max_x":0, "min_y":-20, "max_y":15, "scale":1.5, "time_offset_for_position": 0}
+        ]
+    },
+
+    {
+        "name": "kiri",
+        "events": ["note_on-E0"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "kiri", "bpm": 182.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_kiri.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/kiri.srt", "play_on_load": true}
+        ]
+    },
+    {
+        "name": "kiri_overlay",
+        "events": ["note_on-B1"],
+        "payload": [
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Ergo Proxy</h1><p>Kiri</p><p>MONORAL</p>"}
+        ]
+    },    
+    {
+        "name": "kiri_noise",
+        "events": ["note_on-F#0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_noise.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_logo",
+        "events": ["note_on-G#0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_logo.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_pan",
+        "events": ["note_on-A1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_pan.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_gate1",
+        "events": ["note_on-A#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate1.mp4", "volume": 0.0}
+        ]
+    },
+    {
+        "name": "kiri_gate3",
+        "events": ["note_on-C1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/kiri_gate3.mp4", "volume": 0.0}
+        ]
+    },
+
+    
+    
+    
+    {
+        "name": "go",
+        "events": ["g", "note_on-F0"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "go", "bpm": 134.0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_go.mp3", "target_selector": "#screen", "currentTime": 0.0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/go.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Naruto (Opening 4)</h1><p>GO!!!</p><p>Flow</p>"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/go.srt", "play_on_load": true, "seek_to_time": 0}
+        ]
+    },
+    
+    {
+        "name": "power_rangers",
+        "events": ["l", "note_on-G0"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "power_rangers", "bpm": 188.0, "time_offset": 0},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_power_rangers.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "main", "func": "video.start", "src": "/assets/power_rangers.mp4", "volume": 0.0},
+            {"deviceid": "main", "func": "overlay.html_bubble", "html": "<h1>Power Rangers</h1><p>Main Theme</p><p>Ron Wasserman</p>"},
+            {"deviceid": "subtitles", "func": "subtitles.load", "src": "/assets/power_rangers.srt", "play_on_load": true, "seek_to_time": 0}
+        ]
+    },
+    
+
+    {
+        "name": "pentatonic_hero",
+        "events": ["\\", "note_on-E8"],
+        "payload": [
+            {"deviceid": "main", "func": "pentatonic_hero.start"},
+            {"deviceid": "test", "func": "audio.start", "src": "/assets/test_pentatonic.ogg", "target_selector": "#screen", "currentTime": 0},
+            {"deviceid": "lights", "func": "LightTiming.start", "sequence": "pentatonic_hero", "bpm": 120.0, "time_offset": 0},
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_player2",
+        "events": ["1", "note_on-F8"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": false},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_player1",
+        "events": ["2", "note_on-F#8"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": false}
+        ]
+    },
+    {
+        "name":"pentatonic_hero_mute_all",
+        "events": ["3", "note_on-G8"],
+        "payload": [
+            {"func": "pentatonic_hero.control.mute", "input": "player1", "mute": true},
+            {"func": "pentatonic_hero.control.mute", "input": "player2", "mute": true}
+        ]
+    },
+
+    
+    
+    
+    
+    {
+        "name":"test_lighting",
+        "events": [],
+        "payload": [
+            {"func": "LightTiming.start", "sequence": "test", "bpm": 200.0, "timesigniture": "4:4"}
+        ]
+    },
+
+    {
+        "name":"test_scroller",
+        "events": "9",
+        "payload": [
+            {"func": "background_scroller.scroll_sequence", "name": "castelvania_1"}
+        ]
+    },
+    
+    {
+        "name":"test_subtitles",
+        "events": "8",
+        "payload": [
+            {"func": "subtitles.load", "deviceid": "subtitles", "src": "/assets/test.srt", "play_on_load": true}
+        ]
+    },
+
+    
+    {
+        "name":"test_webrtc_video",
+        "events": "7",
+        "payload": [
+            {"deviceid": "main", "func": "webrtc_video.initVideoDevices"}
+        ]
+    },
+
+    {
+        "name": "test_video_saikano_seek",
+        "events": [],
+        "payload": [
+            {"func": "video.start", "deviceid": "main", "src": "/assets/saikano_rough.mp4", "volume": 0.0, "currentTime": 60}
+        ]
+    },
+
+
+
+
+    {
+        "name": "images",
+        "events": ["4"],
+        "payload": [
+            {"func": "image.start", "src": "/assets/test.jpg" , "id": "top_left"},
+            {"func": "image.start", "src": "/assets/test2.jpg", "id": "top_right"},
+            {"func": "image.start", "src": "/assets/test3.jpg", "id": "bottom_left"},
+            {"func": "image.start", "src": "/assets/test4.jpg", "id": "bottom_right"},
+            {"func": "image.start", "src": "/assets/test5.jpg", "id": "center"}
+        ]
+    },
+
+    {
+        "name": "test_audio",
+        "events": [],
+        "payload": [
+            {"func": "audio.start", "src": "/assets/test_god_knows.ogg"}
+        ]
+    },
+
+    {
+        "name": "test_audio_light_seek",
+        "events": [],
+        "payload": [
+            {"func": "audio.start", "src": "/assets/test_god_knows.ogg", "currentTime": 10},
+            {"func": "LightTiming.start", "sequence": "test", "bpm": 200.0, "time_offset": 10}
+        ]
+    },
+    
+    
+    {
+        "name": "test1",
+        "events": ["q"],
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg"}
+        ]
+    },
+    {
+        "name": "test2",
+        "events": ["w"],
+        "payload": [
+            {"func": "image.start", "src": "/assets/test2.jpg"}
+        ]
+    },
+    {
+        "name": "test3",
+        "events": ["e"],
+        "payload": [
+            {"func": "image.start", "src": "/assets/test3.jpg"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_12sec",
+        "events": ["note_on-E1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_12sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_17sec",
+        "events": ["note_on-F1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_17sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_20sec",
+        "events": ["note_on-G#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_20sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_loading_29sec",
+        "events": ["note_on-F#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_loading_29sec.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_live",
+        "events": ["note_on-D1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_live.mp4"}
+        ]
+    },
+    {
+        "name": "SuperLimitBreak_end",
+        "events": ["note_on-G1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/superlimitbreak_end.mp4"}
+        ]
+    }
+
+]

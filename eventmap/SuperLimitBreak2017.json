@@ -1,0 +1,96 @@
+[
+    {
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "lights", "func": "lights.clear"}
+        ]
+    },
+    {
+        "name": "smoke",
+        "events": ["smoke", "note_on-D3"],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
+        ]
+    },
+    {
+        "name": "light_test",
+        "events": [],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "test"}
+        ]
+    },
+
+    {
+        "name": "test_video_precache",
+        "events": ["-", "note_on-D0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.precache", "src": "/assets/gurren_lagann.mp4"}
+        ]
+    },
+    {
+        "name": "test_video_start",
+        "events": ["=", "note_on-D#0"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0}
+        ]
+    },
+
+    {
+        "name": "test_video_multilayer",
+        "events": ["m", "note_on-C0"],
+        "payload": [
+            {"deviceid": "front", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0},
+            {"deviceid": "rear", "func": "video.start", "src": "/assets/saikano.mp4", "volume": 0}
+        ]
+    },
+
+    {
+        "name": "test_html_bubble",
+        "events": ["note_on-D0"],
+        "payload": [
+            {"func": "text.html_bubble", "deviceid": "front", "html": "<h1>Title</h1><p>Subtitle</p><p>Some description bollox</p>"}
+        ]
+    },
+
+    {
+        "name": "test_fade",
+        "events": ["note_on-E0"],
+        "payload": [
+            {"func": "fade.fade", "deviceid": "front"}
+        ]
+    },
+
+    {
+        "name": "test_image",
+        "events": ["q"],
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg", "className": "pixelated"}
+        ]
+    },
+
+    {
+        "name": "test_image_castelvania",
+        "events": ["q"],
+        "payload": [
+            {
+                "deviceid": "main",
+                "func": "image.start",
+                "src": "/assets/castlevaniafullgamemapempty.png",
+                "width": 9928,
+                "height": 1908,
+                "source_screen_height": 168,
+                "className": "pixelated",
+                "gasp_animation": [
+                    ["to",   0, {"x":     0, "y": -1563, "ease":"linear","force3D":false}],
+                    ["to",  60, {"x":  -752            , "ease":"linear"}],
+                    ["to",   0 ,{"x":  -767, "y": -1550, "ease":"linear"}],
+                    ["to",  60 ,{"x": -2304            , "ease":"linear"}],
+                    ["to",   0 ,{"x": -2096, "y":  -590, "ease":"linear"}],
+                    ["to",  60 ,{"x": -4510            , "ease":"linear"}]
+                ]
+            }
+        ]
+    }
+]
