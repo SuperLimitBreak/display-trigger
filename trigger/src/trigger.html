@@ -1,0 +1,50 @@
+<html>
+
+<head>
+	<meta charset="utf-8"/>
+	<title>trigger</title>
+
+	<style type="text/css">
+	</style>
+
+</head>
+
+<body>
+	<h1>trigger</h1>
+
+	<script type="module">
+		import {
+			text_to_note,
+			note_to_text,
+			normalize_javascript_midi_msg,
+		} from './music.js';
+		import {
+			SubscriptionSocketReconnect,
+		} from './websocket.js';
+
+
+		// System Midi Input ---------------------------------------------------
+
+		const notes = new Set();
+		function onMidiMessage(midiDevice, msg) {
+			const midiMsg = normalize_javascript_midi_msg(msg);
+			console.debug(midiDevice.name, midiMsg);
+			// TODO: use midi input
+		};
+
+		function bindMidiDevices(midiAccess) {
+			for (let midiDevice of midiAccess.inputs.values()) {
+				midiDevice.onmidimessage = (msg) => onMidiMessage(midiDevice, msg);
+			}
+		};
+		function initMidi(bindMidiDevices) {
+			if (window.navigator.requestMIDIAccess) {
+				window.navigator.requestMIDIAccess({sysex: false}).then(bindMidiDevices, function() {console.warn('MIDI Access Failed');});
+			} else {console.warn("No browser MIDI support");}
+		};
+		initMidi(bindMidiDevices);
+
+		// Main ----------------------------------------------------------------
+
+	</script>
+</body>

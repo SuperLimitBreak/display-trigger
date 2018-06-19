@@ -1,4 +1,4 @@
-import 'core-js/fn/object/assign';
+//import 'core-js/fn/object/assign';
 
 
 // Text Websocket + Auto-Reconnect ---------------------------------------------
