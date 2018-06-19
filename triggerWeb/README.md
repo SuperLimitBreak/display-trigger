@@ -3,7 +3,6 @@ trigger
 
 is the _trigger_ in displayTrigger.
 
-Note: This is currently using old web frontend technology.
 We need to migrate this to webpack/es6/jasmine to be in line with the rest of the web frontend projects.
 
 
@@ -12,13 +11,6 @@ Message Format
 
 ### TCP Socket
 
-Messages sent directly over the TCP socket should send messages as utf-8 json string on a single line.
-
-This is the message format the projector decodes.
-
-    {
-        todo
-    }
 
 
 ### HTTP Api
@@ -26,16 +18,8 @@ This is the message format the projector decodes.
 _outdated_
 
     curl 'http://localhost:6543/event/trigger.empty'
-    
     curl -XPOST 'http://localhost:6543/event/' -d '{func:"trigger.start", src:"/static/assets/test.jpg"}'
 
 
 ### Midi Triggers
 
-Midi Triggers is a separete program to listen to midi events and convert them to TCP messages. The midi events will be mapped to TCP messages in a mapping file.
-see client README.md
-
-
-### HTML Trigger App
-
-in planning (will use same map file as midi triggers)

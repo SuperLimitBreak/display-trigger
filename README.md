@@ -9,10 +9,10 @@ Trigger video/audio/lighting events to be displayed by a html5 display.
 Overview
 --------
 
-When giving presentations at live events, you may not be able to phsically access
-a machine. Sometimes powerpoint, airplay, chromecast or other tech is insufficent.
+When giving presentations at live events, you may not be able to physically access
+a machine. Sometimes powerpoint, airplay, chromecast or other tech is insufficient.
 
-You may need something with a bit more flexability.
+You may need something with a bit more flexibility.
 
 This project allows you to send/trigger events via websocket/tcp/curl to a projection machine for display.
 
@@ -22,14 +22,14 @@ This project allows you to send/trigger events via websocket/tcp/curl to a proje
 #### Live music performance
 
 Live band have a projector behind them (with an html5 projector interface).
-By default a band logo projected. Some tracks have a video accompliament.
+By default a band logo projected. Some tracks have a video accompaniment.
 A digital audio workstation can output to a virtual midi port and send midi signals that trigger the start/stop 
 backing videos/images.
 
-At the mixing desk a technitian may have a tablet pc that can trigger videos/images
+At the mixing desk a technician may have a tablet pc that can trigger videos/images
 
 As well as triggering videos on an html5 projector, it could be possible to link
-these triggers with a dmx lighting system to syncronise lights.
+these triggers with a dmx lighting system to synchronise lights.
 
 
 #### Dynamic Presenter
@@ -44,27 +44,23 @@ Architecture
 
 3 core components. `trigger` -> `server` -> `display`
 
-* `trigger`
+* `triggerWeb`
     * loads and `eventMap` of json payloads. Each payload can be _triggered_ with either UI interaction, Midi event or joystick (currently unimplemented)
     * A json payload contains a list of commands and destinations
         * e.g. A command to start 'hello.mp4' on a projector and start a dmx light sequence called 'hello' at the same time.
-    * Implementations
-        * `triggerWeb`
+    * Web implementation
             * UI buttons - Can be used on a tablet
             * Midi - Cubase can trigger events at points in a live set
-        * ~~triggerPython~~ (deprecated)
-            * The inital implementation was in Python. This used pygame for midi input and had an autoreconnecting tcp socket.
-            * This has been superceeded by `triggerWeb` but may still be useful for other use cases.
-* `server`
+* `server2`
     * webserver
     	* Serves `triggerWeb`, `display`, event video/audio assets, `eventMap`s
     * `subscription_server`
         * clients can be plain TCP or Websocket based.
-        * Echos a recived json `eventMap` payload to clients that are _subscribed_  to a deviceid. 
+        * Echos a received json `eventMap` payload to clients that are _subscribed_  to a deviceid.
         * e.g. start 'hello.mp4' on deviceid=main and start light sequence 'hello' on deviceid deviceid=lights
 * `display`
-    * A html5 client initialised with a deviceid that connents via a websocket to `subscription_server`.
-    * When an `eventMap` payload is recived it displays the relevent assets or runs the requested function.
+    * A html5 client initialised with a deviceid that connects via a websocket to `subscription_server`.
+    * When an `eventMap` payload is received it displays the relevant assets or runs the requested function.
 
 
 Example `eventMap`

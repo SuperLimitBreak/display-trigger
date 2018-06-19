@@ -63,11 +63,11 @@ Subtitle prompt screen driven by raspberry pi
 Some css3 effects (like transparency) are poorly optimised in the default browser on the pi.
 
 
-lightingAutomation
+stageOrchestration
 ------------------
 
 There are other projects that can hook into displayTrigger triggers.
-[lightingAutomation](https://github.com/SuperLimitBreak/lightingAutomation) is a python dmx control system that can be triggered.
+[stageOrchestration](https://github.com/SuperLimitBreak/stageOrchestration) is a python dmx control system that can be triggered.
 
 
 systemSetup
