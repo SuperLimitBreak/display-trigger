@@ -38,11 +38,11 @@ services:
     volumes:
       - ./nginx.conf:/tmp/nginx.conf:ro
       - ./root:${PATH_CONTAINER_ROOT}:ro
-      - ${PATH_HOST_MEDIA}:${PATH_HOST_MEDIA}:ro
-      - ../eventMap/:${PATH_CONTAINER_eventmap}:ro
-      - ../display/display_configs/:${PATH_CONTAINER_displayconfig}:ro
-      #- ./:${PATH_CONTAINER_REPO}:ro
-      #- website_data_1:${PATH_CONTAINER_WEBSITE}/data:ro
+      - ${PATH_HOST_media}:${PATH_HOST_media}:ro
+      - ${PATH_HOST_eventmap}:${PATH_CONTAINER_eventmap}:ro
+      - ${PATH_HOST_displayconfig}:${PATH_CONTAINER_displayconfig}:ro
+      - ${PATH_HOST_trigger}:${PATH_CONTAINER_trigger}:ro
+      - ${PATH_HOST_display}:${PATH_CONTAINER_display}:ro
     links:
       - multisocket_url_to_subscription_bridge
     command: /bin/sh -c "DOLLAR='$$' envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
