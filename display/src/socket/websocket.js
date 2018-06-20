@@ -11,19 +11,22 @@ export class SocketReconnect {
             hostname: location.hostname,
             port: 9873,
             disconnected_retry_interval_ms: 5000,
-            console: console
+            console: console,
         }, kwargs);
         this.onMessageListeners = new Set();
         this.retry_interval = null;
+        this._socket_active = false;
         this._connect();
     }
 
     _connect() {
+        if (this._socket_active) {return;}
         const socket = new this.WebSocket(`ws://${this.hostname}:${this.port}/`);
+        this._socket_active = true;
 
-        const retry_connect = ()=>{
+        const retry_connect = () => {
             if (!this.retry_interval) {
-                this.retry_interval = setInterval(()=>{this._connect()}, this.disconnected_retry_interval_ms);
+                this.retry_interval = setInterval(()=>this._connect(), this.disconnected_retry_interval_ms);
             }
         };
 
@@ -36,6 +39,9 @@ export class SocketReconnect {
             this.onConnected();
         };
         socket.onclose = () => {
+            socket.onclose = () => {};  // https://stackoverflow.com/a/4818541/3356840
+            socket.close();
+            this._socket_active = false;
             this._send = this._send_while_disconnected;
             this.onDisconnected();
             retry_connect();

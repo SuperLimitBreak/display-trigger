@@ -10,7 +10,7 @@ const MockWebSocketManager = ()=>{
     class MockWebSocket {
         constructor() {
             //expect(mockSocket).toBe(undefined);  // We only ever want one socket connected under test conditions
-            mockSocket = jasmine.createSpyObj('WebSocket', ['send', 'onopen', 'onclose', 'onmessage']);
+            mockSocket = jasmine.createSpyObj('WebSocket', ['send', 'onopen', 'onclose', 'onmessage', 'close']);
             mockSocket_callCount++;
             return mockSocket;
         }
@@ -71,7 +71,7 @@ describe('SocketReconnect', function() {
         expect(socket.onConnected).toHaveBeenCalled();
     });
 
-    it('Should call onMessage when a message is recived/decoded',()=>{
+    it('Should call onMessage when a message is received/decoded',()=>{
         mockSocket().onopen();
         expect(socket.onMessage).not.toHaveBeenCalled();
         mockSocket().onmessage({data: 'Hello World\n'});
