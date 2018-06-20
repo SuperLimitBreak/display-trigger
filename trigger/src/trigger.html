@@ -5,6 +5,15 @@
 	<title>trigger</title>
 
 	<style type="text/css">
+		#disconnected {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 10vh;
+			height: 10vh;
+			background-color: red;
+			color: white;
+		}
 	</style>
 
 </head>
@@ -12,7 +21,15 @@
 <body>
 	<h1>trigger</h1>
 
+	<div id="disconnected">disconnected</div>
+	<div id="eventmaps"></div>
+	<div id="midi_inputs"></div>
+	<div id="event_buttons"></div>
+
 	<script type="module">
+		import {
+			MapDefaultGet,
+		} from './core.js';
 		import {
 			text_to_note,
 			note_to_text,
@@ -23,30 +40,90 @@
 		} from './websocket.js';
 
 		// Constants
+
+		const DEFAULT_PATH_EVENTMAP = '/eventmap/';
+
 		const QUERY_STRING_KEY_path_eventmap = 'path_eventmap';
+		const QUERY_STRING_KEY_eventmap = 'eventmap';
+		const QUERY_STRING_KEY_midi_input_device = 'midi_input_devicename';
 
 		const urlParams = new URLSearchParams(window.location.search);
 
+		let socket = null;
+		function initSubscriptionSocketReconnect() {
+			socket = new SubscriptionSocketReconnect();
+			socket.onConnected = () => document.getElementById('disconnected').style = 'display: none;';
+			socket.onDisconnected = () => document.getElementById('disconnected').style = 'display: block;';
+		}
 
+		const event_lookup = new Map();
+		function load_eventmap(data) {
+			const event_lookup_get = MapDefaultGet(event_lookup, Array);
+			for (let item of data) {
+				event_lookup_get(item.name).push(...item.payload);
+				for (let i in item.events) {
+					event_lookup_get(i).push(...item.payload);
+				}
+			}
+			return event_lookup;
+		}
 
-		// SubscriptionSocketReconnect -----------------------------------------
+		function event_handler(event) {
+			if (!socket) {console.warn(`unable to fire event ${event} - socket is not initalized`); return;}
+			if (!event_lookup.has(event)) {console.warn(`event ${event} has not defined`); return;}
+			console.log(event_handler, event);
+			socket.send_message_array(...event_lookup.get(event));
+		}
 
-		const socket = new SubscriptionSocketReconnect();
-		socket.onConnected = () => {console.log('onConnected');};
-    	socket.onDisconnected = () => {console.log('onDisconnected');}
+		function initEventButtons(event_names) {
+			const event_buttons_container = document.getElementById('event_buttons');
+			for (let event_name of event_names) {
+				const element = document.createElement('button');
+				element.textContent = event_name;
+				element.addEventListener('onclick', ()=>event_handler(event_name), false);
+				event_buttons_container.appendChild(element);
+				//event_buttons_container.insertAdjacentHTML('beforeend', `<li><button onclick="event_handler('${event_name}')">${event_name}</button></li>`);
+			}
+		}
+
+		// Keyboard input ------------------------------------------------------
+
+		document.addEventListener('keydown', (event) => event_handler(event.key));
 
 
 		// System Midi Input ---------------------------------------------------
 
 		function onMidiMessage(midiDevice, msg) {
 			const midiMsg = normalize_javascript_midi_msg(msg);
-			console.debug(midiDevice.name, midiMsg);
-			// TODO: use midi input
+			//console.debug(midiDevice.name, midiMsg);
+			if (midiMsg.name == 'note_on') {
+				event_handler(`${midiMsg.status.name}-${note_to_text(midiMsg.note)}`);
+			}
+			else {
+				console.log('Only midi note_on events are currently supported. Other event could be implemented. Raise a feature request');
+			}
 		};
 
+		function initMidiInputDevice(midiInputDevice) {
+			// During midi binding - bind to named device or display device list in html
+			if (
+				urlParams.has(QUERY_STRING_KEY_midi_input_device) &&
+				urlParams.get(QUERY_STRING_KEY_midi_input_device) == midiInputDevice.name
+			) {
+				midiInputDevice.onmidimessage = (msg) => onMidiMessage(midiInputDevice, msg);
+			}
+			if (
+				!urlParams.has(QUERY_STRING_KEY_midi_input_device)
+			) {
+				const _urlParams = new URLSearchParams(urlParams);
+				_urlParams.append(QUERY_STRING_KEY_midi_input_device, midiInputDevice.name);
+				document.getElementById('midi_inputs').insertAdjacentHTML('beforeend', `<li><a href="${window.location.pathname}?${_urlParams.toString()}">${midiInputDevice.name}</a></li>`);
+			}
+		}
+
 		function bindMidiDevices(midiAccess) {
-			for (let midiDevice of midiAccess.inputs.values()) {
-				midiDevice.onmidimessage = (msg) => onMidiMessage(midiDevice, msg);
+			for (let midiInputDevice of midiAccess.inputs.values()) {
+				initMidiInputDevice(midiInputDevice);
 			}
 		};
 		function initMidi(bindMidiDevices) {
@@ -56,26 +133,35 @@
 		};
 		initMidi(bindMidiDevices);
 
-		// Eventmap Management -------------------------------------------------
 
-		const PATH_EVENTMAP = urlParams.get(QUERY_STRING_KEY_path_eventmap) || '/eventmap/';
-
-		if (!urlParams.has('eventmap')) {
+		if (!urlParams.has(QUERY_STRING_KEY_eventmap)) {
+			// Eventmap List -------------------------------------------------------
+			const PATH_EVENTMAP = urlParams.get(QUERY_STRING_KEY_path_eventmap) || DEFAULT_PATH_EVENTMAP;
 			function render_eventmaps(data) {
 				// data is JSON_INDEX from nginx file listing
 				const eventmaps = data.map(i => i.name).filter(i => i.indexOf('.json') >= 0);
+				const element_container = document.getElementById('eventmaps');
 				for (let eventmap of eventmaps) {
 					const _urlParams = new URLSearchParams(urlParams);
-					_urlParams.append('eventmap', eventmap);
-					const html = `<li><a href="${window.location.pathname}?${_urlParams.toString()}">${eventmap}</a></li>`;
-					console.log(html);
+					_urlParams.append(QUERY_STRING_KEY_eventmap, PATH_EVENTMAP + eventmap);
+					element_container.insertAdjacentHTML('beforeend', `<li><a href="${window.location.pathname}?${_urlParams.toString()}">${eventmap}</a></li>`);
 				}
 			}
 			console.log(`Loading eventmaps from ${PATH_EVENTMAP}. You can optionally override this path with querystring param ${QUERY_STRING_KEY_path_eventmap}`);
 			fetch(PATH_EVENTMAP)
 				.then(r => r.json())
 				.then(data => render_eventmaps(data))
-				.catch(e => console.error("Failed to list eventmap", e))
+				.catch(e => console.error("Failed to list eventmaps", e))
+			;
+		}
+		else {
+			// Eventmap Loading ----------------------------------------------------
+			fetch(urlParams.get(QUERY_STRING_KEY_eventmap))
+				.then(r => r.json())
+				.then(data => load_eventmap(data))
+				.then(event_lookup => initEventButtons(event_lookup.keys()))
+				.then(initSubscriptionSocketReconnect)
+				.catch(e => console.error("Failed to load eventmap", e))
 			;
 		}
 
