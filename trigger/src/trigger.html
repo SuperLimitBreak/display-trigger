@@ -76,7 +76,7 @@
 			const event_lookup_get = MapDefaultGet(event_lookup, Array);
 			for (let item of data) {
 				event_lookup_get(item.name).push(...item.payload);
-				for (let i in item.events) {
+				for (let i of item.events) {
 					event_lookup_get(i).push(...item.payload);
 				}
 			}
