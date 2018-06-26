@@ -4,7 +4,7 @@ services:
 
   multisocket_subscription_server:
     build:
-      context: ${PATH_LIB_CALALDESS}/multisocket/
+      context: ${PATH_HOST_lib_calaldees}/multisocket/
       dockerfile: subscription_server.dockerfile
     ports:
       - ${PORT_TCP}:${PORT_TCP}
@@ -12,7 +12,7 @@ services:
 
   multisocket_url_to_subscription_bridge:
     build:
-      context: ${PATH_LIB_CALALDESS}/net/
+      context: ${PATH_HOST_lib_calaldees}/net/
       dockerfile: falcon_url_to_subscription_bridge.dockerfile
     ports:
       - ${PORT_URL_WEBSOCKET_BRIDGE}:${PORT_URL_WEBSOCKET_BRIDGE}
@@ -34,7 +34,7 @@ services:
     volumes:
       - ./nginx.conf:/tmp/nginx.conf:ro
       - ./root:${PATH_CONTAINER_ROOT}:ro
-      - ${PATH_HOST_media}:${PATH_HOST_media}:ro
+      - ${PATH_HOST_media}:${PATH_CONTAINER_media}:ro
       - ${PATH_HOST_eventmap}:${PATH_CONTAINER_eventmap}:ro
       - ${PATH_HOST_displayconfig}:${PATH_CONTAINER_displayconfig}:ro
       - ${PATH_HOST_trigger}:${PATH_CONTAINER_trigger}:ro
