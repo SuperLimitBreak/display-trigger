@@ -1,0 +1,19 @@
+version: '3.6'
+
+#volumes:
+#    display_node_modules:
+
+services:
+
+  # docker-compose run --rm npm_run_build
+  # Creates static files in ./static/
+  npm_run_build:
+    build:
+      context: ./
+      dockerfile: npm_run.dockerfile
+    volumes:
+      - ./:/display:ro
+      - /display/node_modules  # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - ./static:/display/static:rw
+    working_dir: /display
+    command: build

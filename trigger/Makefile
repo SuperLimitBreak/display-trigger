@@ -1,6 +1,6 @@
 PATH_LIB_ES6:=../../libs/es6
 PATH_LIB_WEBSOCKET:=../display/src/socket/
-PATH_BUILD:=build
+PATH_BUILD:=static
 
 install: ${PATH_BUILD} ${PATH_BUILD}/trigger.html ${PATH_BUILD}/music.js ${PATH_BUILD}/websocket.js
 
