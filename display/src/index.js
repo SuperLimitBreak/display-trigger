@@ -14,6 +14,7 @@ import 'index.html';
 
 const body = document.getElementsByTagName('body').item(0);
 
+
 const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({
     'main': {
         'id': 'default_screen',
@@ -24,11 +25,26 @@ const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({
 });
 
 
+function newSubscriptionSocketReconnect() {
+    const socket = new SubscriptionSocketReconnect();
+    const onConnected = socket.onConnected;
+    const onDisconnected = socket.onDisconnected;
+    socket.onConnected = () => {
+        document.getElementById('disconnected').style = 'display: none;';
+        onConnected.call(socket);
+    };
+    socket.onDisconnected = () => {
+        document.getElementById('disconnected').style = 'display: block;';
+        onDisconnected.call(socket);
+    };
+    return socket;
+}
+
 
 function initScreens(screenConfig) {
     const config = screenConfig.get('_config', Immutable.fromJS({}));
     const screenMessageRouter = new ScreenMessageRouter(
-        new SubscriptionSocketReconnect()
+        newSubscriptionSocketReconnect()
     );
     for (const [screen_name, screen_data] of screenConfig) {
         if (screen_name.startsWith('_')) {continue;}
