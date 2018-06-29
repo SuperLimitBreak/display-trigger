@@ -31,6 +31,9 @@
 			MapDefaultGet,
 		} from './core.js';
 		import {
+			queryStringListOrInit,
+		} from './web.js';
+		import {
 			text_to_note,
 			note_to_text,
 			normalize_javascript_midi_msg,
@@ -41,10 +44,6 @@
 
 		// Constants
 
-		const DEFAULT_PATH_EVENTMAP = '/eventmap/';
-
-		const QUERY_STRING_KEY_path_eventmap = 'path_eventmap';
-		const QUERY_STRING_KEY_eventmap = 'eventmap';
 		const QUERY_STRING_KEY_midi_input_device = 'midi_input_devicename';
 
 		const urlParams = new URLSearchParams(window.location.search);
@@ -147,37 +146,18 @@
 		};
 		initMidi(bindMidiDevices);
 
-
-		if (!urlParams.has(QUERY_STRING_KEY_eventmap)) {
-			// Eventmap List -------------------------------------------------------
-			const PATH_EVENTMAP = urlParams.get(QUERY_STRING_KEY_path_eventmap) || DEFAULT_PATH_EVENTMAP;
-			function render_eventmaps(data) {
-				// data is JSON_INDEX from nginx file listing
-				const eventmaps = data.map(i => i.name).filter(i => i.indexOf('.json') >= 0);
-				const element_container = document.getElementById('eventmaps');
-				for (let eventmap of eventmaps) {
-					const _urlParams = new URLSearchParams(urlParams);
-					_urlParams.append(QUERY_STRING_KEY_eventmap, PATH_EVENTMAP + eventmap);
-					element_container.insertAdjacentHTML('beforeend', `<li><a href="${window.location.pathname}?${_urlParams.toString()}">${eventmap}</a></li>`);
-				}
-			}
-			console.log(`Loading eventmaps from ${PATH_EVENTMAP}. You can optionally override this path with querystring param ${QUERY_STRING_KEY_path_eventmap}`);
-			fetch(PATH_EVENTMAP)
-				.then(r => r.json())
-				.then(data => render_eventmaps(data))
-				.catch(e => console.error("Failed to list eventmaps", e))
-			;
-		}
-		else {
-			// Eventmap Loading ----------------------------------------------------
-			fetch(urlParams.get(QUERY_STRING_KEY_eventmap))
-				.then(r => r.json())
-				.then(data => load_eventmap(data))
-				.then(event_lookup => initEventButtons(event_lookup.keys()))
-				.then(initSubscriptionSocketReconnect)
-				.catch(e => console.error("Failed to load eventmap", e))
-			;
-		}
+		queryStringListOrInit(
+			'path_eventmap',
+			'eventmap',
+			'/eventmap/',
+			data => {
+				load_eventmap(data);
+				initEventButtons(event_lookup.keys());
+				initSubscriptionSocketReconnect();
+			},
+			()=>null,
+			document.getElementById('eventmaps'),
+		);
 
 	</script>
 </body>

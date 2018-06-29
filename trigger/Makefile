@@ -11,10 +11,11 @@ ${PATH_BUILD}/index.html:
 
 ${PATH_BUILD}/music.js:
 	cp ${PATH_LIB_ES6}/core.js ${PATH_BUILD}/core.js
+	cp ${PATH_LIB_ES6}/web.js ${PATH_BUILD}/web.js
 	cp ${PATH_LIB_ES6}/music.js $@
 
 ${PATH_BUILD}/websocket.js:
 	cp ${PATH_LIB_ES6}/websocket.js $@
 
 clean:
-	rm -rf build
+	rm -rf ${PATH_BUILD}
