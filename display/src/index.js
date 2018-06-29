@@ -25,12 +25,11 @@ const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({
 
 
 
-const screenMessageRouter = new ScreenMessageRouter(
-    new SubscriptionSocketReconnect()
-);
-
 function initScreens(screenConfig) {
     const config = screenConfig.get('_config', Immutable.fromJS({}));
+    const screenMessageRouter = new ScreenMessageRouter(
+        new SubscriptionSocketReconnect()
+    );
     for (const [screen_name, screen_data] of screenConfig) {
         if (screen_name.startsWith('_')) {continue;}
         const id = screen_data.get('id');
