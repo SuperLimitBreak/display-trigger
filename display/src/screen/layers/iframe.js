@@ -1,4 +1,4 @@
-import {get_func} from '../../utils/utils';
+import {get_func} from 'calaldees_libs/es6/reflection';
 
 require('../../styles/layers/iframe.scss');
 
