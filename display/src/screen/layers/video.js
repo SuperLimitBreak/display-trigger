@@ -1,7 +1,6 @@
 import * as PubSub from 'pubsub-js';
 const Immutable = require('immutable');
 
-import {staticUrl} from '../../utils/utils';
 import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/video.scss');
@@ -12,6 +11,7 @@ export class video {
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
+            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media'),
             parentSubscriptionName: 'UNDEFINED_VIDEO',
             currentTimeSyncThreshold: 0.2,
             currentTimeOffset: 0,
@@ -54,7 +54,7 @@ export class video {
     play(msg) {return this.start(msg);}  // TODO: remove alias?
     start(msg) {
         this._video(
-            staticUrl(msg.src),
+            this.mediaUrl + msg.src,
             Object.assign(msg, {play: true})
         );
         this.video.style = msg.style || `

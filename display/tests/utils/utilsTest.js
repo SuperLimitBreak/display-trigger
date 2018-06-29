@@ -1,8 +1,8 @@
 /* global HOST_STATIC_PORT */
 
+/*
+DEPRICATED
 import {staticUrl} from 'src/utils/utils';
-
-
 describe('Utils - staticUrl', function() {
 
     it('Should attach the static hostname to relative paths',()=>{
@@ -14,3 +14,4 @@ describe('Utils - staticUrl', function() {
     });
 
 });
+*/

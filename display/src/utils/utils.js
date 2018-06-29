@@ -1,11 +1,15 @@
 /* global HOST_STATIC_PORT */
 
+/*
 export function staticUrl(path) {
     if (path && path.indexOf('://')>=0) {return path;}
     return `http://${window.location.hostname}:${HOST_STATIC_PORT}${path}`;
 }
+*/
 
-
+/*
+DEPRICATED - Replace with
+  const urlParams = new URLSearchParams(window.location.search);
 export function getUrlParameter(sParam) {
     //http://stackoverflow.com/questions/19491336/get-url-parameter-jquery
     var sPageURL = window.location.search.substring(1);
@@ -18,7 +22,7 @@ export function getUrlParameter(sParam) {
     }
     return '';
 }
-
+*/
 
 export function get_attr(cmd, obj, fallback_return) {
     if (typeof(cmd) == 'string') {cmd = cmd.split('.');}
@@ -38,7 +42,9 @@ export function get_attr(cmd, obj, fallback_return) {
 export function get_func(cmd, obj) {return get_attr(cmd, obj, function(){})}
 export function get_obj(cmd, obj) {return get_attr(cmd, obj, {})}
 
+/*
 export default {
     staticUrl,
     getUrlParameter,
 }
+*/

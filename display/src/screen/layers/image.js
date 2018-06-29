@@ -1,7 +1,8 @@
-import {staticUrl} from '../../utils/utils';
 import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/image.scss');
+
+
 
 export class image {
     constructor(element, kwargs) {
@@ -9,6 +10,7 @@ export class image {
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('img'),
             console: console,
+            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media'),
         }, kwargs);
         this._image_element = undefined;
         this._timeline = undefined;
@@ -55,7 +57,7 @@ export class image {
             }
         }
 
-        this.image.src = staticUrl(msg.src);
+        this.image.src = this.mediaUrl + msg.src;
         this.image.className += msg.className;
         const px = (value)=> value ? `${value}px` : '100%';
         this.image.style = `
