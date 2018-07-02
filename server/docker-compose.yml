@@ -24,24 +24,21 @@ services:
 
   nginx:
     image: nginx:mainline-alpine
-    environment:
-      - PORT_NGINX
-      - PATH_HOST_media
     env_file:
         - .env
     ports:
-      - "${PORT_NGINX}:${PORT_NGINX}"
+      - "${PORT_NGINX}:80"
     volumes:
       - ./nginx.conf:/tmp/nginx.conf:ro
-      - ./root:${PATH_CONTAINER_ROOT}:ro
-      - ${PATH_HOST_media}:${PATH_CONTAINER_media}:ro
-      - ${PATH_HOST_eventmap}:${PATH_CONTAINER_eventmap}:ro
-      - ${PATH_HOST_displayconfig}:${PATH_CONTAINER_displayconfig}:ro
-      - ${PATH_HOST_trigger}:${PATH_CONTAINER_trigger}:ro
-      - ${PATH_HOST_display}:${PATH_CONTAINER_display}:ro
-      - ${PATH_HOST_stageViewer}:${PATH_CONTAINER_stageViewer}:ro
-      - ${PATH_HOST_stageOrchestration}:${PATH_CONTAINER_stageOrchestration}:ro
-      - ${PATH_HOST_webMidiTools}:${PATH_CONTAINER_webMidiTools}:ro
+      - ./root:/srv/root:ro
+      - ${PATH_HOST_media}:/srv/media:ro
+      - ${PATH_HOST_eventmap}:/srv/eventmap:ro
+      - ${PATH_HOST_displayconfig}:/srv/displayconfig:ro
+      - ${PATH_HOST_trigger}:/srv/trigger:ro
+      - ${PATH_HOST_display}:/srv/display:ro
+      - ${PATH_HOST_stageViewer}:/srv/stageViewer:ro
+      - ${PATH_HOST_stageOrchestration}:/srv/stageOrchestration:ro
+      - ${PATH_HOST_webMidiTools}:/srv/webMidiTools:ro
     links:
       - multisocket_url_to_subscription_bridge
     command: /bin/sh -c "DOLLAR='$$' envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
