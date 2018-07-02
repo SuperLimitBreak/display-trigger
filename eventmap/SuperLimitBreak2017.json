@@ -33,7 +33,7 @@
         "name": "test_video_start",
         "events": ["=", "note_on-D#0"],
         "payload": [
-            {"deviceid": "main", "func": "video.start", "src": "/assets/gurren_lagann.mp4", "volume": 0}
+            {"deviceid": "main", "func": "video.start", "src": "legacy-riff-midi.mp4", "volume": 0}
         ]
     },
 
@@ -64,20 +64,20 @@
 
     {
         "name": "test_image",
-        "events": ["q"],
+        "events": [],
         "payload": [
-            {"deviceid": "main", "func": "image.start", "src": "/assets/test.jpg", "className": "pixelated"}
+            {"deviceid": "main", "func": "image.start", "src": "test.gif", "className": "pixelated"}
         ]
     },
 
     {
         "name": "test_image_castelvania",
-        "events": ["q"],
+        "events": [],
         "payload": [
             {
                 "deviceid": "main",
                 "func": "image.start",
-                "src": "/assets/castlevaniafullgamemapempty.png",
+                "src": "castlevaniafullgamemapempty.png",
                 "width": 9928,
                 "height": 1908,
                 "source_screen_height": 168,

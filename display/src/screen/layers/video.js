@@ -5,13 +5,16 @@ import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/video.scss');
 
+const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
+
+
 export class video {
     constructor(element, kwargs) {
         this.element = element;
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('video'),
             console: console,
-            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media'),
+            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
             parentSubscriptionName: 'UNDEFINED_VIDEO',
             currentTimeSyncThreshold: 0.2,
             currentTimeOffset: 0,

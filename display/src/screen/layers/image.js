@@ -2,6 +2,7 @@ import {timelineFromJson} from '../../utils/gasp';
 
 require('../../styles/layers/image.scss');
 
+const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
 
 
 export class image {
@@ -10,7 +11,7 @@ export class image {
         Object.assign(this, {
             documentCreateElement: ()=>document.createElement('img'),
             console: console,
-            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media'),
+            mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
         }, kwargs);
         this._image_element = undefined;
         this._timeline = undefined;

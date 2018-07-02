@@ -60,7 +60,7 @@
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },
-  "repository": "git@github.com:SuperLimitBreak/displayTrigger.git",
+  "repository": "git@github.com:superLimitBreak/displayTrigger.git",
   "keywords": [
     "displayTrigger",
     "html5",

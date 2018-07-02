@@ -7,7 +7,7 @@ services:
 
   # docker-compose run --rm npm_run_build
   # Creates static files in ./static/
-  npm_run_build:
+  npm_run:
     build:
       context: ./
       dockerfile: npm_run.dockerfile
