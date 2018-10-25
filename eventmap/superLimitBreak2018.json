@@ -49,6 +49,13 @@
         ]
     },
     {
+        "name": "bad-apple-transition",
+        "events": ["note_on-C3"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>The dead princess approaches</h1><p>Original composition: Joe</p>"}
+        ]
+    },
+    {
         "name": "bad-apple",
         "events": ["note_on-D#2"],
         "payload": [
