@@ -1,0 +1,99 @@
+[
+    {
+        "name": "empty",
+        "events": ["note_on-C1"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"}
+        ]
+    },
+
+    {
+        "name": "superLimitBreak-logo-image",
+        "events": ["note_on-D1"],
+        "payload": [
+            {"deviceid": "main", "func": "image.start", "src": "logo/superLimitBreak_logo_720p.png"}
+        ]
+    },
+    {
+        "name": "superLimitBreak-logo-video",
+        "events": ["note_on-D#1"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "logo/superLimitBreak_live.mp4", "volume": 0}
+        ]
+    },
+
+    {
+        "name": "my-body-is-dry",
+        "events": ["note_on-C2"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "my-body-is-dry"},
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Before my body is dry</h1><p>Kill la Kill (Opening)</p><p>Hiroyuki Sawano, mpi and David Whitaker</p><p>Arrangement: Joe</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/my-body-is-dry/image.png"}
+        ]
+    },
+    {
+        "name": "ready-steady-go",
+        "events": ["note_on-C#2"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "ready-steady-go"},
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Ready Steady Go</h1><p>Fullmetal Alchemist (Opening 2)</p><p>L'Arc-en-Ciel</p><p>Translation: Matt</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/ready-steady-go/image.png"}
+        ]
+    },
+    {
+        "name": "go",
+        "events": ["note_on-D2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>GO!!!</h1><p>Naruto (Opening 4)</p><p>Flow</p><p>Translation: Matt</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/go/image.png"}
+        ]
+    },
+    {
+        "name": "bad-apple",
+        "events": ["note_on-D#2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Bad Apple</h1><p>Touhou</p><p>Masayoshi Minoshima and Haruka</p><p>Arrangement: Joe</p><p>Translation: Del</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/bad-apple/image.png"}
+        ]
+    },
+    {
+        "name": "unravel",
+        "events": ["note_on-E2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Unravel</h1><p>Tokyo Ghoul (Opening)</p><p>Masayoshi Minoshima and Haruka</p><p>Arrangement: Joe</p><p>Translation: Joe</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/unravel/ghoul_logo.jpg"}
+        ]
+    },
+    {
+        "name": "lifes-boat",
+        "events": ["note_on-F2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Lifes a boat</h1><p>Bleach (Ending 1)</p><p>Rie fu</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/life-boat/image.png"}
+        ]
+    },
+    {
+        "name": "history-maker",
+        "events": ["note_on-F#2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>History Maker</h1><p>Yuri!!! on Ice (Opening)</p><p>Dean Fujioka</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/history-maker/image.jpg"}
+        ]
+    },
+    {
+        "name": "kiri",
+        "events": ["note_on-G2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Kiri</h1><p>Ergo Proxy (Opening)</p><p>MONORAL</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/kiri/image.png"}
+        ]
+    },
+    {
+        "name": "one-punch",
+        "events": ["note_on-G#2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>THE HERO!</h1><p>One Punch Man (Opening)</p><p>JAM Project</p><p>Translation: Jonathan Young</p>"},
+            {"deviceid": "main", "func": "image.start", "src": "tracks/one-punch/logo.jpg"}
+        ]
+    }
+]

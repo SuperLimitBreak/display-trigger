@@ -11,14 +11,14 @@
         "name": "smoke",
         "events": ["smoke", "note_on-D3"],
         "payload": [
-            {"deviceid": "lights", "func": "LightTiming.start", "scene": "smoke"}
+            {"deviceid": "lights", "func": "lights.start_sequence", "scene": "smoke"}
         ]
     },
     {
         "name": "light_test",
         "events": [],
         "payload": [
-            {"deviceid": "lights", "func": "LightTiming.start", "scene": "test"}
+            {"deviceid": "lights", "func": "lights.start_sequence", "scene": "test"}
         ]
     },
 
