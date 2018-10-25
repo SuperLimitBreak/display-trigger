@@ -109,7 +109,7 @@
 		function onMidiMessage(midiDevice, msg) {
 			const midiMsg = normalize_javascript_midi_msg(msg);
 			//console.debug(midiDevice.name, midiMsg);
-			if (midiMsg.name == 'note_on') {
+			if (midiMsg.status.name == 'note_on') {
 				event_handler(`${midiMsg.status.name}-${note_to_text(midiMsg.note)}`);
 			}
 			else {
