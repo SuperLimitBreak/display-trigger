@@ -75,7 +75,7 @@
         "name": "lifes-boat",
         "events": ["note_on-F2"],
         "payload": [
-            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Lifes a boat</h1><p>Bleach (Ending 1)</p><p>Rie fu</p>"},
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Life's a boat</h1><p>Bleach (Ending 1)</p><p>Rie fu</p>"},
             {"deviceid": "main", "func": "image.start", "src": "tracks/life-boat/image.png"}
         ]
     },
