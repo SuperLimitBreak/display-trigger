@@ -8,19 +8,21 @@
     "normalize.css": "^4.0.0"
   },
   "devDependencies": {
-    "babel-core": "latest",
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "babel-preset-modern-browsers": "latest",
     "babelify": "latest",
+    "calaldees_libs": "github:calaldees/libs#master",
     "copyfiles": "latest",
     "css-loader": "latest",
     "eslint": "latest",
     "eslint-loader": "latest",
     "eslint-plugin-native-over-lodash": "latest",
     "file-loader": "latest",
-    "gsap": "latest",
     "glob": "latest",
+    "gsap": "latest",
     "immutable": "latest",
     "jasmine-core": "latest",
     "jsx-loader": "latest",
@@ -44,8 +46,7 @@
     "style-loader": "latest",
     "webpack": "latest",
     "webpack-cli": "latest",
-    "webpack-dev-server": "latest",
-    "calaldees_libs": "github:calaldees/libs#master"
+    "webpack-dev-server": "latest"
   },
   "config": {
     "ghooks": {
