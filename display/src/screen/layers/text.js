@@ -27,7 +27,7 @@ export class text {
         text.innerHTML = msg.html;
         text.classList.add('html_bubble');
         // Scale the font size based on width of container
-        const font_size = this.element.clientWidth * 0.03;
+        const font_size = this.element.clientWidth * 0.02;
         text.style = `
             font-size: ${font_size}px;
             position: absolute;

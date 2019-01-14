@@ -21,13 +21,20 @@
             {"deviceid": "main", "func": "video.start", "src": "logo/superLimitBreak_live.mp4", "volume": 0}
         ]
     },
+    {
+        "name": "superLimitBreak-logo-video-new",
+        "events": ["note_on-A3"],
+        "payload": [
+            {"deviceid": "main", "func": "video.start", "src": "logo/superLimitBreak_live_new.mp4", "volume": 0}
+        ]
+    },
 
     {
         "name": "my-body-is-dry",
         "events": ["note_on-C2"],
         "payload": [
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "my-body-is-dry"},
-            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Before my body is dry</h1><p>Kill la Kill (Opening)</p><p>Hiroyuki Sawano, mpi and David Whitaker</p><p>Arrangement: Joe</p>"},
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Before my Body is Dry</h1><p>Kill la Kill (Opening)</p><p>Hiroyuki Sawano, mpi and David Whitaker</p><p>Arrangement: Joe</p>"},
             {"deviceid": "main", "func": "image.start", "src": "tracks/my-body-is-dry/image.png"}
         ]
     },
@@ -52,7 +59,7 @@
         "name": "bad-apple-transition",
         "events": ["note_on-C3"],
         "payload": [
-            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>The dead princess approaches</h1><p>Original composition: Joe</p>"}
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>The Dead Princess Approaches</h1><p>Original composition: Joe</p>"}
         ]
     },
     {
@@ -75,7 +82,7 @@
         "name": "lifes-boat",
         "events": ["note_on-F2"],
         "payload": [
-            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Life's a boat</h1><p>Bleach (Ending 1)</p><p>Rie fu</p>"},
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Life's a Boat</h1><p>Bleach (Ending 1)</p><p>Rie Fu</p>"},
             {"deviceid": "main", "func": "image.start", "src": "tracks/life-boat/image.png"}
         ]
     },

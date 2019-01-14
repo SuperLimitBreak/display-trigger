@@ -18,7 +18,10 @@ services:
       - ${PORT_URL_WEBSOCKET_BRIDGE}:${PORT_URL_WEBSOCKET_BRIDGE}
     links:
       - multisocket_subscription_server
-    command: --port ${PORT_URL_WEBSOCKET_BRIDGE} --subscription_server_hostname multisocket_subscription_server:${PORT_TCP}
+    command: [
+      '--port', '${PORT_URL_WEBSOCKET_BRIDGE}',
+      '--subscription_server_hostname', 'multisocket_subscription_server:${PORT_TCP}',
+    ]
     #healthcheck:
     #  test: ["CMD-SHELL", "netstat -an | grep ${PORT_URL_WEBSOCKET_BRIDGE} > /dev/null; if [ 0 != $? ]; then exit 1; fi;"]
 
