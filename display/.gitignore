@@ -6,3 +6,4 @@
 /karma-*
 
 package-lock.json
+yarn.lock
