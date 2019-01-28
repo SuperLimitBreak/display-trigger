@@ -1,0 +1,24 @@
+[
+    {
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "lights", "func": "lights.clear"}
+        ]
+    },
+    {
+        "name": "light_test",
+        "events": [],
+        "payload": [
+            {"deviceid": "lights", "func": "LightTiming.start", "scene": "test"}
+        ]
+    },
+    {
+        "name": "my-body-is-dry",
+        "events": ["note_on-C2"],
+        "payload": [
+            
+        ]
+    }
+]
