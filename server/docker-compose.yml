@@ -9,6 +9,7 @@ services:
     ports:
       - ${PORT_TCP}:${PORT_TCP}
       - ${PORT_WEBSOCKET}:${PORT_WEBSOCKET}
+    #command: ["--tcp_port", "9872", "--websocket_port", "9873", "--log_level", "0"]  # For debugging to view messages
 
   multisocket_url_to_subscription_bridge:
     build:
