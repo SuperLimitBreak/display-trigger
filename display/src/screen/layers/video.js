@@ -44,8 +44,8 @@ export class video {
 
     // Public ----------------------------------------------------
 
-    precache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
-    cache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
+    //precache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
+    //cache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
     load(msg) {
         this._video(
             msg.src,
@@ -53,8 +53,8 @@ export class video {
         );
     }
 
-    show(msg) {return this.start(msg);}  // TODO: remove alias?
-    play(msg) {return this.start(msg);}  // TODO: remove alias?
+    //show(msg) {return this.start(msg);}  // TODO: remove alias?
+    //play(msg) {return this.start(msg);}  // TODO: remove alias?
     start(msg) {
         this._video(
             this.mediaUrl + msg.src,
@@ -69,7 +69,12 @@ export class video {
         }
     }
 
-    clear() {return this.empty();}  // TODO: remove alias?
+    pause(msg) {return this.stop(msg);}  // TODO: remove alias?
+    stop(msg) {
+        this.video.pause();
+    }
+
+    //clear() {return this.empty();}  // TODO: remove alias?
     empty() {
         if (this._timeline) {
             this._timeline.stop();
