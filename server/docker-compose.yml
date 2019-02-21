@@ -3,6 +3,7 @@ version: '3.6'
 services:
 
   multisocket_subscription_server:
+    image: superlimitbreak/subscriptionserver:latest
     build:
       context: ${PATH_HOST_lib_calaldees}/multisocket/
       dockerfile: subscription_server.dockerfile

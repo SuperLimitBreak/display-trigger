@@ -1,13 +1,5 @@
 [
     {
-        "name": "empty",
-        "events": [" ", "note_on-A3"],
-        "payload": [
-            {"deviceid": "all", "func": "trigger.empty"},
-            {"deviceid": "lights", "func": "lights.clear"}
-        ]
-    },
-    {
         "name": "test",
         "events": [],
         "payload": [
@@ -19,6 +11,14 @@
         "events": ["note_on-C2"],
         "payload": [
             
+        ]
+    },
+    {
+        "name": "empty",
+        "events": [" ", "note_on-A3"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "lights", "func": "lights.clear"}
         ]
     }
 ]

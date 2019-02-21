@@ -97,6 +97,7 @@ export class video {
             'currentTime': 0,
         }, options);
         options.currentTime = options.position || options.currentTime;  // normalize input from multiple fieldnames
+        options.play = options.playing == undefined ? options.play : options.playing;
 
         video.loop = options.loop;
         video.volume = options.volume;
@@ -118,7 +119,7 @@ export class video {
 
         // currentTime sync
         const currentTimeDifference = Math.abs(video.currentTime - options.currentTime);
-        if (currentTimeDifference > this.currentTimeSyncThreshold) {
+        if (currentTimeDifference > this.currentTimeSyncThreshold || !options.play) {
             this.console.info('video catchup seek', video.currentTime, options.currentTime, currentTimeDifference);
             video.currentTime = options.currentTime + this.currentTimeOffset;
         }

@@ -127,7 +127,7 @@ export class audio {
         // currentTime sync
         //currentTimeSync(audio, options.currentTime, this._currentTimeSyncState);
         const currentTimeDifference = Math.abs(audio.currentTime - options.currentTime);
-        if (currentTimeDifference > this.currentTimeSyncThreshold) {
+        if (currentTimeDifference > this.currentTimeSyncThreshold || !options.play) {
             this.console.info('audio catchup seek', audio.currentTime, options.currentTime, currentTimeDifference);
             audio.currentTime = options.currentTime + this.currentTimeOffset;
         }
