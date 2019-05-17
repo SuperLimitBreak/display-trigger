@@ -56,7 +56,7 @@ function buildWebpackCfg(dirname, options) {
                 },
                 {
                     test: /\.css$/,
-                    exclude: exclude_paths,
+                    //exclude: exclude_paths,
                     use: [
                         {loader: 'style-loader'},
                         {loader: 'css-loader'}

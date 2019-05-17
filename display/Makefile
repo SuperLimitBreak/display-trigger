@@ -44,6 +44,6 @@ screen_size:
 # Clean ------------------------------------------------------------------------
 
 clean:
-	rm -rf dist/
+	rm -rf static/
 	rm -rf node_modules/
 	rm -rf *.log
