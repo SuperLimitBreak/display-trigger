@@ -11,10 +11,11 @@ help:
 
 node_modules:
 	npm install
-
+node_modules/calaldees_libs:
+	npm link ../../libs
 
 .PHONY: install
-install: node_modules
+install: node_modules node_modules/calaldees_libs
     # node_modules/gsap/src/uncompressed/plugins/SplitTextPlugin.js
 	# todo
 
@@ -25,8 +26,9 @@ run: install
 	#webpack --progress --colors --watch
 	npm run start
 
-#static: install
-#	npm run build
+build: install
+	npm run build
+
 
 # Test -------------------------------------------------------------------------
 
