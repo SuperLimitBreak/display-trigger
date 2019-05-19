@@ -14,7 +14,6 @@
     "babel-loader": "latest",
     "babel-preset-modern-browsers": "latest",
     "babelify": "latest",
-    "calaldees_libs": "github:calaldees/libs#master",
     "copyfiles": "latest",
     "css-loader": "latest",
     "eslint": "latest",
