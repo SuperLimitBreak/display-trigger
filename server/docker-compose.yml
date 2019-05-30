@@ -28,7 +28,7 @@ services:
     #  test: ["CMD-SHELL", "netstat -an | grep ${PORT_URL_WEBSOCKET_BRIDGE} > /dev/null; if [ 0 != $? ]; then exit 1; fi;"]
 
   nginx:
-    image: nginx:mainline-alpine
+    image: nginx:alpine
     env_file:
         - .env
     ports:
