@@ -2,30 +2,39 @@ version: '3.6'
 
 services:
 
-  multisocket_subscription_server:
+  subscriptionserver:
     image: superlimitbreak/subscriptionserver:latest
     build:
-      context: ${PATH_HOST_lib_calaldees}/multisocket/
-      dockerfile: subscription_server.dockerfile
+      context: ${ROOT_FOLDER}/multisocketServer/multisocketServer/server
     ports:
       - ${PORT_TCP}:${PORT_TCP}
       - ${PORT_WEBSOCKET}:${PORT_WEBSOCKET}
     #command: ["--tcp_port", "9872", "--websocket_port", "9873", "--log_level", "0"]  # For debugging to view messages
 
-  multisocket_url_to_subscription_bridge:
+  subscriptionserver_bridge:
+    image: superlimitbreak/subscriptionserver_bridge:latest
     build:
-      context: ${PATH_HOST_lib_calaldees}/net/
-      dockerfile: falcon_url_to_subscription_bridge.dockerfile
+      context: ${ROOT_FOLDER}/multisocketServer/webBridge
     ports:
       - ${PORT_URL_WEBSOCKET_BRIDGE}:${PORT_URL_WEBSOCKET_BRIDGE}
     links:
-      - multisocket_subscription_server
+      - subscriptionserver
     command: [
       '--port', '${PORT_URL_WEBSOCKET_BRIDGE}',
       '--subscription_server_hostname', 'multisocket_subscription_server:${PORT_TCP}',
     ]
     #healthcheck:
     #  test: ["CMD-SHELL", "netstat -an | grep ${PORT_URL_WEBSOCKET_BRIDGE} > /dev/null; if [ 0 != $? ]; then exit 1; fi;"]
+
+  mediainfoservice:
+    image: superlimitbreak/mediainfoservice:latest
+    build:
+      context: ${ROOT_FOLDER}/mediaInfoService
+    volumes:
+      - ${PATH_HOST_media}:/srv/media:ro
+    ports:
+      - 8331:8331
+    command: /srv/media --port 8331
 
   nginx:
     image: nginx:alpine
@@ -47,7 +56,8 @@ services:
       - ${PATH_HOST_stageOrchestration}:/srv/stageOrchestration:ro
       - ${PATH_HOST_webMidiTools}:/srv/webMidiTools:ro
     links:
-      - multisocket_url_to_subscription_bridge
+      - mediainfoservice
+      - subscriptionserver_bridge
     #command: /bin/sh -c "DOLLAR='$$' envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
     #healthcheck:
     #  test: curl --fail -s http://localhost:5000/ || exit 1
