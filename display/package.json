@@ -16,7 +16,7 @@
     "babelify": "latest",
     "copyfiles": "latest",
     "css-loader": "latest",
-    "eslint": "latest",
+    "eslint": "5.16.0",
     "eslint-loader": "latest",
     "eslint-plugin-native-over-lodash": "latest",
     "file-loader": "latest",
