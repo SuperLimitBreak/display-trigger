@@ -14,7 +14,7 @@ test:
 
 .PHONY: cloc
 cloc:
-	cloc --exclude-dir=$(ENV),ext,libs,node_modules ./
+	cloc --vcs=git
 
 .PHONEY: clean
 clean:
