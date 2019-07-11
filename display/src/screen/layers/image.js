@@ -39,6 +39,8 @@ export class image {
 
     start(msg) {return this.show(msg);}  // TODO: remove alias?
     show(msg) {
+        const image_src = this.mediaUrl + msg.src;
+        if (this.image.src == image_src && !msg.gasp_animation) {return;}
         this.empty();
 
         // Calcualte scale factor for simulated screen height
@@ -58,7 +60,7 @@ export class image {
             }
         }
 
-        this.image.src = this.mediaUrl + msg.src;
+        this.image.src = image_src;
         this.image.className += msg.className;
         const px = (value)=> value ? `${value}px` : '100%';
         this.image.style = `
