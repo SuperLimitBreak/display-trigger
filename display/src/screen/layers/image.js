@@ -40,7 +40,8 @@ export class image {
     start(msg) {return this.show(msg);}  // TODO: remove alias?
     show(msg) {
         const image_src = this.mediaUrl + msg.src;
-        if (this.image.src == image_src && !msg.gasp_animation) {return;}
+        if (this.image.src.indexOf(image_src)>=0 && !msg.gasp_animation) {return;}
+        //console.debug('Image invalidated', this.image.src, image_src, msg.gasp_animation);
         this.empty();
 
         // Calcualte scale factor for simulated screen height
