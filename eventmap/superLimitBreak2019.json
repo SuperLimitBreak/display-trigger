@@ -1,24 +1,151 @@
 [
     {
-        "name": "test",
-        "events": [],
-        "payload": [
-            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "test"}
-        ]
-    },
-    {
-        "name": "my-body-is-dry",
-        "events": ["note_on-C2"],
-        "payload": [
-            
-        ]
-    },
-    {
         "name": "empty",
-        "events": [" ", "note_on-A3"],
+        "events": [" ", "note_on-C1"],
         "payload": [
             {"deviceid": "all", "func": "trigger.empty"},
             {"deviceid": "lights", "func": "lights.clear"}
         ]
+    },
+
+
+
+    {
+        "name": "outlaw-star",
+        "events": ["note_on-C#1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "outlaw-star"}
+        ]
+    },
+    {
+        "name": "bad-apple",
+        "events": ["note_on-D1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "bad-apple"}
+        ]
+    },
+    {
+        "name": "again",
+        "events": ["note_on-D#1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "again"}
+        ]
+    },
+    {
+        "name": "castelvania",
+        "events": ["note_on-E1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "my-body-is-dry"}
+        ]
+    },
+
+    {
+        "name": "my-body-is-dry",
+        "events": ["note_on-F1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "my-body-is-dry"}
+        ]
+    },
+    {
+        "name": "unravel",
+        "events": ["note_on-F#1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "unravel"}
+        ]
+    },
+    {
+        "name": "silent-hill-1",
+        "events": ["note_on-G1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "silent-hill-1"}
+        ]
+    },
+    {
+        "name": "silent-hill-2",
+        "events": ["note_on-G#1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "silent-hill-2"}
+        ]
+    },
+    {
+        "name": "silent-hill-3",
+        "events": ["note_on-A1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "silent-hill-3"}
+        ]
+    },
+    {
+        "name": "silent-hill-4",
+        "events": ["note_on-A#1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "silent-hill-4"}
+        ]
+    },
+    {
+        "name": "megalovania",
+        "events": ["note_on-B1"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "megalovania"}
+        ]
+    },
+    {
+        "name": "go",
+        "events": ["note_on-C2"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "go"}
+        ]
+    },
+    {
+        "name": "one-punch",
+        "events": ["note_on-C#2"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "one-punch"}
+        ]
+    },
+    {
+        "name": "dynamite",
+        "events": ["note_on-D2"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "dynamite"}
+        ]
+    },
+
+
+
+    {
+        "name": "intro",
+        "events": ["note_on-C3"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "into"}
+        ]
+    },
+    {
+        "name": "break1",
+        "events": ["note_on-C#3"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "break1"}
+        ]
+    },
+    {
+        "name": "break2",
+        "events": ["note_on-D3"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "break1"}
+        ]
+    },
+    {
+        "name": "encore",
+        "events": ["note_on-D#3"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "encore"}
+        ]
+    },
+    {
+        "name": "outro",
+        "events": ["note_on-E3"],
+        "payload": [
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "outro"}
+        ]
     }
+
 ]
