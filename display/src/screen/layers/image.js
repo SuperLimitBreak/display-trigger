@@ -70,6 +70,19 @@ export class image {
         `;
 
         if (msg.gasp_animation) {
+            // pre-process '%' of screen values as gsap does not support this
+            msg.gasp_animation.map((gsap_item) => {
+                if (gsap_item[0]=='to') {
+                    for (let [key, value] of Object.entries(gsap_item[2])) {
+                        if (value && value.hasOwnProperty('endsWith') && value.endsWith('%')) {
+                            value = Number(value.split('%')[0]) / 100;
+                            gsap_item[2][key] = value * (key == 'x' ? this.element.clientWidth : this.element.clientHeight);
+                        }
+                    }
+                }
+                return gsap_item;
+            })
+
             this._timeline = timelineFromJson(this.image, msg.gasp_animation);
         }
     }

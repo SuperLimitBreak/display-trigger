@@ -13,9 +13,11 @@ node_modules:
 	npm install
 node_modules/calaldees_libs:
 	npm link ../../libs
+node_modules/multisocketServer:
+	npm link ../../multisocketServer
 
 .PHONY: install
-install: node_modules node_modules/calaldees_libs
+install: node_modules node_modules/calaldees_libs node_modules/multisocketServer
     # node_modules/gsap/src/uncompressed/plugins/SplitTextPlugin.js
 	# todo
 
