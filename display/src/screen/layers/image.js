@@ -44,7 +44,7 @@ export class image {
         //console.debug('Image invalidated', this.image.src, image_src, msg.gsap_animation);
         this.empty();
 
-        // Calcualte scale factor for simulated screen height
+        // Calculate scale factor for simulated screen height
         if (msg.source_screen_height) {
             msg.scale = this.element.clientHeight / msg.source_screen_height;
         }
