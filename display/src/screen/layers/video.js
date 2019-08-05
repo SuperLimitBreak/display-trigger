@@ -1,7 +1,7 @@
 import * as PubSub from 'pubsub-js';
 const Immutable = require('immutable');
 
-import {timelineFromJson} from '../../utils/gasp';
+import {timelineFromJson} from '../../utils/gsap';
 
 require('../../styles/layers/video.scss');
 
@@ -64,8 +64,8 @@ export class video {
             width: 100%;
             height: 100%;
         `;
-        if (msg.gasp_animation) {
-            this._timeline = timelineFromJson(this.image, msg.gasp_animation);
+        if (msg.gsap_animation) {
+            this._timeline = timelineFromJson(this.element, this.image, msg.gsap_animation);
         }
     }
 

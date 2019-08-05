@@ -1,4 +1,4 @@
-import {timelineFromJson} from '../../utils/gasp';
+import {timelineFromJson} from '../../utils/gsap';
 
 require('../../styles/layers/image.scss');
 
@@ -40,8 +40,8 @@ export class image {
     start(msg) {return this.show(msg);}  // TODO: remove alias?
     show(msg) {
         const image_src = this.mediaUrl + msg.src;
-        if (this.image.src.indexOf(image_src)>=0 && !msg.gasp_animation) {return;}
-        //console.debug('Image invalidated', this.image.src, image_src, msg.gasp_animation);
+        if (this.image.src.indexOf(image_src)>=0 && !msg.gsap_animation) {return;}
+        //console.debug('Image invalidated', this.image.src, image_src, msg.gsap_animation);
         this.empty();
 
         // Calcualte scale factor for simulated screen height
@@ -52,9 +52,9 @@ export class image {
         if (msg.scale) {
             msg.width *= msg.scale;
             msg.height *= msg.scale;
-            for (let animation_object of msg.gasp_animation.map((item)=>item[2])) {
+            for (let animation_object of msg.gsap_animation.map((item)=>item[2])) {
                 for (let prop of ['x', 'y', 'width', 'height']) {
-                    if (animation_object.hasOwnProperty(prop)) {
+                    if (animation_object.hasOwnProperty(prop) && typeof(animation_object[prop])=='number') {
                         animation_object[prop] *= msg.scale;
                     }
                 }
@@ -69,21 +69,8 @@ export class image {
             height: ${px(msg.height)};
         `;
 
-        if (msg.gasp_animation) {
-            // pre-process '%' of screen values as gsap does not support this
-            msg.gasp_animation.map((gsap_item) => {
-                if (gsap_item[0]=='to') {
-                    for (let [key, value] of Object.entries(gsap_item[2])) {
-                        if (value && value.hasOwnProperty('endsWith') && value.endsWith('%')) {
-                            value = Number(value.split('%')[0]) / 100;
-                            gsap_item[2][key] = value * (key == 'x' ? this.element.clientWidth : this.element.clientHeight);
-                        }
-                    }
-                }
-                return gsap_item;
-            })
-
-            this._timeline = timelineFromJson(this.image, msg.gasp_animation);
+        if (msg.gsap_animation) {
+            this._timeline = timelineFromJson(this.element, this.image, msg.gsap_animation);
         }
     }
 

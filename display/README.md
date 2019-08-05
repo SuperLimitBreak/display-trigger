@@ -23,7 +23,7 @@ Old V1.0 functionality that needs to be re-implemented
     * Currently used for voteBattle
 * Pentatonic Hero
 * Subtitle Prompts
-* Smooth Background Scroller (replaced with GASP)
+* Smooth Background Scroller (replaced with GSAP)
 
 Future ideas
 

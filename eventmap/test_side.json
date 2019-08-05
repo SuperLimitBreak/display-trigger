@@ -1,0 +1,45 @@
+[
+    {
+        "name": "bad-apple",
+        "events": ["note_on-D#2"],
+        "payload": [
+            {"deviceid": "main", "func": "text.html_bubble", "html": "<h1>Bad Apple</h1><p>Touhou</p><p>Masayoshi Minoshima and Haruka</p><p>Arrangement: Joe</p><p>Translation: Del</p>"},
+            {"deviceid": "side", "func": "image.start", "src": "tracks/bad-apple/image.png"}
+        ]
+    },
+
+    {
+        "name": "test_image_castelvania",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "rear",
+                "func": "image.start",
+                "src": "castelvania/c1s1.png",
+                "width": 3648,
+                "height": 738,
+                "source_screen_height": 168,
+                "className": "pixelated",
+                "gsap_animation": [
+                    ["to",   0, {"x":     0, "y": -158, "ease":"linear", "force3D":false}],
+                    ["to",  60, {"x":  -752            , "ease":"linear"}]
+                ]
+            },
+            {
+                "deviceid": "main",
+                "func": "image.start",
+                "src": "castelvania/simon_walk2.gif",
+                "width": 20,
+                "height": 32,
+                "source_screen_height": 168,
+                "className": "pixelated",
+                "gsap_animation": [
+                    ["to",   0, {"x":     "0", "y": "50%", "ease":"linear", "force3D":false}],
+                    ["to",  60, {"x":  "500"            , "ease":"linear"}]
+                ]
+            }
+
+        ]
+    }
+
+]
