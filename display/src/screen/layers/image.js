@@ -49,6 +49,7 @@ export class image {
             msg.scale = this.element.clientHeight / msg.source_screen_height;
         }
         // Update x,y,width,height values with scale factor
+        // TODO: handle vh and vw
         if (msg.scale) {
             msg.width *= msg.scale;
             msg.height *= msg.scale;
