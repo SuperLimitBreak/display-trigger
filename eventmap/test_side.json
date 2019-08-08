@@ -50,15 +50,13 @@
                 "deviceid": "main",
                 "func": "gsap.start",
                 "source_screen_height": 168,
-                "images": {
-                    "player": "castelvania/simon_walk2.gif",
-                    "medusa": "castelvania/medusa.gif"
+                "elements": {
+                    "player": {"src": "castelvania/simon_walk2.gif"},
+                    "medusa": {"src": "castelvania/medusa.gif"}
                 },
                 "gsap_timeline": [
-                    ["to", "player",   0, {"x":      0, "y": "100% -target", "force3D": false}],
-                    ["to", "medusa",   0, {"x": "100%", "y": 0}],
-                    ["to", "player",  60, {"x": "100%"}],
-                    ["to", "medusa",  60, {"x":      0, "y": 0}]
+                    ["to", "element::medusa",   0, {"x": 500, "y": 0}],
+                    ["to", "element::medusa",  60, {"x":   0, "y": 0, "ease": "Strong.easeOut"}]
                 ]
             }
         ]
