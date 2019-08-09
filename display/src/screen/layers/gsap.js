@@ -1,12 +1,14 @@
 import { isIterable } from "core-js";
 import { TimelineMax } from 'gsap';
-import {buildObjectFromMap, isObject} from 'calaldees_libs/es6/core';
+import {MapDefaultGet, isObject} from 'calaldees_libs/es6/core';
 import {timelineFromJson} from '../../utils/gsap';
 
 require('../../styles/layers/image.scss');
+require('../../styles/layers/gsap.scss');
 
 const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
-const STRING_ELEMENT_IDENTIFIER = 'element::';
+const STRING_IDENTIFIER_ELEMENT = 'element::';
+const STRING_IDENTIFIER_TIMELINE = 'timeline::';
 
 export class gsap {
     constructor(element, kwargs) {
@@ -17,7 +19,33 @@ export class gsap {
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
         }, kwargs);
         this._elements = new Map();
-        this._timeline = new TimelineMax();
+        this._timelines = new Map();
+        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
+        this._parseDimension.bind(this);
+    }
+
+    _parseDimension(value) {
+        if (typeof(value) !== 'string') {return value;}
+
+        // Parse String
+        let [__, number, unit] = value.match(/((?:[\d]+\.)?[\d]+)([^\d\s]{1,3})(?:\s|$)?/) || [undefined, undefined, undefined];
+        if (number == undefined) {return value;}
+        number = Number(number);
+        if      (!unit) {}
+        else if (unit == 'vh') {number = number * this.element.clientHeight;}
+        else if (unit == 'vw') {number = number * this.element.clientWidth;}
+        else {
+            this.console.warn(`Unsupported unit ${unit} in ${value}`);
+            return value;
+        }
+
+        // Modify with +/- image sizes
+        const [_value, sign, element_name, element_attr] = value.match(/([+-])(\w+)\.(width|height)?/) || [undefined, undefined, undefined];
+        if (element_name) {
+            number += this._elements.get(element_name)[element_attr] * (sign=='-' ? -1 : 1);
+        }
+
+        return number;
     }
 
     cache(msg) {
@@ -39,10 +67,12 @@ export class gsap {
             for (let [key, value] of Object.entries(obj)) {
                 if (key in _element) {
                     if (key == 'src') {
-                        _element[key] = this.mediaUrl + value;
-                    } else {
-                        _element[key] = value;
+                        value = this.mediaUrl + value;
                     }
+                    if (['width', 'height', 'x', 'y'].indexOf(key)>=0) {
+                        value = this._parseDimension(value);
+                    }
+                    _element[key] = value;
                 }
             }
             this.element.appendChild(_element);
@@ -52,16 +82,14 @@ export class gsap {
         function _process(i) {
             if (typeof(i) === 'string') {
                 // Identify Element - lookup
-                if (i.startsWith(STRING_ELEMENT_IDENTIFIER)) {
-                    return this._elements.get(i.replace(STRING_ELEMENT_IDENTIFIER, ''));
+                if (i.startsWith(STRING_IDENTIFIER_ELEMENT)) {
+                    return this._elements.get(i.replace(STRING_IDENTIFIER_ELEMENT, ''));
                 }
-                // Process vh and vw values
-                let [__, number, unit] = i.match(/(\d+)([^\d\s]{1,3})(?:\s|$)?/) || [undefined, undefined, undefined];
-                if (number == undefined) {return i;}
-                number = Number(number);
-                if (unit == 'vh') {number = number * this.element.container_element.clientHeight;}
-                if (unit == 'vw') {number = number * this.element.container_element.clientWidth;}
-                return number;
+                if (i.startsWith(STRING_IDENTIFIER_TIMELINE)) {
+                    return this._timelines_get(i.replace(STRING_IDENTIFIER_TIMELINE, ''));
+                }
+
+                return this._parseDimension(i);;
             }
             else if (isObject(i)) {
                 for (const [key, value] of Object.entries(i)) {
@@ -73,16 +101,22 @@ export class gsap {
             }
             return i;
         }
+        _process = _process.bind(this);
 
         // Build timeline
-        this._timeline.clear();
         for (const timeline_args of msg.gsap_timeline) {
+            const timeline_name = timeline_args.shift();
             const gsapMethod = timeline_args.shift();
-            this._timeline[gsapMethod](...timeline_args.map(_process));
+            this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(_process));
         }
     }
 
     empty() {
+        for (const _timeline of this._timelines.values()) {
+            _timeline.stop();
+            _timeline.clear();
+        }
+        this._timelines.clear();
         //let i;
         //while (i = this._images.pop()) {
         //    const [_image_element, _timeline] = i;
@@ -90,8 +124,6 @@ export class gsap {
         //while (i = this._images.pop()) {
         //    i.remove();
         //}
-        this._timeline.stop();
-        this._timeline = undefined;
     }
 
 }
