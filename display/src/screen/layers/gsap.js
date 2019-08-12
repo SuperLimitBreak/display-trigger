@@ -17,12 +17,14 @@ export class gsap {
             //documentCreateElement: ()=>document.createElement('img'),
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
+            currentTimeSyncThreshold: 0.2,
+            currentTimeOffset: 0,
         }, kwargs);
         this._elements = new Map();
         this._timelines = new Map();
         this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
-        this._parseDimension.bind(this);
-        //this._recursively_replace_string_object_references.bind(this);
+        this._parseDimension = this._parseDimension.bind(this);
+        this._recursively_replace_string_object_references = this._recursively_replace_string_object_references.bind(this);
     }
 
     _parseDimension(value) {
@@ -49,6 +51,28 @@ export class gsap {
         return number;
     }
 
+    _recursively_replace_string_object_references(i) {
+        if (typeof(i) === 'string') {
+            // Identify Element - lookup
+            if (i.startsWith(STRING_IDENTIFIER_ELEMENT)) {
+                return this._elements.get(i.replace(STRING_IDENTIFIER_ELEMENT, ''));
+            }
+            if (i.startsWith(STRING_IDENTIFIER_TIMELINE)) {
+                return this._timelines_get(i.replace(STRING_IDENTIFIER_TIMELINE, ''));
+            }
+
+            return this._parseDimension(i);;
+        }
+        else if (isObject(i)) {
+            for (const [key, value] of Object.entries(i)) {
+                i[key] = this._recursively_replace_string_object_references(value);
+            }
+        }
+        else if (Array.isArray(i)) {
+            i = i.map(this._recursively_replace_string_object_references);
+        }
+        return i;
+    }
 
     cache(msg) {
         if (typeof(msg.src) == 'string') {msg.src = [msg.src];}
@@ -61,70 +85,64 @@ export class gsap {
     }
 
     start(msg) {
+        msg.playing = typeof(msg.playing) === "boolean" ? msg.playing : true;
+
+        // Has Timeline Changed? Reset!
         const elements_msg = new Set(Object.keys(msg.elements));
         const elements_existing = new Set(this._elements.keys());
         const timelines_msg = new Set(msg.gsap_timeline.reduce((i) => i[0]));
         const timelines_existing = new Set(this._timelines.keys());
-        if (
-            setIsEqual(elements_msg, elements_existing) &&
-            setIsEqual(timelines_msg, timelines_existing)
-        ) {
-            // TODO: use position to set place in timeline
-            return;
-        } else {
+        const elements_have_changed = !setIsEqual(elements_msg, elements_existing);
+        const timelines_have_changed = !setIsEqual(timelines_msg, timelines_existing);
+        if (elements_have_changed || timelines_have_changed) {
             this.empty();
         }
 
         // Load elements
-        for (let [name, obj] of Object.entries(msg.elements)) {
-            if (this._elements.has(name)) {continue;}
-            const _element = document.createElement(obj.type || 'img');
-            for (let [key, value] of Object.entries(obj)) {
-                if (key in _element) {
-                    if (key == 'src') {
-                        value = this.mediaUrl + value;
+        if (this._elements.size == 0) {
+            for (let [name, obj] of Object.entries(msg.elements)) {
+                if (this._elements.has(name)) {continue;}
+                const _element = document.createElement(obj.type || 'img');
+                for (let [key, value] of Object.entries(obj)) {
+                    if (key in _element) {
+                        if (key == 'src') {
+                            value = this.mediaUrl + value;
+                        }
+                        if (['width', 'height', 'x', 'y'].indexOf(key)>=0) {
+                            value = this._parseDimension(value);
+                        }
+                        _element[key] = value;
                     }
-                    if (['width', 'height', 'x', 'y'].indexOf(key)>=0) {
-                        value = this._parseDimension(value);
-                    }
-                    _element[key] = value;
                 }
+                this.element.appendChild(_element);
+                this._elements.set(name, _element);
             }
-            this.element.appendChild(_element);
-            this._elements.set(name, _element);
         }
-
-
-        function _process(i) {
-            if (typeof(i) === 'string') {
-                // Identify Element - lookup
-                if (i.startsWith(STRING_IDENTIFIER_ELEMENT)) {
-                    return this._elements.get(i.replace(STRING_IDENTIFIER_ELEMENT, ''));
-                }
-                if (i.startsWith(STRING_IDENTIFIER_TIMELINE)) {
-                    return this._timelines_get(i.replace(STRING_IDENTIFIER_TIMELINE, ''));
-                }
-    
-                return this._parseDimension(i);;
-            }
-            else if (isObject(i)) {
-                for (const [key, value] of Object.entries(i)) {
-                    i[key] = _process(value);
-                }
-            }
-            else if (Array.isArray(i)) {
-                i = i.map(_process);
-            }
-            return i;
-        }
-        _process = _process.bind(this);
 
         // Build Timeline
-        for (const timeline_args of msg.gsap_timeline) {
-            const timeline_name = timeline_args.shift();
-            const gsapMethod = timeline_args.shift();
-            this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(_process));
+        if (this._timelines.size == 0) {
+            for (const timeline_args of msg.gsap_timeline) {
+                const timeline_name = timeline_args.shift();
+                const gsapMethod = timeline_args.shift();
+                this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(this._recursively_replace_string_object_references));
+            }
+            for (const _timeline of this._timelines.values()) {
+                _timeline.paused(!msg.playing);
+            }
         }
+
+        // currentTime sync
+        if (msg.position) {
+            msg.position = Number(msg.position);
+            for (const _timeline of this._timelines.values()) {
+                const currentTimeDifference = Math.abs(this._timeline.totalTime() - msg.position);
+                if (currentTimeDifference > this.currentTimeSyncThreshold || !msg.playing) {
+                    this.console.info('gsap catchup seek', this._timeline.totalTime(), msg.position, currentTimeDifference);
+                    this._timeline.totalTime(msg.position + this.currentTimeOffset);
+                }
+            }
+        }
+
     }
 
     empty() {
@@ -133,13 +151,11 @@ export class gsap {
             _timeline.clear();
         }
         this._timelines.clear();
-        //let i;
-        //while (i = this._images.pop()) {
-        //    const [_image_element, _timeline] = i;
-        //for (const _image_element of this._images) {
-        //while (i = this._images.pop()) {
-        //    i.remove();
-        //}
+
+        for (const _element of this._elements.values()) {
+            _element.remove();
+        }
+        this._elements.clear();
     }
 
 }
