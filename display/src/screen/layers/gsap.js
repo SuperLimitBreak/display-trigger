@@ -1,6 +1,6 @@
 import { isIterable } from "core-js";
 import { TimelineMax } from 'gsap';
-import {MapDefaultGet, isObject} from 'calaldees_libs/es6/core';
+import {MapDefaultGet, isObject, setIsEqual} from 'calaldees_libs/es6/core';
 import {timelineFromJson} from '../../utils/gsap';
 
 require('../../styles/layers/image.scss');
@@ -22,6 +22,7 @@ export class gsap {
         this._timelines = new Map();
         this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
         this._parseDimension.bind(this);
+        //this._recursively_replace_string_object_references.bind(this);
     }
 
     _parseDimension(value) {
@@ -48,6 +49,7 @@ export class gsap {
         return number;
     }
 
+
     cache(msg) {
         if (typeof(msg.src) == 'string') {msg.src = [msg.src];}
         if (isIterable(msg.src)) {
@@ -59,10 +61,23 @@ export class gsap {
     }
 
     start(msg) {
-        //this.empty();
+        const elements_msg = new Set(Object.keys(msg.elements));
+        const elements_existing = new Set(this._elements.keys());
+        const timelines_msg = new Set(msg.gsap_timeline.reduce((i) => i[0]));
+        const timelines_existing = new Set(this._timelines.keys());
+        if (
+            setIsEqual(elements_msg, elements_existing) &&
+            setIsEqual(timelines_msg, timelines_existing)
+        ) {
+            // TODO: use position to set place in timeline
+            return;
+        } else {
+            this.empty();
+        }
 
         // Load elements
         for (let [name, obj] of Object.entries(msg.elements)) {
+            if (this._elements.has(name)) {continue;}
             const _element = document.createElement(obj.type || 'img');
             for (let [key, value] of Object.entries(obj)) {
                 if (key in _element) {
@@ -79,6 +94,7 @@ export class gsap {
             this._elements.set(name, _element);
         }
 
+
         function _process(i) {
             if (typeof(i) === 'string') {
                 // Identify Element - lookup
@@ -88,7 +104,7 @@ export class gsap {
                 if (i.startsWith(STRING_IDENTIFIER_TIMELINE)) {
                     return this._timelines_get(i.replace(STRING_IDENTIFIER_TIMELINE, ''));
                 }
-
+    
                 return this._parseDimension(i);;
             }
             else if (isObject(i)) {
@@ -103,7 +119,7 @@ export class gsap {
         }
         _process = _process.bind(this);
 
-        // Build timeline
+        // Build Timeline
         for (const timeline_args of msg.gsap_timeline) {
             const timeline_name = timeline_args.shift();
             const gsapMethod = timeline_args.shift();
