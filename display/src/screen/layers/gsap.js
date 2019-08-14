@@ -140,13 +140,13 @@ export class gsap {
 
         // currentTime sync
         if (msg.position) {
-            msg.position = Number(msg.position);
+            const position = Number(msg.position);
             for (const _timeline of this._timelines.values()) {
-                msg.position = Math.min(msg.position, _timeline.totalDuration());
-                const currentTimeDifference = Math.abs(_timeline.totalTime() - msg.position);
+                const _position = Math.min(position, _timeline.totalDuration());
+                const currentTimeDifference = Math.abs(_timeline.totalTime() - _position);
                 if (currentTimeDifference > this.currentTimeSyncThreshold || !msg.playing) {
-                    this.console.info('gsap catchup seek', _timeline.totalTime(), msg.position, currentTimeDifference);
-                    _timeline.totalTime(msg.position);
+                    this.console.info('gsap catchup seek', _timeline.totalTime(), _position, currentTimeDifference);
+                    _timeline.totalTime(_position);
                 }
             }
         }
