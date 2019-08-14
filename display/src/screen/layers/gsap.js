@@ -14,11 +14,9 @@ export class gsap {
     constructor(element, kwargs) {
         this.element = element;
         Object.assign(this, {
-            //documentCreateElement: ()=>document.createElement('img'),
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
-            currentTimeSyncThreshold: 0.2,
-            currentTimeOffset: 0,
+            currentTimeSyncThreshold: 0.40,  // gsap is slower to respond than the video element
         }, kwargs);
         this._elements = new Map();
         this._timelines = new Map();
@@ -84,17 +82,26 @@ export class gsap {
         }
     }
 
+    pause(msg) {return this.stop(msg);}  // TODO: remove alias?
+    stop(msg) {
+        for (const _timeline of this._timelines.values()) {
+            _timeline.paused(true);
+            //_timeline.totalTime(0);
+        }
+    }
+
     start(msg) {
         msg.playing = typeof(msg.playing) === "boolean" ? msg.playing : true;
 
         // Has Timeline Changed? Reset!
         const elements_msg = new Set(Object.keys(msg.elements));
         const elements_existing = new Set(this._elements.keys());
-        const timelines_msg = new Set(msg.gsap_timeline.reduce((i) => i[0]));
+        const timelines_msg = new Set(msg.gsap_timeline.reduce((acc, i) => {acc.push(i[0]); return acc;}, []));
         const timelines_existing = new Set(this._timelines.keys());
         const elements_have_changed = !setIsEqual(elements_msg, elements_existing);
         const timelines_have_changed = !setIsEqual(timelines_msg, timelines_existing);
         if (elements_have_changed || timelines_have_changed) {
+            this.console.debug('timelines/elements changed. clearing gsap container');
             this.empty();
         }
 
@@ -135,10 +142,11 @@ export class gsap {
         if (msg.position) {
             msg.position = Number(msg.position);
             for (const _timeline of this._timelines.values()) {
-                const currentTimeDifference = Math.abs(this._timeline.totalTime() - msg.position);
+                msg.position = Math.min(msg.position, _timeline.totalDuration());
+                const currentTimeDifference = Math.abs(_timeline.totalTime() - msg.position);
                 if (currentTimeDifference > this.currentTimeSyncThreshold || !msg.playing) {
-                    this.console.info('gsap catchup seek', this._timeline.totalTime(), msg.position, currentTimeDifference);
-                    this._timeline.totalTime(msg.position + this.currentTimeOffset);
+                    this.console.info('gsap catchup seek', _timeline.totalTime(), msg.position, currentTimeDifference);
+                    _timeline.totalTime(msg.position);
                 }
             }
         }
@@ -147,7 +155,6 @@ export class gsap {
 
     empty() {
         for (const _timeline of this._timelines.values()) {
-            _timeline.stop();
             _timeline.clear();
         }
         this._timelines.clear();

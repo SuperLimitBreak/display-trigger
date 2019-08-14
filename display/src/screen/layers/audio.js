@@ -52,7 +52,6 @@ export class audio {
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
             currentTimeSyncThreshold: 0.2,
-            currentTimeOffset: 0.0,
         }, kwargs);
         this._audioElement = undefined;
         // this._currentTimeSyncState = {
@@ -129,7 +128,7 @@ export class audio {
         const currentTimeDifference = Math.abs(audio.currentTime - options.currentTime);
         if (currentTimeDifference > this.currentTimeSyncThreshold || !options.play) {
             this.console.info('audio catchup seek', audio.currentTime, options.currentTime, currentTimeDifference);
-            audio.currentTime = options.currentTime + this.currentTimeOffset;
+            audio.currentTime = options.currentTime;
         }
 
 

@@ -17,7 +17,6 @@ export class video {
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
             parentSubscriptionName: 'UNDEFINED_VIDEO',
             currentTimeSyncThreshold: 0.2,
-            currentTimeOffset: 0,
             eventHandlers: {
                 ended: () => {
                     PubSub.publish(this.parentSubscriptionName, {
@@ -121,7 +120,7 @@ export class video {
         const currentTimeDifference = Math.abs(video.currentTime - options.currentTime);
         if (currentTimeDifference > this.currentTimeSyncThreshold || !options.play) {
             this.console.info('video catchup seek', video.currentTime, options.currentTime, currentTimeDifference);
-            video.currentTime = options.currentTime + this.currentTimeOffset;
+            video.currentTime = options.currentTime;
         }
 
         if (options.play) {
