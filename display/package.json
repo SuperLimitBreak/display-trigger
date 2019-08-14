@@ -38,6 +38,8 @@
     "npm-run-all": "latest",
     "null-loader": "latest",
     "open": "latest",
+    "pixi.js": "latest",
+    "pixi-particles": "latest",
     "pubsub-js": "latest",
     "pycollections": "latest",
     "rimraf": "latest",

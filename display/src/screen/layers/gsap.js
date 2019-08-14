@@ -10,6 +10,7 @@ const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
 const STRING_IDENTIFIER_ELEMENT = 'element::';
 const STRING_IDENTIFIER_TIMELINE = 'timeline::';
 
+
 export class gsap {
     constructor(element, kwargs) {
         this.element = element;
