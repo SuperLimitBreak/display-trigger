@@ -1,6 +1,5 @@
-import { isIterable } from "core-js";
 import { TimelineMax } from 'gsap';
-import {MapDefaultGet, isObject, setIsEqual} from 'calaldees_libs/es6/core';
+import {MapDefaultGet, isObject, isSetEqual, hasIterationProtocol} from 'calaldees_libs/es6/core';
 import {timelineFromJson} from '../../utils/gsap';
 
 require('../../styles/layers/image.scss');
@@ -75,7 +74,7 @@ export class gsap {
 
     cache(msg) {
         if (typeof(msg.src) == 'string') {msg.src = [msg.src];}
-        if (isIterable(msg.src)) {
+        if (hasIterationProtocol(msg.src)) {
             for (let src of msg.src) {
                 const i = new Image();
                 i.src = src;

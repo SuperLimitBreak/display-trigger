@@ -14,7 +14,7 @@ require('../../styles/layers/particles.scss');
 
 
 const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
-const DEFAULT_PARTICLE_IMAGES = ['pixiParticles/default.png', ];
+const DEFAULT_PARTICLE_IMAGES = ['/assets/particle.png', '/assets/fire.png'];
 const DEFAULT_TIME_FACTOR = 0.001;
 
 
@@ -76,9 +76,9 @@ export class particles {
         this.stop();
 
         const images = Array.isArray(msg.particleImages) ? msg.particleImages : DEFAULT_PARTICLE_IMAGES;
-        this._emitter = new PIXI.particles.Emitter(
+        this._emitter = new PIXI_particles.Emitter(
             this._pixi_container_emitter,
-            images.map(PIXI.Texture.fromImage),
+            images.map(PIXI.Texture.from),
             msg.emitterConfig,
         );
 

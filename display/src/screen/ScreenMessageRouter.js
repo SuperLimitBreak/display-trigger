@@ -1,5 +1,5 @@
 const Immutable = require('immutable');
-import {DefaultDict} from 'pycollections';
+import {DefaultDict} from 'pycollections';  // TODO: replace dependency with calaldees_libs/core/MapDefaultGet
 import {Screen} from './Screen.js';
 
 

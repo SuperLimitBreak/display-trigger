@@ -4,7 +4,6 @@
   "description": "Display video/etc from 'trigger events' from a remote system",
   "main": "static/export.bundle.js",
   "dependencies": {
-    "core-js": "^2.0.0",
     "normalize.css": "^4.0.0"
   },
   "devDependencies": {
@@ -14,8 +13,8 @@
     "babel-loader": "latest",
     "babel-preset-modern-browsers": "latest",
     "babelify": "latest",
-    "copyfiles": "latest",
     "css-loader": "latest",
+    "copy-webpack-plugin": "latest",
     "eslint": "5.16.0",
     "eslint-loader": "latest",
     "eslint-plugin-native-over-lodash": "latest",
