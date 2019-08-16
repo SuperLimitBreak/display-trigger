@@ -32,12 +32,17 @@ export class particles {
         this._updateAnimationFrameId = undefined;
 
         this._canvas = document.createElement('canvas');
+        this._canvas.width = this.element.clientWidth;
+        this._canvas.height = this.element.clientHeight;
         this.element.appendChild(this._canvas);
         this._pixi_renderer = PIXI.autoDetectRenderer(
             this._canvas.width,
             this._canvas.height,
             {
                 view: this._canvas,
+                antialiasing: false,
+                transparent: true,
+                resolution: 1,
             },
         )
         this._pixi_container_root = new PIXI.Container();
