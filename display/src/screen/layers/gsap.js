@@ -98,8 +98,8 @@ export class gsap {
         const elements_existing = new Set(this._elements.keys());
         const timelines_msg = new Set(msg.gsap_timeline.reduce((acc, i) => {acc.push(i[0]); return acc;}, []));
         const timelines_existing = new Set(this._timelines.keys());
-        const elements_have_changed = !setIsEqual(elements_msg, elements_existing);
-        const timelines_have_changed = !setIsEqual(timelines_msg, timelines_existing);
+        const elements_have_changed = !isSetEqual(elements_msg, elements_existing);
+        const timelines_have_changed = !isSetEqual(timelines_msg, timelines_existing);
         if (elements_have_changed || timelines_have_changed) {
             this.console.debug('timelines/elements changed. clearing gsap container');
             this.empty();
@@ -112,7 +112,7 @@ export class gsap {
                 const _element = document.createElement(obj.type || 'img');
                 for (let [key, value] of Object.entries(obj)) {
                     if (key in _element) {
-                        if (key == 'src') {
+                        if (key == 'src' && typeof(value) === "string" && !value.match(/^http|^\//)) {
                             value = this.mediaUrl + value;
                         }
                         if (['width', 'height', 'x', 'y'].indexOf(key)>=0) {
