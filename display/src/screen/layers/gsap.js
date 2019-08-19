@@ -1,6 +1,7 @@
 import { TimelineMax } from 'gsap';
-import {MapDefaultGet, isObject, isSetEqual, hasIterationProtocol} from 'calaldees_libs/es6/core';
-import {timelineFromJson} from '../../utils/gsap';
+import { MapDefaultGet, isObject, isSetEqual, hasIterationProtocol } from 'calaldees_libs/es6/core';
+//import {timelineFromJson} from '../../utils/gsap';
+import { bindRecursivelyReplaceStringsWithObjectReferences, parseDimension } from '../../utils/StringTools';
 
 require('../../styles/layers/image.scss');
 require('../../styles/layers/gsap.scss');
@@ -16,65 +17,21 @@ export class gsap {
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
             currentTimeSyncThreshold: 0.5,  // gsap is slower to respond than the video element
         }, kwargs);
+
         this._elements = new Map();
         this._timelines = new Map();
         this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
-        this._parseDimension = this._parseDimension.bind(this);
-        this._recursively_replace_string_object_references = this._recursively_replace_string_object_references.bind(this);
 
         this._stringMapLookup = new Map([
             ['element::', this._elements],
             ['timeline::', this._timelines],
         ]);
 
-    }
-
-    _parseDimension(value) {
-        if (typeof(value) !== 'string') {return value;}
-
-        // Parse String
-        let [__, number, unit] = value.match(/((?:[\d]+\.)?[\d]+)([^\d\s]{1,3})(?:\s|$)?/) || [undefined, undefined, undefined];
-        if (number == undefined) {return value;}
-        number = Number(number);
-        if      (!unit) {}
-        else if (unit == 'vh') {number = number * this.element.clientHeight;}
-        else if (unit == 'vw') {number = number * this.element.clientWidth;}
-        else {
-            this.console.warn(`Unsupported unit ${unit} in ${value}`);
-            return value;
-        }
-
-        // Modify with +/- image sizes
-        const [_value, sign, element_name, element_attr] = value.match(/([+-])(\w+)\.(width|height)?/) || [undefined, undefined, undefined];
-        if (element_name) {
-            number += this._elements.get(element_name)[element_attr] * (sign=='-' ? -1 : 1);
-        }
-
-        return number;
-    }
-
-    _recursively_replace_string_object_references(i) {
-        if (typeof(i) === 'string') {
-            // Identify Element - lookup
-            for (const [STRING_IDENTIFIER, mapLookup] of this._stringMapLookup.entries()) {
-                const match = i.match(`${STRING_IDENTIFIER}(.*?)(\\s|$)`)
-                if (match && match[1]) {
-                    const valueToLookup = match[1];
-                    return mapLookup.get(valueToLookup);
-                }
-            }
-
-            return this._parseDimension(i);
-        }
-        else if (isObject(i)) {
-            for (const [key, value] of Object.entries(i)) {
-                i[key] = this._recursively_replace_string_object_references(value);
-            }
-        }
-        else if (Array.isArray(i)) {
-            i = i.map(this._recursively_replace_string_object_references);
-        }
-        return i;
+        this.parseDimension = (value) => parseDimension(value, this.element, this._stringMapLookup);
+        this.funcReplaceStringReferences = bindRecursivelyReplaceStringsWithObjectReferences(
+            this._stringMapLookup,
+            this.element,
+        );
     }
 
     cache(msg) {
@@ -121,7 +78,7 @@ export class gsap {
                             value = this.mediaUrl + value;
                         }
                         if (['width', 'height', 'x', 'y'].indexOf(key)>=0) {
-                            value = this._parseDimension(value);
+                            value = this.parseDimension(value);
                         }
                         _element[key] = value;
                     }
@@ -136,7 +93,7 @@ export class gsap {
             for (const timeline_args of msg.gsap_timeline) {
                 const timeline_name = timeline_args.shift();
                 const gsapMethod = timeline_args.shift();
-                this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(this._recursively_replace_string_object_references));
+                this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(this.funcReplaceStringReferences));
             }
             for (const _timeline of this._timelines.values()) {
                 _timeline.paused(!msg.playing);
