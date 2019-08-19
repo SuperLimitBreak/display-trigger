@@ -4,7 +4,8 @@
 // view-source:https://pixijs.io/pixi-particles/examples/flame.html
 // view-source:https://pixijs.io/pixi-particles/examples/js/ParticleExample.js
 // https://jameskiefer.com/posts/getting-started-with-pixi.js-and-webpack/
-
+// https://pixijs.io/pixi-particles/docs/classes/emitter.html#particleconstructor
+// https://github.com/pixijs/pixi-particles/issues/57
 
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';

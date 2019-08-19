@@ -6,8 +6,6 @@ require('../../styles/layers/image.scss');
 require('../../styles/layers/gsap.scss');
 
 const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
-const STRING_IDENTIFIER_ELEMENT = 'element::';
-const STRING_IDENTIFIER_TIMELINE = 'timeline::';
 
 
 export class gsap {
@@ -16,13 +14,19 @@ export class gsap {
         Object.assign(this, {
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
-            currentTimeSyncThreshold: 0.40,  // gsap is slower to respond than the video element
+            currentTimeSyncThreshold: 0.5,  // gsap is slower to respond than the video element
         }, kwargs);
         this._elements = new Map();
         this._timelines = new Map();
         this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
         this._parseDimension = this._parseDimension.bind(this);
         this._recursively_replace_string_object_references = this._recursively_replace_string_object_references.bind(this);
+
+        this._stringMapLookup = new Map([
+            ['element::', this._elements],
+            ['timeline::', this._timelines],
+        ]);
+
     }
 
     _parseDimension(value) {
@@ -52,14 +56,15 @@ export class gsap {
     _recursively_replace_string_object_references(i) {
         if (typeof(i) === 'string') {
             // Identify Element - lookup
-            if (i.startsWith(STRING_IDENTIFIER_ELEMENT)) {
-                return this._elements.get(i.replace(STRING_IDENTIFIER_ELEMENT, ''));
-            }
-            if (i.startsWith(STRING_IDENTIFIER_TIMELINE)) {
-                return this._timelines_get(i.replace(STRING_IDENTIFIER_TIMELINE, ''));
+            for (const [STRING_IDENTIFIER, mapLookup] of this._stringMapLookup.entries()) {
+                const match = i.match(`${STRING_IDENTIFIER}(.*?)(\\s|$)`)
+                if (match && match[1]) {
+                    const valueToLookup = match[1];
+                    return mapLookup.get(valueToLookup);
+                }
             }
 
-            return this._parseDimension(i);;
+            return this._parseDimension(i);
         }
         else if (isObject(i)) {
             for (const [key, value] of Object.entries(i)) {
