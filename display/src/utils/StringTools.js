@@ -1,16 +1,26 @@
 import { isObject } from 'calaldees_libs/es6/core';
 
 
+function normalizeElementDimension(element) {
+    const _return = {
+        width: element.width || element.clientWidth || 0,
+        height: element.height || element.clientHeight || 0,
+    }
+    console.assert(_return.width && _return.height, 'unable to parse element dimension', element);
+    return _return;
+}
+
+
 export function parseDimension(value, parentElement, lookupElements) {
     if (typeof(value) !== 'string') {return value;}
 
     // Parse String
-    let [__, number, unit] = value.match(/((?:[\d]+\.)?[\d]+)([^\d\s]{1,3})(?:\s|$)?/) || [undefined, undefined, undefined];
+    let [__, number, unit] = value.match(/((?:[\d]+\.)?[\d]+)(vh|vw|%|em|rem|px)(?:\s|$)?/) || [undefined, undefined, undefined];
     if (number == undefined) {return value;}
     number = Number(number);
-    if      (!unit) {}
-    else if (unit == 'vh') {number = number * parentElement.clientHeight;}
-    else if (unit == 'vw') {number = number * parentElement.clientWidth;}
+    if      (!unit || unit=='px') {}
+    else if (unit == 'vh') {number = number * normalizeElementDimension(parentElement).height;}
+    else if (unit == 'vw') {number = number * normalizeElementDimension(parentElement).width;}
     else {
         console.warn(`Unsupported unit ${unit} in ${value}`);
         return value;
@@ -53,8 +63,8 @@ function _bindRecursivelyReplaceStringsWithObjectReferences(stringMapLookup, fun
     return __r;
 }
 export function bindRecursivelyReplaceStringsWithObjectReferences(stringMapLookup, parentElement) {
-    console.assert(stringMapLookup && stringMapLookup.size && stringMapLookup.get, 'stringMapLookup Map required', stringMapLookup);
-    console.assert(parentElement && parentElement.clientWidth && parentElement.clientHeight, 'partentElement required', parentElement);
+    console.assert(stringMapLookup && typeof(stringMapLookup.size) == 'number' && stringMapLookup.get, 'stringMapLookup Map required', stringMapLookup);
+
     const funcParseDimension = (value) => parseDimension(value, parentElement, stringMapLookup.get('element::'));
     return _bindRecursivelyReplaceStringsWithObjectReferences(stringMapLookup, funcParseDimension);
 }

@@ -10,12 +10,13 @@
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';
 
+import { bindRecursivelyReplaceStringsWithObjectReferences } from '../../utils/StringTools';
 
 require('../../styles/layers/particles.scss');
 
 
 const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
-const DEFAULT_PARTICLE_IMAGES = ['/assets/particle.png', '/assets/fire.png'];
+const DEFAULT_PARTICLE_IMAGES = ['/assets/particle.png', ];
 const DEFAULT_TIME_FACTOR = 0.001;
 
 
@@ -33,8 +34,8 @@ export class particles {
         this._updateAnimationFrameId = undefined;
 
         this._canvas = document.createElement('canvas');
-        this._canvas.width = this.element.clientWidth;
-        this._canvas.height = this.element.clientHeight;
+        this._canvas.height = 480;
+        this._canvas.width = (this.element.clientWidth / this.element.clientHeight) * this._canvas.height;
         this.element.appendChild(this._canvas);
         this._pixi_renderer = PIXI.autoDetectRenderer(
             this._canvas.width,
@@ -49,6 +50,11 @@ export class particles {
         this._pixi_container_root = new PIXI.Container();
         this._pixi_container_emitter = new PIXI.Container();
         this._pixi_container_root.addChild(this._pixi_container_emitter);
+
+        this.funcReplaceStringReferences = bindRecursivelyReplaceStringsWithObjectReferences(
+            new Map(),
+            this._canvas,
+        );
 
         this._emitter = undefined;
     }
@@ -68,13 +74,16 @@ export class particles {
             return;
         }
 
-        const images = Array.isArray(msg.particleImages) ? msg.particleImages : DEFAULT_PARTICLE_IMAGES;
-        this._emitter = new PIXI_particles.Emitter(
-            this._pixi_container_emitter,
-            images.map(PIXI.Texture.fromImage),
-            msg.emitterConfig,
-        );
-        this._emitter.updateOwnerPos(this._canvas.width / 2, this._canvas.height / 2);
+        if (!this._emitter) {
+            const images = Array.isArray(msg.particleImages) ? msg.particleImages : DEFAULT_PARTICLE_IMAGES;
+            this._emitter = new PIXI_particles.Emitter(
+                this._pixi_container_emitter,
+                images.map(PIXI.Texture.fromImage),
+                this.funcReplaceStringReferences(msg.emitterConfig),
+            );
+        } else {
+            
+        }
 
         this._requestAnimationFrameTimestamp = Date.now();
         this._update();
