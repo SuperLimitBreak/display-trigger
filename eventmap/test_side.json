@@ -96,6 +96,20 @@
                 }
             }
         ]
+    },
+
+    {
+        "name": "particles_update",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "main",
+                "func": "particles.start",
+                "emitterConfig": {
+                    "speed": {"start": 100, "end": 100}
+                }
+            }
+        ]
     }
 
 

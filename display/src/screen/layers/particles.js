@@ -10,7 +10,10 @@
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';
 
+import { capitalize } from 'calaldees_libs/es6/core';
+
 import { bindRecursivelyReplaceStringsWithObjectReferences } from '../../utils/StringTools';
+
 
 require('../../styles/layers/particles.scss');
 
@@ -82,7 +85,14 @@ export class particles {
                 this.funcReplaceStringReferences(msg.emitterConfig),
             );
         } else {
-            
+            // Thanks pixi particles. You could of given us a way to update the config. Now I have to write one myself.
+            for (const [key, value] of Object.entries(this.funcReplaceStringReferences(msg.emitterConfig))) {
+                if (['alpha', 'speed', 'scale', 'color'].indexOf(key) >= 0) {
+                    this._emitter[`start${capitalize(key)}`] = PIXI_particles.PropertyNode.createList(value);
+                }
+                if (['lifetime', 'startRotation', 'rotationSpeed'].indexOf(key) >= 0) {
+                }
+            }
         }
 
         this._requestAnimationFrameTimestamp = Date.now();
@@ -90,13 +100,13 @@ export class particles {
     }
 
     _update() {
+        this._updateAnimationFrameId = requestAnimationFrame(this._update);
         const now = Date.now();
         if (this._emitter) {
             this._emitter.update((now - this._requestAnimationFrameTimestamp) * DEFAULT_TIME_FACTOR);
         }
         this._requestAnimationFrameTimestamp = now;
         this._pixi_renderer.render(this._pixi_container_root);
-        this._updateAnimationFrameId = requestAnimationFrame(this._update);
     }
 
     empty() {
