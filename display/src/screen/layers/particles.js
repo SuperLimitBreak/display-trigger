@@ -69,6 +69,30 @@ export class particles {
         this._updateAnimationFrameId = undefined;
     }
 
+    // static
+    _updateEmitter(emitter, emitterConfig) {
+        console.assert(emitter);
+        console.assert(emitterConfig);
+        // Thanks pixi particles. You could of given us a way to update the config. Now I have to write one myself.
+        for (const [key, value] of Object.entries(emitterConfig)) {
+            if (['alpha', 'speed', 'scale', 'color'].indexOf(key) >= 0) {
+                emitter[`start${capitalize(key)}`] = PIXI_particles.PropertyNode.createList(value);
+            }
+            else if (['lifetime', 'startRotation', 'rotationSpeed'].indexOf(key) >= 0) {
+                console.warn('implementation incomplete', key, value);
+            }
+            else if(['particlesPerWave', 'frequency', 'spawnChance', 'emitterLifetime', 'maxParticles'].indexOf(key) >= 0) {
+                emitter[key] = value;
+            }
+            else if (['pos', ].indexOf(key) >= 0) {
+                emitter.updateSpawnPos(Number(value.x), Number(value.y));
+            }
+            else {
+                console.warn('unsupported property', key, value);
+            }
+        }
+    }
+
     start(msg) {
         this.stop();
 
@@ -85,14 +109,10 @@ export class particles {
                 this.funcReplaceStringReferences(msg.emitterConfig),
             );
         } else {
-            // Thanks pixi particles. You could of given us a way to update the config. Now I have to write one myself.
-            for (const [key, value] of Object.entries(this.funcReplaceStringReferences(msg.emitterConfig))) {
-                if (['alpha', 'speed', 'scale', 'color'].indexOf(key) >= 0) {
-                    this._emitter[`start${capitalize(key)}`] = PIXI_particles.PropertyNode.createList(value);
-                }
-                if (['lifetime', 'startRotation', 'rotationSpeed'].indexOf(key) >= 0) {
-                }
-            }
+            this._updateEmitter(
+                this._emitter,
+                this.funcReplaceStringReferences(msg.emitterConfig),
+            );
         }
 
         this._requestAnimationFrameTimestamp = Date.now();

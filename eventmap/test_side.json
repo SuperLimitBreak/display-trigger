@@ -106,7 +106,8 @@
                 "deviceid": "main",
                 "func": "particles.start",
                 "emitterConfig": {
-                    "speed": {"start": 100, "end": 100}
+                    "speed": {"start": 100, "end": 100},
+                    "frequency": 0.0005
                 }
             }
         ]
