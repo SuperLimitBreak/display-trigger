@@ -10,7 +10,7 @@
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';
 
-import { capitalize } from 'calaldees_libs/es6/core';
+import { capitalize, isObject } from 'calaldees_libs/es6/core';
 
 import { bindRecursivelyReplaceStringsWithObjectReferences } from '../../utils/StringTools';
 
@@ -54,12 +54,15 @@ export class particles {
         this._pixi_container_emitter = new PIXI.Container();
         this._pixi_container_root.addChild(this._pixi_container_emitter);
 
+
+        this._emitters = new Map();
+
         this.funcReplaceStringReferences = bindRecursivelyReplaceStringsWithObjectReferences(
-            new Map(),
+            new Map([
+                ['emitter::', this._emitters],
+            ]),
             this._canvas,
         );
-
-        this._emitter = undefined;
     }
 
 
@@ -96,23 +99,28 @@ export class particles {
     start(msg) {
         this.stop();
 
-        if (!msg.emitterConfig) {
-            console.warn('No emitterConfig provided');
+        if (!isObject(msg.emitters)) {
+            console.warn('No emitters provided');
             return;
         }
 
-        if (!this._emitter) {
-            const images = Array.isArray(msg.particleImages) ? msg.particleImages : DEFAULT_PARTICLE_IMAGES;
-            this._emitter = new PIXI_particles.Emitter(
-                this._pixi_container_emitter,
-                images.map(PIXI.Texture.fromImage),
-                this.funcReplaceStringReferences(msg.emitterConfig),
-            );
-        } else {
-            this._updateEmitter(
-                this._emitter,
-                this.funcReplaceStringReferences(msg.emitterConfig),
-            );
+        for (const [emitter_name, emitter_data] of Object.entries(msg.emitters)) {
+            const emitter = this._emitters.get(emitter_name);
+            const emitterConfig = this.funcReplaceStringReferences(emitter_data.emitterConfig);
+            if (!emitter) {
+                const images = Array.isArray(emitter_data.particleImages) ? emitter_data.particleImages : DEFAULT_PARTICLE_IMAGES;
+                console.assert(images.length);
+                this._emitters.set(emitter_name, new PIXI_particles.Emitter(
+                    this._pixi_container_emitter,
+                    images.map(PIXI.Texture.fromImage),
+                    emitterConfig,
+                ));
+            } else {
+                this._updateEmitter(
+                    emitter,
+                    emitterConfig,
+                );
+            }
         }
 
         this._requestAnimationFrameTimestamp = Date.now();
@@ -122,8 +130,8 @@ export class particles {
     _update() {
         this._updateAnimationFrameId = requestAnimationFrame(this._update);
         const now = Date.now();
-        if (this._emitter) {
-            this._emitter.update((now - this._requestAnimationFrameTimestamp) * DEFAULT_TIME_FACTOR);
+        for (const emitter of this._emitters.values()) {
+            emitter.update((now - this._requestAnimationFrameTimestamp) * DEFAULT_TIME_FACTOR);
         }
         this._requestAnimationFrameTimestamp = now;
         this._pixi_renderer.render(this._pixi_container_root);
@@ -131,8 +139,10 @@ export class particles {
 
     empty() {
         this.stop();
-        this._emitter.destroy();
-        this._emitter = undefined;
+        for (const [emitter_name, emitter] of this._emitters.entries()) {
+            emitter.destroy();
+            this._emitters.delete(emitter_name);
+        }
         //reset SpriteRenderer's batching to fully release particles for GC
         const r = this._pixi_renderer;
         if (r.plugins && r.plugins.sprite && r.plugins.sprite.sprites) {

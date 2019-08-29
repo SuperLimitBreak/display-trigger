@@ -76,23 +76,27 @@
             {
                 "deviceid": "main",
                 "func": "particles.start",
-                "particleImages": ["/assets/particle.png", "/assets/fire.png"],
-                "emitterConfig": {
-                    "alpha": {"start": 0.62, "end": 0},
-                    "scale": {"start": 0.25, "end": 0.75},
-                    "color": {"start": "fff191", "end": "ff622c"},
-                    "speed": {"start": 500, "end": 500},
-                    "startRotation": {"min": 265, "max": 275},
-                    "rotationSpeed": {"min": 50, "max": 50},
-                    "lifetime": {"min": 0.1, "max": 0.75},
-                    "blendMode": "normal",
-                    "frequency": 0.00015,
-                    "emitterLifetime": 0,
-                    "maxParticles": 5000,
-                    "pos": {"x": 0, "y": "1.04vh"},
-                    "addAtBack": false,
-                    "spawnType": "rect",
-                    "spawnRect": {"x": 0, "y": 0, "w": "1vw", "h": 0}
+                "emitters": {
+                    "fire": {
+                        "particleImages": ["/assets/particle.png", "/assets/fire.png"],
+                        "emitterConfig": {
+                            "alpha": {"start": 0.62, "end": 0},
+                            "scale": {"start": 0.25, "end": 0.75},
+                            "color": {"start": "fff191", "end": "ff622c"},
+                            "speed": {"start": 500, "end": 500},
+                            "startRotation": {"min": 265, "max": 275},
+                            "rotationSpeed": {"min": 50, "max": 50},
+                            "lifetime": {"min": 0.1, "max": 0.75},
+                            "blendMode": "normal",
+                            "frequency": 0.00015,
+                            "emitterLifetime": 0,
+                            "maxParticles": 5000,
+                            "pos": {"x": 0, "y": "1.04vh"},
+                            "addAtBack": false,
+                            "spawnType": "rect",
+                            "spawnRect": {"x": 0, "y": 0, "w": "1vw", "h": 0}
+                        }
+                    }
                 }
             }
         ]
