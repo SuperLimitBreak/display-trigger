@@ -78,7 +78,7 @@
                 "func": "particles.start",
                 "emitters": {
                     "fire": {
-                        "particleImages": ["/assets/particle.png", "/assets/fire.png"],
+                        "particleImages": ["assets/particle.png", "assets/fire.png"],
                         "emitterConfig": {
                             "alpha": {"start": 0.62, "end": 0},
                             "scale": {"start": 0.25, "end": 0.75},

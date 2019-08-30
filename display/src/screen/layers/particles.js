@@ -19,7 +19,7 @@ require('../../styles/layers/particles.scss');
 
 
 const DEFAULT_PATH_MEDIA = '/';  // TODO: Import this from a central location
-const DEFAULT_PARTICLE_IMAGES = ['/assets/particle.png', ];
+const DEFAULT_PARTICLE_IMAGES = ['assets/particle.png', ];
 const DEFAULT_TIME_FACTOR = 0.001;
 
 
@@ -38,7 +38,8 @@ export class particles {
 
         this._canvas = document.createElement('canvas');
         this._canvas.height = 480;
-        this._canvas.width = (this.element.clientWidth / this.element.clientHeight) * this._canvas.height;
+        const aspectRatio = this.element.clientHeight && this.element.clientWidth ? (this.element.clientWidth / this.element.clientHeight) : 16/9;
+        this._canvas.width = aspectRatio * this._canvas.height;
         this.element.appendChild(this._canvas);
         this._pixi_renderer = PIXI.autoDetectRenderer(
             this._canvas.width,
