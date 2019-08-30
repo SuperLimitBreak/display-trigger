@@ -70,7 +70,7 @@
     },
 
     {
-        "name": "particles",
+        "name": "particles_fire",
         "events": [],
         "payload": [
             {
@@ -103,19 +103,55 @@
     },
 
     {
-        "name": "particles_update",
+        "name": "particles_fire_update",
         "events": [],
         "payload": [
             {
                 "deviceid": "main",
                 "func": "particles.start",
-                "emitterConfig": {
-                    "speed": {"start": 100, "end": 100},
-                    "frequency": 0.0005
+                "emitters": {
+                    "fire": {
+                        "emitterConfig": {
+                            "speed": {"start": 100, "end": 100},
+                            "frequency": 0.0005
+                        }
+                    }
+                }
+            }
+        ]
+    },
+
+    {
+        "name": "particles_rain",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "main",
+                "func": "particles.start",
+                "emitters": {
+                    "rain": {
+                        "particleImages": ["assets//HardRain.png"],
+                        "emitterConfig": {
+                            "alpha": {"start": 0.5, "end": 0.5},
+                            "scale": {"start": 1, "end": 1},
+                            "color": {"start": "ffffff", "end": "ffffff"},
+                            "speed": {"start": 2000, "end": 2000},
+                            "startRotation": {"min": 80, "max": 80},
+                            "rotationSpeed": {"min": 0, "max": 0},
+                            "lifetime": {"min": 0.6, "max": 0.6},
+                            "blendMode": "normal",
+                            "frequency": 0.004,
+                            "emitterLifetime": 0,
+                            "maxParticles": 1000,
+                            "pos": {"x": 0, "y": 0},
+                            "addAtBack": false,
+                            "spawnType": "rect",
+                            "spawnRect": {"x": "-0.5vw", "y": "-0.2vh", "w": "1.5vw", "h": "0.1vh"}
+                        }
+                    }
                 }
             }
         ]
     }
-
 
 ]

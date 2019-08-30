@@ -74,7 +74,7 @@ export class particles {
     }
 
     // static
-    _updateEmitter(emitter, emitterConfig) {
+    _updateEmitterConfig(emitter, emitterConfig) {
         console.assert(emitter);
         console.assert(emitterConfig);
         // Thanks pixi particles. You could of given us a way to update the config. Now I have to write one myself.
@@ -117,7 +117,7 @@ export class particles {
                     emitterConfig,
                 ));
             } else {
-                this._updateEmitter(
+                this._updateEmitterConfig(
                     emitter,
                     emitterConfig,
                 );
