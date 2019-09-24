@@ -15,7 +15,7 @@ export class gsap {
         Object.assign(this, {
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
-            currentTimeSyncThreshold: 0.5,  // gsap is slower to respond than the video element
+            currentTimeLagThreshold: 0.2,
         }, kwargs);
 
         this._elements = new Map();
@@ -96,7 +96,13 @@ export class gsap {
                 this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(this.funcReplaceStringReferences));
             }
             for (const _timeline of this._timelines.values()) {
-                _timeline.paused(!msg.playing);
+                if (msg.playing) {
+                    // TimeLineMax will play automatically after a short duration if .play() is not called
+                    // If we explicitly call .play(), we may prevent needing a large currentTimeLagThreshold
+                    _timeline.play();
+                } else {
+                    _timeline.paused(true);
+                }
             }
         }
 
@@ -104,11 +110,20 @@ export class gsap {
         if (msg.position) {
             const position = Number(msg.position);
             for (const _timeline of this._timelines.values()) {
-                const _position = Math.min(position, _timeline.totalDuration());
-                const currentTimeDifference = Math.abs(_timeline.totalTime() - _position);
-                if (currentTimeDifference > this.currentTimeSyncThreshold || !msg.playing) {
-                    this.console.info('gsap catchup seek', _timeline.totalTime(), _position, currentTimeDifference);
-                    _timeline.totalTime(_position);
+                const _position_target = Math.min(position, _timeline.totalDuration());
+                const _position_current = _timeline.totalTime() || 0;
+                const currentTimeLag = Math.abs(_position_target - _position_current);
+                if (
+                    !msg.playing  // always seek when paused
+                ) {
+                    _timeline.totalTime(_position_target);
+                } else if (
+                    currentTimeLag > this.currentTimeLagThreshold  // currently behind too far - so requires catchup
+                    //||
+                    //currentTimeLag < 0  // currently ahead - should never happen - always snap back
+                ) {
+                    this.console.info(`gsap catchup seek - current:${_position_current} target:${_position_target} diff:${currentTimeLag}`);
+                    _timeline.play(_position_target);
                 }
             }
         }
