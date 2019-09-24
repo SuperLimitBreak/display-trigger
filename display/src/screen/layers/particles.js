@@ -6,6 +6,9 @@
 // https://jameskiefer.com/posts/getting-started-with-pixi.js-and-webpack/
 // https://pixijs.io/pixi-particles/docs/classes/emitter.html#particleconstructor
 // https://github.com/pixijs/pixi-particles/issues/57
+// https://greensock.com/forums/topic/18260-pixiplugin-color/
+// https://codepen.io/ianmcgregor/pen/CtjeI
+// http://scottmcdonnell.github.io/pixi-examples/index.html?s=demos&f=blendmodes.js&title=BlendModes
 
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';
@@ -53,6 +56,7 @@ export class particles {
         )
         this._pixi_container_root = new PIXI.Container();
         this._pixi_container_emitter = new PIXI.Container();
+        //this._pixi_container_root.addChild(new PIXI.Sprite.fromImage('assets/logo.png'));
         this._pixi_container_root.addChild(this._pixi_container_emitter);
 
 
@@ -104,13 +108,13 @@ export class particles {
             console.warn('No emitters provided');
             return;
         }
-
+        console.log(msg);
         for (const [emitter_name, emitter_data] of Object.entries(msg.emitters)) {
             const emitter = this._emitters.get(emitter_name);
             const emitterConfig = this.funcReplaceStringReferences(emitter_data.emitterConfig);
+
             if (!emitter) {
                 const images = Array.isArray(emitter_data.particleImages) ? emitter_data.particleImages : DEFAULT_PARTICLE_IMAGES;
-                console.assert(images.length);
                 this._emitters.set(emitter_name, new PIXI_particles.Emitter(
                     this._pixi_container_emitter,
                     images.map(PIXI.Texture.fromImage),
