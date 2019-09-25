@@ -62,11 +62,28 @@ function initScreens(screenConfig) {
 }
 
 
-queryStringListOrInit(
-    'path_displayconfig',
-    'displayconfig',
-    `${window.location.protocol}//${window.location.hostname}/displayconfig/`,
-    data => initScreens(Immutable.fromJS(data)),
-    () => initScreens(DEFAULT_SCREEN_CONFIG),
-    body,
-);
+const urlParams = new URLSearchParams(window.location.search);
+
+
+if (urlParams.has('subscriptions')) {
+    console.log('subscriptions given in querystring - startup in single screen mode');
+    initScreens(Immutable.fromJS({
+        "main": {
+            "id": "main",
+            "classList": null,
+            "style": "position:absolute; left:0; right:0; top:0; bottom:0;",
+            "subscriptions": urlParams.get('subscriptions').split(',').map((_string) => _string.trim()),
+        }
+    }));
+}
+else {
+    console.log('Hint: To start in single display mode - pass `subscriptions` as a csv in the querystring');
+    queryStringListOrInit(
+        'path_displayconfig',
+        'displayconfig',
+        `${window.location.protocol}//${window.location.hostname}/displayconfig/`,
+        data => initScreens(Immutable.fromJS(data)),
+        () => initScreens(DEFAULT_SCREEN_CONFIG),
+        body,
+    );
+}
