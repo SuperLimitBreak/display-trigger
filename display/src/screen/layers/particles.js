@@ -113,18 +113,22 @@ export class particles {
             const emitter = this._emitters.get(emitter_name);
             const emitterConfig = this.funcReplaceStringReferences(emitter_data.emitterConfig);
 
-            if (!emitter) {
+            const createEmitter = (emitterConfig) => {
                 const images = Array.isArray(emitter_data.particleImages) ? emitter_data.particleImages : DEFAULT_PARTICLE_IMAGES;
-                this._emitters.set(emitter_name, new PIXI_particles.Emitter(
+                return new PIXI_particles.Emitter(
                     this._pixi_container_emitter,
                     images.map(PIXI.Texture.fromImage),
                     emitterConfig,
-                ));
+                )
+            }
+
+            if (emitter && !emitter.emit) {
+                emitter.destroy();
+            }
+            if (!emitter || !emitter.emit) {
+                this._emitters.set(emitter_name, createEmitter(emitterConfig));
             } else {
-                this._updateEmitterConfig(
-                    emitter,
-                    emitterConfig,
-                );
+                this._updateEmitterConfig(emitter, emitterConfig);
             }
         }
 
