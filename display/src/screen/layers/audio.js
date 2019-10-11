@@ -51,7 +51,7 @@ export class audio {
             documentCreateElement: ()=>document.createElement('audio'),
             console: console,
             mediaUrl: (new URLSearchParams(window.location.search)).get('path_media') || DEFAULT_PATH_MEDIA,
-            currentTimeSyncThreshold: 0.2,
+            currentTimeSyncThreshold: 0.5,
         }, kwargs);
         this._audioElement = undefined;
         // this._currentTimeSyncState = {
