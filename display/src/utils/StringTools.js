@@ -13,7 +13,6 @@ function normalizeElementDimension(element) {
 
 export function parseDimension(value, parentElement, lookupElements) {
     if (typeof(value) !== 'string') {return value;}
-
     // Parse String
     let [__, number, unit] = value.match(/([+-]?(?:[\d]+\.)?[\d]+)(vh|vw|%|em|rem|px)(?:\s|$)?/) || [undefined, undefined, undefined];
     if (number == undefined) {return value;}
@@ -27,6 +26,8 @@ export function parseDimension(value, parentElement, lookupElements) {
     }
 
     // Modify with +/- image sizes
+    // WARNING: This will not work on images that are loaded in the same json payload as the width/height are not known.
+    // For this the function, images should be pre-loaded by an earlyer trigger
     const [_value, sign, element_name, element_attr] = value.match(/([+-])(\S+)\.(width|height)?/) || [undefined, undefined, undefined];
     if (element_name && lookupElements && lookupElements.size && lookupElements.get) {
         number += lookupElements.get(element_name)[element_attr] * (sign=='-' ? -1 : 1);

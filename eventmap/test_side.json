@@ -63,8 +63,8 @@
                     "medusa": {"src": "castelvania/medusa.gif"     , "height": "0.05vh", "className": "pixelated"}
                 },
                 "gsap_timeline": [
-                    ["player"  , "to", "element::player",   0, {"x": 0                  , "y": "1vh -player.height"}],
-                    ["player"  , "to", "element::player",  60, {"x": "1vw -player.width"                           }],
+                    ["player"  , "to", "element::player",   0, {"x": "0vw -player.width", "y": "1vh -player.height"}],
+                    ["player"  , "to", "element::player",  60, {"x": "1vw"}],
 
                     ["medusa_x", "to", "element::medusa",   0, {"x": "1vw"}],
                     ["medusa_x", "to", "element::medusa",  60, {"x":     0}],
@@ -138,7 +138,7 @@
                 "func": "particles.start",
                 "emitters": {
                     "rain": {
-                        "particleImages": ["assets//HardRain.png"],
+                        "particleImages": ["assets/HardRain.png"],
                         "emitterConfig": {
                             "alpha": {"start": 0.5, "end": 0.5},
                             "scale": {"start": 1, "end": 1},

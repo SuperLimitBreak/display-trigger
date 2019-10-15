@@ -1,4 +1,4 @@
-// TODO: Depricate this
+// WARNING!!!!  Deprecate this!!!!
 
 import { TimelineMax } from 'gsap';
 
@@ -44,8 +44,10 @@ function _preProcessUnits(container_element, target_element, data) {
                         target_element.clientWidth : target_element.clientHeight
                 );
                 let _value = _normalizeUnit(value, _container_px);
-                if (typeof(value) == 'string' && value.indexOf(ELEMENT_IDENTIFIER) >= 0) {
-                    _value += -_target_px;
+                if (typeof(value) == 'string') {
+                    const [__, _sign] = value.match(`([+-])${ELEMENT_IDENTIFIER}`) || [undefined, undefined];
+                    if (_sign == '+') {_value += _target_px;}
+                    if (_sign == '-') {_value += -_target_px;}
                 }
                 animationObject[key] = _value;
             }
