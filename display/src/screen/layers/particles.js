@@ -13,7 +13,7 @@
 import * as PIXI from 'pixi.js'
 import * as PIXI_particles from 'pixi-particles';
 
-import { capitalize, isObject } from 'calaldees_libs/es6/core';
+import { capitalize, isObject, MapDefaultGet, objGet } from 'calaldees_libs/es6/core';
 
 import { bindRecursivelyReplaceStringsWithObjectReferences } from '../../utils/StringTools';
 
@@ -68,6 +68,10 @@ export class particles {
             ]),
             this._canvas,
         );
+
+        this._timelines = new Map();
+        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
+
     }
 
 
@@ -75,6 +79,10 @@ export class particles {
     stop(msg) {
         cancelAnimationFrame(this._updateAnimationFrameId);
         this._updateAnimationFrameId = undefined;
+        for (const _timeline of this._timelines.values()) {
+            _timeline.clear();
+        }
+        this._timelines.clear();
     }
 
     // static
@@ -82,6 +90,7 @@ export class particles {
         console.assert(emitter);
         console.assert(emitterConfig);
         // Thanks pixi particles. You could of given us a way to update the config. Now I have to write one myself.
+        // the .init() method on the emiiter calls .cleanup() so it cant be used to update config
         for (const [key, value] of Object.entries(emitterConfig)) {
             if (['alpha', 'speed', 'scale', 'color'].indexOf(key) >= 0) {
                 emitter[`start${capitalize(key)}`] = PIXI_particles.PropertyNode.createList(value);
@@ -110,7 +119,7 @@ export class particles {
         }
         console.log(msg);
         for (const [emitter_name, emitter_data] of Object.entries(msg.emitters)) {
-            const emitter = this._emitters.get(emitter_name);
+            let emitter = this._emitters.get(emitter_name);
             const emitterConfig = this.funcReplaceStringReferences(emitter_data.emitterConfig);
 
             const createEmitter = (emitterConfig) => {
@@ -126,9 +135,19 @@ export class particles {
                 emitter.destroy();
             }
             if (!emitter || !emitter.emit) {
-                this._emitters.set(emitter_name, createEmitter(emitterConfig));
+                emitter = createEmitter(emitterConfig);
+                this._emitters.set(emitter_name, emitter);
             } else {
                 this._updateEmitterConfig(emitter, emitterConfig);
+            }
+
+            if (emitter_data.gsap_timeline) {
+                for (const timeline_args of emitter_data.gsap_timeline) {
+                    const gsapMethod = timeline_args.shift();
+                    const objPath = timeline_args.shift();
+                    this._timelines_get(emitter_name)[gsapMethod](objGet(objPath, emitter), ...timeline_args);
+                }
+                this._timelines_get(emitter_name).play();
             }
         }
 

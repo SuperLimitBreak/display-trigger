@@ -155,7 +155,11 @@
                             "addAtBack": false,
                             "spawnType": "rect",
                             "spawnRect": {"x": "-0.5vw", "y": "-0.2vh", "w": "1.5vw", "h": "0.1vh"}
-                        }
+                        },
+                        "gsap_timeline": [
+                            ["to", "", 0, {"frequency": 0.030}],
+                            ["to", "", 10, {"frequency": 0.004}]
+                        ]
                     }
                 }
             }
@@ -190,7 +194,10 @@
                             "addAtBack": false,
                             "spawnType": "circle",
                             "spawnCircle": {"x": 0, "y": 0, "r": 0}
-                        }
+                        },
+                        "gsap_timeline": [
+                            ["to", "spawnPos", 10, {"x": 0, "y": 0}]
+                        ]
                     }
                 }
             }

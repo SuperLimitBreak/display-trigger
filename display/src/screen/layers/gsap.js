@@ -96,6 +96,7 @@ export class gsap {
                 this._timelines_get(timeline_name)[gsapMethod](...timeline_args.map(this.funcReplaceStringReferences));
             }
             for (const _timeline of this._timelines.values()) {
+                // TODO: wrap this._timelines.values() in a Set()? to remove dupes?
                 if (msg.playing) {
                     // TimeLineMax will play automatically after a short duration if .play() is not called
                     // If we explicitly call .play(), we may prevent needing a large currentTimeLagThreshold
