@@ -13,8 +13,8 @@ function normalizeElementDimension(element) {
 
 export function parseDimension(value, parentElement, lookupElements) {
     if (typeof(value) !== 'string') {return value;}
-    // Parse String
-    let [__, number, unit] = value.match(/([+-]?(?:[\d]+\.)?[\d]+)(vh|vw|%|em|rem|px)(?:\s|$)?/) || [undefined, undefined, undefined];
+    // Parse String - the "\s|$|;" is important for not damaging "blur(10px)"
+    let [__, number, unit] = value.match(/([+-]?(?:[\d]+\.)?[\d]+)(vh|vw|%|em|rem|px)(?:\s|$|;)/) || [undefined, undefined, undefined];
     if (number == undefined) {return value;}
     number = Number(number);
     if      (!unit || unit=='px') {}

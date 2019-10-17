@@ -236,7 +236,39 @@
                 }
             }
         ]
-    }
+    },
 
+    {
+        "name": "logo",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "rear",
+                "func": "image.show",
+                "src": "logo/superLimitBreak_logo.svg"
+            }
+        ]
+    },
+
+
+    {
+        "name": "logo_gsap",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "rear",
+                "func": "gsap.start",
+                "elements": {
+                    "logo": {"src": "logo/superLimitBreak_logo.svg", "height": "1vh"}
+                },
+                "gsap_timeline": [
+                    ["logo_fade", "to", "element::logo", 0, {"opacity": 0, "filter": "blur(20px)",
+                        "autoRound": false, "top": "1vh"}],
+                    ["logo_fade", "to", "element::logo", 20, {"opacity": 1, "filter": "blur(0px)",
+                        "autoRound": false, "top": "0vh"}]
+                ]
+            }
+        ]
+    }
 
 ]
