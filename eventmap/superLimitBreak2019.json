@@ -116,7 +116,7 @@
         "name": "intro",
         "events": ["note_on-C3"],
         "payload": [
-            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "into"}
+            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "intro"}
         ]
     },
     {

@@ -157,7 +157,7 @@
                             "spawnRect": {"x": "-0.5vw", "y": "-0.2vh", "w": "1.5vw", "h": "0.1vh"}
                         },
                         "gsap_timeline": [
-                            ["to", "", 0, {"frequency": 0.030}],
+                            ["to", "", 0, {"frequency": 1.000}],
                             ["to", "", 10, {"frequency": 0.004}]
                         ]
                     }
@@ -252,6 +252,24 @@
 
 
     {
+        "name": "logo_gsap_simple",
+        "events": [],
+        "payload": [
+            {
+                "deviceid": "rear",
+                "func": "gsap.start",
+                "elements": {
+                    "logo": {"src": "logo/superLimitBreak_logo.svg", "height": "1vh", "className": "center"}
+                },
+                "gsap_timeline": [
+                    ["logo_scroll", "to", "element::logo", 0, {"margin-top": "1vh"}],
+                    ["logo_scroll", "to", "element::logo", 100, {"margin-top": "0vh"}]
+                ]
+            }
+        ]
+    },
+
+    {
         "name": "logo_gsap",
         "events": [],
         "payload": [
@@ -259,16 +277,23 @@
                 "deviceid": "rear",
                 "func": "gsap.start",
                 "elements": {
-                    "logo": {"src": "logo/superLimitBreak_logo.svg", "height": "1vh"}
+                    "logo": {"src": "logo/superLimitBreak_logo.svg", "height": "1vh", "className": "center"}
                 },
                 "gsap_timeline": [
-                    ["logo_fade", "to", "element::logo", 0, {"opacity": 0, "filter": "blur(20px)",
-                        "autoRound": false, "top": "1vh"}],
-                    ["logo_fade", "to", "element::logo", 20, {"opacity": 1, "filter": "blur(0px)",
-                        "autoRound": false, "top": "0vh"}]
+                    ["logo_scroll", "to", "element::logo", 0, {"margin-top": "1vh", "autoRound": false}],
+                    ["logo_scroll", "to", "element::logo", 100, {"margin-top": "0vh", "autoRound": false}],
+
+                    ["logo_fade", "to", "element::logo", 0, {"opacity": 0, "autoRound": false}],
+                    ["logo_fade", "to", "element::logo", 30, {"opacity": 1, "autoRound": false}],
+
+                    ["logo_seepier", "to", "element::logo", 0, {"filter": "sepia(1) blur(20px)", "autoRound": false}],
+                    ["logo_seepier", "to", "element::logo", 60, {"filter": "sepia(1) blur(20px)", "autoRound": false}],
+                    ["logo_seepier", "to", "element::logo", 60, {"filter": "sepia(0) blur(0px)", "autoRound": false}]
+
                 ]
             }
         ]
     }
+
 
 ]

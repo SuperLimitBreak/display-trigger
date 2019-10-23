@@ -1,7 +1,16 @@
 .screen {
     .gsap {
+        text-align: center;
         img {
             position: absolute;
+        }
+        .center {
+            /*
+            http://www.tipue.com/blog/center-a-div/
+            https://css-tricks.com/centering-css-complete-guide/
+            */
+            display: inline-block;
+            position: unset;
         }
     }
 }
