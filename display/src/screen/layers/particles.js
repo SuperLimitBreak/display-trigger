@@ -70,15 +70,21 @@ export class particles {
         );
 
         this._timelines = new Map();
-        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
+        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax());
 
     }
 
 
     pause(msg) {return this.stop(msg);}  // TODO: remove alias?
     stop(msg) {
+        this._stop_updateAnimationFrame();
+        this._stop_timelines();
+    }
+    _stop_updateAnimationFrame() {
         cancelAnimationFrame(this._updateAnimationFrameId);
         this._updateAnimationFrameId = undefined;
+    }
+    _stop_timelines() {
         for (const _timeline of this._timelines.values()) {
             _timeline.clear();
         }
@@ -111,13 +117,14 @@ export class particles {
     }
 
     start(msg) {
-        this.stop();
-
+        console.log(msg);
         if (!isObject(msg.emitters)) {
             console.warn('No emitters provided');
             return;
         }
-        console.log(msg);
+
+        this._stop_updateAnimationFrame();
+
         for (const [emitter_name, emitter_data] of Object.entries(msg.emitters)) {
             let emitter = this._emitters.get(emitter_name);
             const emitterConfig = this.funcReplaceStringReferences(emitter_data.emitterConfig);

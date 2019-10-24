@@ -20,7 +20,7 @@ export class gsap {
 
         this._elements = new Map();
         this._timelines = new Map();
-        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax())
+        this._timelines_get = MapDefaultGet(this._timelines, () => new TimelineMax());
 
         this._stringMapLookup = new Map([
             ['element::', this._elements],
