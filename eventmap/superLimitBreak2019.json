@@ -64,12 +64,17 @@
         ]
     },
     {
+        "name": "precache_badapple",
+        "events": ["note_on-C4"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "rear", "func": "video.precache", "src": "bad-apple/bad-apple_original.mp4"}
+        ]
+    },
+    {
         "name": "bad-apple",
         "events": ["note_on-D1"],
         "payload": [
-            {"deviceid": "rear", "func": "trigger.empty"},
-            {"deviceid": "front", "func": "trigger.empty"},
-            {"deviceid": "side", "func": "trigger.empty"},
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "bad-apple"}
         ]
     },
@@ -113,33 +118,43 @@
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "my-body-is-dry"}
         ]
     },
+
+
     {
-        "name": "break2",
+        "name": "precache_megalvania",
+        "events": ["note_on-D4"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "rear", "func": "video.precache", "src": "megalovania/intro.mp4"}
+        ]
+    },
+    {
+        "name": "megalovania_intro",
         "events": ["note_on-D3"],
         "payload": [
-            {"deviceid": "rear", "func": "trigger.empty"},
-            {"deviceid": "front", "func": "trigger.empty"},
-            {"deviceid": "side", "func": "trigger.empty"},
-            {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "break2"}
+            {"deviceid": "rear", "func": "video.start", "src": "megalovania/intro.mp4", "volume": 0.0}
         ]
     },
     {
         "name": "megalovania",
         "events": ["note_on-B1"],
         "payload": [
-            {"deviceid": "rear", "func": "trigger.empty"},
-            {"deviceid": "front", "func": "trigger.empty"},
-            {"deviceid": "side", "func": "trigger.empty"},
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "megalovania"}
+        ]
+    },
+
+    {
+        "name": "precache_go",
+        "events": ["note_on-C#4"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "rear", "func": "video.precache", "src": "go/rear.mp4"}
         ]
     },
     {
         "name": "go",
         "events": ["note_on-C2"],
         "payload": [
-            {"deviceid": "rear", "func": "trigger.empty"},
-            {"deviceid": "front", "func": "trigger.empty"},
-            {"deviceid": "side", "func": "trigger.empty"},
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "go"}
         ]
     },
