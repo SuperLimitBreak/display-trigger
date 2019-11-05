@@ -64,7 +64,7 @@ export class image {
 
         this.image.src = image_src;
         this.image.className += msg.className;
-        const px = (value)=> value ? `${value}px` : '100%';
+        const px = (value)=> typeof(value) == 'number' ? `${value}px` : value || 'auto';
         this.image.style = `
             width: ${px(msg.width)};
             height: ${px(msg.height)};
