@@ -68,7 +68,7 @@
         "events": ["note_on-C4"],
         "payload": [
             {"deviceid": "all", "func": "trigger.empty"},
-            {"deviceid": "rear", "func": "video.precache", "src": "bad-apple/bad-apple_original.mp4"}
+            {"deviceid": "rear", "func": "video.load", "src": "bad-apple/bad-apple_original.mp4"}
         ]
     },
     {
@@ -125,7 +125,7 @@
         "events": ["note_on-D4"],
         "payload": [
             {"deviceid": "all", "func": "trigger.empty"},
-            {"deviceid": "rear", "func": "video.precache", "src": "megalovania/intro.mp4"}
+            {"deviceid": "rear", "func": "video.load", "src": "megalovania/intro.mp4"}
         ]
     },
     {
@@ -148,23 +148,30 @@
         "events": ["note_on-C#4"],
         "payload": [
             {"deviceid": "all", "func": "trigger.empty"},
-            {"deviceid": "rear", "func": "video.precache", "src": "go/rear.mp4"}
+            {"deviceid": "rear", "func": "video.load", "src": "go/rear.mp4"}
         ]
     },
     {
         "name": "go",
         "events": ["note_on-C2"],
         "payload": [
+            {"deviceid": "rear", "func": "video.start", "src": "go/rear.mp4", "volume": 0.0},
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "go"}
+        ]
+    },
+    {
+        "name": "precache_one_punch",
+        "events": ["note_on-D#4"],
+        "payload": [
+            {"deviceid": "all", "func": "trigger.empty"},
+            {"deviceid": "rear", "func": "video.load", "src": "one-punch/rear.mp4"}
         ]
     },
     {
         "name": "one-punch",
         "events": ["note_on-C#2"],
         "payload": [
-            {"deviceid": "rear", "func": "trigger.empty"},
-            {"deviceid": "front", "func": "trigger.empty"},
-            {"deviceid": "side", "func": "trigger.empty"},
+            {"deviceid": "rear", "func": "video.start", "src": "one-punch/rear.mp4", "volume": 0.0},
             {"deviceid": "lights", "func": "lights.start_sequence", "sequence_module_name": "one-punch"}
         ]
     },

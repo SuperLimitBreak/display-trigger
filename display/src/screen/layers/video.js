@@ -47,7 +47,7 @@ export class video {
     //cache(msg) {return this.load(msg);}  // Alias for backwards compatibility TODO: Remove?
     load(msg) {
         this._video(
-            msg.src,
+            this.mediaUrl + msg.src,
             Object.assign(msg, {play: false})
         );
     }
