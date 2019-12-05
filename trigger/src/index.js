@@ -13,6 +13,7 @@ import {
     SubscriptionSocketReconnect,
 } from 'multisocketServer/clients/js/msgpack_subscription_websocket';
 
+import 'index.html';
 
 // Constants
 
