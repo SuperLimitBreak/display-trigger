@@ -1,1 +1,9 @@
-static
+static/
+node_modules/
+
+package-lock.json
+
+.babelrc
+.editorconfig
+.eslintrc
+webpack.config.base.js

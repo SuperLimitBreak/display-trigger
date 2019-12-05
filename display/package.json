@@ -1,5 +1,5 @@
 {
-  "name": "displayTrigger",
+  "name": "displayTrigger_display",
   "version": "0.0.1",
   "description": "Display video/etc from 'trigger events' from a remote system",
   "main": "static/export.bundle.js",
@@ -9,6 +9,7 @@
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
+    "@msgpack/msgpack": "latest",
     "babel-eslint": "latest",
     "babel-loader": "latest",
     "babel-preset-modern-browsers": "latest",
@@ -65,8 +66,7 @@
   "keywords": [
     "displayTrigger",
     "html5",
-    "projector",
-    "midi"
+    "projector"
   ],
   "author": "superlimitbreak.uk",
   "license": "GPL-3.0",

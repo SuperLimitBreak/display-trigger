@@ -1,22 +1,43 @@
-PATH_LIB_ES6:=../../libs/es6
-PATH_LIB_MULTISOCKET_CLIENT:=../../multisocketServer/clients/js
-PATH_BUILD:=static
+PATH_DISPLAY:=../display
+PATH_CALALDEES_LIBS:=../../libs
+PATH_MULTISOCKET_SERVER:=../../multisocketServer
 
-install: ${PATH_BUILD} ${PATH_BUILD}/index.html ${PATH_BUILD}/music.js ${PATH_BUILD}/websocket.js
 
-${PATH_BUILD}:
-	mkdir $@
+# Run --------------------------------------------------------------------------
+.PHONY: build run test
 
-${PATH_BUILD}/index.html:
-	cp src/trigger.html $@
+build: install
+	npm run build
 
-${PATH_BUILD}/music.js:
-	cp ${PATH_LIB_ES6}/core.js ${PATH_BUILD}/core.js
-	cp ${PATH_LIB_ES6}/web.js ${PATH_BUILD}/web.js
-	cp ${PATH_LIB_ES6}/music.js $@
+run: install
+	npm run start
 
-${PATH_BUILD}/websocket.js:
-	cp ${PATH_LIB_MULTISOCKET_CLIENT}/websocket.js $@
+test: install
+	npm run test
+
+# Install ----------------------------------------------------------------------
+
+.babelrc:
+	cp ${PATH_DISPLAY}/$@ ./
+.editorconfig:
+	cp ${PATH_DISPLAY}/$@ ./
+.eslintrc:
+	cp ${PATH_DISPLAY}/$@ ./
+webpack.config.base.js:
+	cp ${PATH_DISPLAY}/$@ ./
+node_modules: .babelrc .editorconfig .eslintrc webpack.config.base.js
+	npm install
+node_modules/calaldees_libs:
+	npm link ${PATH_CALALDEES_LIBS}
+node_modules/multisocketServer:
+	npm link ${PATH_MULTISOCKET_SERVER}
+
+.PHONY: install
+install: node_modules node_modules/calaldees_libs node_modules/multisocketServer
+
+# Clean ------------------------------------------------------------------------
 
 clean:
-	rm -rf ${PATH_BUILD}
+	rm -rf static/
+	rm -rf node_modules/
+	rm -rf *.log

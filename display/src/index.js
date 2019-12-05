@@ -1,5 +1,5 @@
 import {queryStringListOrInit} from 'calaldees_libs/es6/web';
-import {SubscriptionSocketReconnect} from 'multisocketServer/clients/js/websocket';
+import {SubscriptionSocketReconnect} from 'multisocketServer/clients/js/msgpack_subscription_websocket';
 import {ScreenMessageRouter} from './screen/ScreenMessageRouter';
 
 
@@ -27,16 +27,12 @@ const DEFAULT_SCREEN_CONFIG = Immutable.fromJS({
 
 function newSubscriptionSocketReconnect() {
     const socket = new SubscriptionSocketReconnect();
-    const onConnected = socket.onConnected;
-    const onDisconnected = socket.onDisconnected;
-    socket.onConnected = () => {
+    socket.socket.addOnConnectedListener(() => {
         document.getElementById('disconnected').style = 'display: none;';
-        onConnected.call(socket);
-    };
-    socket.onDisconnected = () => {
+    });
+    socket.socket.addOnDisconnectedListener(() => {
         document.getElementById('disconnected').style = 'display: block;';
-        onDisconnected.call(socket);
-    };
+    });
     return socket;
 }
 
