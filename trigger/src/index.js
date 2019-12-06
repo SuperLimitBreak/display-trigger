@@ -24,8 +24,8 @@ const urlParams = new URLSearchParams(window.location.search);
 let socket = null;
 function initSubscriptionSocketReconnect() {
     socket = new SubscriptionSocketReconnect();
-    socket.onConnected = () => document.getElementById('disconnected').style = 'display: none;';
-    socket.onDisconnected = () => document.getElementById('disconnected').style = 'display: block;';
+    socket.socket.addOnConnectedListener(() => document.getElementById('disconnected').style = 'display: none;');
+    socket.socket.addOnDisconnectedListener(() => document.getElementById('disconnected').style = 'display: block;');
 }
 
 const event_lookup = new Map();
