@@ -76,7 +76,7 @@ export class video {
     //clear() {return this.empty();}  // TODO: remove alias?
     empty() {
         if (this._timeline) {
-            this._timeline.stop();
+            this._timeline.clear();
         }
         if (this._videoElement) {
             this._videoElement.remove();

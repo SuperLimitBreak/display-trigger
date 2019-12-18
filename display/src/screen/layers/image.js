@@ -78,7 +78,7 @@ export class image {
     clear() {return this.empty();}  // TODO: remove alias?
     empty() {
         if (this._timeline) {
-            this._timeline.stop();
+            this._timeline.clear();
         }
         if (this._image_element) {
             this._image_element.remove();
